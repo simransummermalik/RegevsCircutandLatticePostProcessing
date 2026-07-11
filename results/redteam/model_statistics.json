@@ -1,0 +1,449 @@
+{
+  "heldout_N_count": 24,
+  "models": {
+    "A_uniform_hard_box": {
+      "N_cluster_bootstrap_ci_high": -0.42163843648330873,
+      "N_cluster_bootstrap_ci_low": -0.7691648058141969,
+      "complete_minus_small_prime_N_bootstrap_ci_high": 0.015625,
+      "complete_minus_small_prime_N_bootstrap_ci_low": -0.2864583333333333,
+      "complete_minus_small_prime_mean": -0.13020833333333334,
+      "complete_minus_small_prime_sign_flip_p": 0.12188781121887811,
+      "diversity_vs_lattice_factor_success_spearman": -0.6239133408320771,
+      "method_summary": {
+        "complete_selector": {
+          "N_bootstrap_ci_high": 0.18098958333333334,
+          "N_bootstrap_ci_low": 0.049479166666666664,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.11067708333333333
+        },
+        "random_coprime_roots": {
+          "N_bootstrap_ci_high": 0.4557291666666667,
+          "N_bootstrap_ci_low": 0.15625,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.3020833333333333
+        },
+        "regev_small_prime_roots": {
+          "N_bootstrap_ci_high": 0.4049479166666667,
+          "N_bootstrap_ci_low": 0.09892578125000002,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.24088541666666666
+        },
+        "residue_deduplication_only": {
+          "N_bootstrap_ci_high": 0.4114583333333333,
+          "N_bootstrap_ci_low": 0.09505208333333333,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.2421875
+        },
+        "short_relation_rejection_only": {
+          "N_bootstrap_ci_high": 0.2981770833333333,
+          "N_bootstrap_ci_low": 0.05859375,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.16796875
+        },
+        "subgroup_overlap_only": {
+          "N_bootstrap_ci_high": 0.36328125,
+          "N_bootstrap_ci_low": 0.10807291666666667,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.2265625
+        }
+      },
+      "negative_relationship_persists": true,
+      "paired_N_differences": [
+        {
+          "N": 1927,
+          "difference": -0.59375
+        },
+        {
+          "N": 2173,
+          "difference": -0.625
+        },
+        {
+          "N": 2279,
+          "difference": -0.53125
+        },
+        {
+          "N": 2419,
+          "difference": -0.90625
+        },
+        {
+          "N": 2491,
+          "difference": -0.6875
+        },
+        {
+          "N": 2501,
+          "difference": 0.0
+        },
+        {
+          "N": 2537,
+          "difference": 0.0
+        },
+        {
+          "N": 2623,
+          "difference": 0.0
+        },
+        {
+          "N": 2747,
+          "difference": 0.46875
+        },
+        {
+          "N": 2773,
+          "difference": 0.0
+        },
+        {
+          "N": 2867,
+          "difference": -0.03125
+        },
+        {
+          "N": 2881,
+          "difference": 0.0
+        },
+        {
+          "N": 2911,
+          "difference": 0.0
+        },
+        {
+          "N": 2993,
+          "difference": 0.0
+        },
+        {
+          "N": 3053,
+          "difference": 0.15625
+        },
+        {
+          "N": 3127,
+          "difference": 0.0
+        },
+        {
+          "N": 3139,
+          "difference": -0.53125
+        },
+        {
+          "N": 3149,
+          "difference": 0.125
+        },
+        {
+          "N": 3233,
+          "difference": 0.5
+        },
+        {
+          "N": 3337,
+          "difference": 0.0
+        },
+        {
+          "N": 3431,
+          "difference": 0.375
+        },
+        {
+          "N": 3551,
+          "difference": 0.0
+        },
+        {
+          "N": 3599,
+          "difference": -0.84375
+        },
+        {
+          "N": 3763,
+          "difference": 0.0
+        }
+      ],
+      "within_N_permutation_p": 9.999000099990002e-05
+    },
+    "B_exact_gaussian_state": {
+      "N_cluster_bootstrap_ci_high": -0.5041812610791797,
+      "N_cluster_bootstrap_ci_low": -0.8054727019600798,
+      "complete_minus_small_prime_N_bootstrap_ci_high": 0.0026041666666666665,
+      "complete_minus_small_prime_N_bootstrap_ci_low": -0.3281575520833333,
+      "complete_minus_small_prime_mean": -0.16015625,
+      "complete_minus_small_prime_sign_flip_p": 0.07879212078792121,
+      "diversity_vs_lattice_factor_success_spearman": -0.6763004809408093,
+      "method_summary": {
+        "complete_selector": {
+          "N_bootstrap_ci_high": 0.14973958333333334,
+          "N_bootstrap_ci_low": 0.0234375,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.07942708333333333
+        },
+        "random_coprime_roots": {
+          "N_bootstrap_ci_high": 0.4296875,
+          "N_bootstrap_ci_low": 0.13151041666666666,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.2734375
+        },
+        "regev_small_prime_roots": {
+          "N_bootstrap_ci_high": 0.4075520833333333,
+          "N_bootstrap_ci_low": 0.09114583333333333,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.23958333333333334
+        },
+        "residue_deduplication_only": {
+          "N_bootstrap_ci_high": 0.4153645833333333,
+          "N_bootstrap_ci_low": 0.10286458333333333,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.25
+        },
+        "short_relation_rejection_only": {
+          "N_bootstrap_ci_high": 0.30078125,
+          "N_bootstrap_ci_low": 0.05078125,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.1640625
+        },
+        "subgroup_overlap_only": {
+          "N_bootstrap_ci_high": 0.3684895833333333,
+          "N_bootstrap_ci_low": 0.08854166666666667,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.21744791666666666
+        }
+      },
+      "negative_relationship_persists": true,
+      "paired_N_differences": [
+        {
+          "N": 1927,
+          "difference": -0.59375
+        },
+        {
+          "N": 2173,
+          "difference": -0.78125
+        },
+        {
+          "N": 2279,
+          "difference": -0.65625
+        },
+        {
+          "N": 2419,
+          "difference": -1.0
+        },
+        {
+          "N": 2491,
+          "difference": -0.8125
+        },
+        {
+          "N": 2501,
+          "difference": 0.0
+        },
+        {
+          "N": 2537,
+          "difference": 0.0
+        },
+        {
+          "N": 2623,
+          "difference": 0.0
+        },
+        {
+          "N": 2747,
+          "difference": 0.1875
+        },
+        {
+          "N": 2773,
+          "difference": 0.0
+        },
+        {
+          "N": 2867,
+          "difference": 0.0
+        },
+        {
+          "N": 2881,
+          "difference": 0.0
+        },
+        {
+          "N": 2911,
+          "difference": 0.0
+        },
+        {
+          "N": 2993,
+          "difference": 0.0
+        },
+        {
+          "N": 3053,
+          "difference": 0.0
+        },
+        {
+          "N": 3127,
+          "difference": 0.0
+        },
+        {
+          "N": 3139,
+          "difference": -0.34375
+        },
+        {
+          "N": 3149,
+          "difference": 0.0
+        },
+        {
+          "N": 3233,
+          "difference": 0.625
+        },
+        {
+          "N": 3337,
+          "difference": 0.0
+        },
+        {
+          "N": 3431,
+          "difference": 0.4375
+        },
+        {
+          "N": 3551,
+          "difference": 0.0
+        },
+        {
+          "N": 3599,
+          "difference": -0.90625
+        },
+        {
+          "N": 3763,
+          "difference": 0.0
+        }
+      ],
+      "within_N_permutation_p": 9.999000099990002e-05
+    },
+    "C_theoretical_noisy_dual": {
+      "N_cluster_bootstrap_ci_high": 0.0985054903267955,
+      "N_cluster_bootstrap_ci_low": -0.20054113883568717,
+      "complete_minus_small_prime_N_bootstrap_ci_high": 0.005208333333333333,
+      "complete_minus_small_prime_N_bootstrap_ci_low": -0.0026041666666666665,
+      "complete_minus_small_prime_mean": 0.0013020833333333333,
+      "complete_minus_small_prime_sign_flip_p": 1.0,
+      "diversity_vs_lattice_factor_success_spearman": -0.05889836786996686,
+      "method_summary": {
+        "complete_selector": {
+          "N_bootstrap_ci_high": 1.0,
+          "N_bootstrap_ci_low": 0.87109375,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.9557291666666666
+        },
+        "random_coprime_roots": {
+          "N_bootstrap_ci_high": 0.9973958333333334,
+          "N_bootstrap_ci_low": 0.98828125,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.9934895833333334
+        },
+        "regev_small_prime_roots": {
+          "N_bootstrap_ci_high": 0.9986979166666666,
+          "N_bootstrap_ci_low": 0.8697916666666666,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.9544270833333334
+        },
+        "residue_deduplication_only": {
+          "N_bootstrap_ci_high": 0.9947916666666666,
+          "N_bootstrap_ci_low": 0.8619791666666666,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.9479166666666666
+        },
+        "short_relation_rejection_only": {
+          "N_bootstrap_ci_high": 1.0,
+          "N_bootstrap_ci_low": 0.87109375,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.9557291666666666
+        },
+        "subgroup_overlap_only": {
+          "N_bootstrap_ci_high": 0.9973958333333334,
+          "N_bootstrap_ci_low": 0.8658854166666666,
+          "N_count": 24,
+          "mean_factor_success_across_N": 0.9518229166666666
+        }
+      },
+      "negative_relationship_persists": false,
+      "paired_N_differences": [
+        {
+          "N": 1927,
+          "difference": 0.0
+        },
+        {
+          "N": 2173,
+          "difference": -0.03125
+        },
+        {
+          "N": 2279,
+          "difference": 0.0
+        },
+        {
+          "N": 2419,
+          "difference": 0.0
+        },
+        {
+          "N": 2491,
+          "difference": 0.0
+        },
+        {
+          "N": 2501,
+          "difference": 0.0
+        },
+        {
+          "N": 2537,
+          "difference": 0.0
+        },
+        {
+          "N": 2623,
+          "difference": 0.0
+        },
+        {
+          "N": 2747,
+          "difference": 0.03125
+        },
+        {
+          "N": 2773,
+          "difference": 0.0
+        },
+        {
+          "N": 2867,
+          "difference": 0.0
+        },
+        {
+          "N": 2881,
+          "difference": 0.0
+        },
+        {
+          "N": 2911,
+          "difference": 0.0
+        },
+        {
+          "N": 2993,
+          "difference": 0.0
+        },
+        {
+          "N": 3053,
+          "difference": 0.0
+        },
+        {
+          "N": 3127,
+          "difference": 0.03125
+        },
+        {
+          "N": 3139,
+          "difference": 0.0
+        },
+        {
+          "N": 3149,
+          "difference": 0.0
+        },
+        {
+          "N": 3233,
+          "difference": 0.0
+        },
+        {
+          "N": 3337,
+          "difference": 0.0
+        },
+        {
+          "N": 3431,
+          "difference": 0.0
+        },
+        {
+          "N": 3551,
+          "difference": 0.0
+        },
+        {
+          "N": 3599,
+          "difference": 0.0
+        },
+        {
+          "N": 3763,
+          "difference": 0.0
+        }
+      ],
+      "within_N_permutation_p": 0.38766123387661233
+    }
+  },
+  "primary_unit": "N",
+  "resamples": 10000,
+  "trials_are_within_N_monte_carlo_not_generalization_units": true
+}

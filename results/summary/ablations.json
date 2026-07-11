@@ -1,0 +1,183 @@
+[
+  {
+    "M": 8,
+    "N": 299,
+    "ablation": "selector_relation_bound_x_fourier_width",
+    "bases": [
+      3,
+      5,
+      11
+    ],
+    "bounded_relation_count_at_selection_bound": 0,
+    "joint_entropy_bits": 8.57991017401925,
+    "relation_signal_energy": 0.67901611328125,
+    "selector_bound": 1,
+    "total_correlation_bits": 0.4200898259807495
+  },
+  {
+    "M": 16,
+    "N": 299,
+    "ablation": "selector_relation_bound_x_fourier_width",
+    "bases": [
+      3,
+      5,
+      11
+    ],
+    "bounded_relation_count_at_selection_bound": 0,
+    "joint_entropy_bits": 9.900871498235698,
+    "relation_signal_energy": 8.473370909690857,
+    "selector_bound": 1,
+    "total_correlation_bits": 2.0991285017643015
+  },
+  {
+    "M": 32,
+    "N": 299,
+    "ablation": "selector_relation_bound_x_fourier_width",
+    "bases": [
+      3,
+      5,
+      11
+    ],
+    "bounded_relation_count_at_selection_bound": 0,
+    "joint_entropy_bits": 10.433816583400795,
+    "relation_signal_energy": 72.71856486238539,
+    "selector_bound": 1,
+    "total_correlation_bits": 4.5661834165992055
+  },
+  {
+    "M": 8,
+    "N": 299,
+    "ablation": "selector_relation_bound_x_fourier_width",
+    "bases": [
+      3,
+      2,
+      11
+    ],
+    "bounded_relation_count_at_selection_bound": 0,
+    "joint_entropy_bits": 8.875868490866583,
+    "relation_signal_energy": 0.181396484375,
+    "selector_bound": 2,
+    "total_correlation_bits": 0.12413150913341653
+  },
+  {
+    "M": 16,
+    "N": 299,
+    "ablation": "selector_relation_bound_x_fourier_width",
+    "bases": [
+      3,
+      2,
+      11
+    ],
+    "bounded_relation_count_at_selection_bound": 0,
+    "joint_entropy_bits": 10.525958055441652,
+    "relation_signal_energy": 4.01893424987793,
+    "selector_bound": 2,
+    "total_correlation_bits": 1.4740419445583477
+  },
+  {
+    "M": 32,
+    "N": 299,
+    "ablation": "selector_relation_bound_x_fourier_width",
+    "bases": [
+      3,
+      2,
+      11
+    ],
+    "bounded_relation_count_at_selection_bound": 0,
+    "joint_entropy_bits": 11.288324419219743,
+    "relation_signal_energy": 36.030476450920105,
+    "selector_bound": 2,
+    "total_correlation_bits": 3.711675580780261
+  },
+  {
+    "M": 8,
+    "N": 299,
+    "ablation": "selector_relation_bound_x_fourier_width",
+    "bases": [
+      3,
+      11,
+      2
+    ],
+    "bounded_relation_count_at_selection_bound": 0,
+    "joint_entropy_bits": 8.875868490866582,
+    "relation_signal_energy": 0.181396484375,
+    "selector_bound": 3,
+    "total_correlation_bits": 0.1241315091334183
+  },
+  {
+    "M": 16,
+    "N": 299,
+    "ablation": "selector_relation_bound_x_fourier_width",
+    "bases": [
+      3,
+      11,
+      2
+    ],
+    "bounded_relation_count_at_selection_bound": 0,
+    "joint_entropy_bits": 10.525958055441654,
+    "relation_signal_energy": 4.01893424987793,
+    "selector_bound": 3,
+    "total_correlation_bits": 1.474041944558346
+  },
+  {
+    "M": 32,
+    "N": 299,
+    "ablation": "selector_relation_bound_x_fourier_width",
+    "bases": [
+      3,
+      11,
+      2
+    ],
+    "bounded_relation_count_at_selection_bound": 0,
+    "joint_entropy_bits": 11.288324419219744,
+    "relation_signal_energy": 36.030476450920105,
+    "selector_bound": 3,
+    "total_correlation_bits": 3.7116755807802573
+  },
+  {
+    "M": 16,
+    "N": 437,
+    "ablation": "root_provenance",
+    "bases": [
+      4,
+      9,
+      85
+    ],
+    "class": "L0",
+    "factor": null,
+    "relation": [
+      1,
+      1,
+      1
+    ],
+    "root_product": 1,
+    "roots": [
+      2,
+      3,
+      73
+    ]
+  },
+  {
+    "M": 16,
+    "N": 437,
+    "ablation": "root_provenance",
+    "bases": [
+      4,
+      9,
+      85
+    ],
+    "class": "L_minus_L0",
+    "factor": 23,
+    "relation": [
+      1,
+      1,
+      1
+    ],
+    "root_product": 208,
+    "roots": [
+      2,
+      3,
+      326
+    ]
+  }
+]

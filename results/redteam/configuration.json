@@ -1,0 +1,270 @@
+{
+  "candidate_root_pool": [
+    2,
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31,
+    37
+  ],
+  "development_and_excluded_inputs": {
+    "exclusion_rules": [
+      "exclude every input used in the original analysis or notebook diagrams",
+      "exclude N=1763 used to select feasible D/R and validate code",
+      "require every prime factor to exceed max candidate root 37",
+      "exclude even N and prime N"
+    ],
+    "pre_freeze_feasibility_only": [
+      1763
+    ],
+    "prior_primary_or_notebook": [
+      15,
+      21,
+      57,
+      169,
+      247,
+      289,
+      299,
+      323,
+      361,
+      391,
+      437,
+      2021,
+      4199,
+      7429
+    ]
+  },
+  "dimension": 3,
+  "factor_blindness": {
+    "known_factors_used_only_for_posthoc_validation": true,
+    "model_C_generator_oracle_not_passed_to_reconstruction": true,
+    "reconstruction_receives": [
+      "rooted family",
+      "raw samples",
+      "D",
+      "S",
+      "T bound"
+    ],
+    "selection_never_receives": [
+      "factors",
+      "group orders",
+      "arbitrary square roots",
+      "planted relations"
+    ],
+    "selection_receives": [
+      "N",
+      "candidate roots",
+      "d",
+      "relation bound",
+      "seed"
+    ]
+  },
+  "finite_modulus_D": 64,
+  "finite_scale_S": "13",
+  "gaussian_radius_R": 16.0,
+  "heldout_N_count": 24,
+  "heldout_instances": [
+    {
+      "N": 1927,
+      "factors": [
+        41,
+        47
+      ]
+    },
+    {
+      "N": 2173,
+      "factors": [
+        41,
+        53
+      ]
+    },
+    {
+      "N": 2279,
+      "factors": [
+        43,
+        53
+      ]
+    },
+    {
+      "N": 2419,
+      "factors": [
+        41,
+        59
+      ]
+    },
+    {
+      "N": 2491,
+      "factors": [
+        47,
+        53
+      ]
+    },
+    {
+      "N": 2501,
+      "factors": [
+        41,
+        61
+      ]
+    },
+    {
+      "N": 2537,
+      "factors": [
+        43,
+        59
+      ]
+    },
+    {
+      "N": 2623,
+      "factors": [
+        43,
+        61
+      ]
+    },
+    {
+      "N": 2747,
+      "factors": [
+        41,
+        67
+      ]
+    },
+    {
+      "N": 2773,
+      "factors": [
+        47,
+        59
+      ]
+    },
+    {
+      "N": 2867,
+      "factors": [
+        47,
+        61
+      ]
+    },
+    {
+      "N": 2881,
+      "factors": [
+        43,
+        67
+      ]
+    },
+    {
+      "N": 2911,
+      "factors": [
+        41,
+        71
+      ]
+    },
+    {
+      "N": 2993,
+      "factors": [
+        41,
+        73
+      ]
+    },
+    {
+      "N": 3053,
+      "factors": [
+        43,
+        71
+      ]
+    },
+    {
+      "N": 3127,
+      "factors": [
+        53,
+        59
+      ]
+    },
+    {
+      "N": 3139,
+      "factors": [
+        43,
+        73
+      ]
+    },
+    {
+      "N": 3149,
+      "factors": [
+        47,
+        67
+      ]
+    },
+    {
+      "N": 3233,
+      "factors": [
+        53,
+        61
+      ]
+    },
+    {
+      "N": 3337,
+      "factors": [
+        47,
+        71
+      ]
+    },
+    {
+      "N": 3431,
+      "factors": [
+        47,
+        73
+      ]
+    },
+    {
+      "N": 3551,
+      "factors": [
+        53,
+        67
+      ]
+    },
+    {
+      "N": 3599,
+      "factors": [
+        59,
+        61
+      ]
+    },
+    {
+      "N": 3763,
+      "factors": [
+        53,
+        71
+      ]
+    }
+  ],
+  "master_seed": 2026071101,
+  "methods": [
+    "residue_deduplication_only",
+    "short_relation_rejection_only",
+    "subgroup_overlap_only",
+    "complete_selector",
+    "random_coprime_roots",
+    "regev_small_prime_roots"
+  ],
+  "models": [
+    "A_uniform_hard_box",
+    "B_exact_gaussian_state",
+    "C_theoretical_noisy_dual"
+  ],
+  "parameter_tuning": {
+    "C_noise_rule": "factor-blind det(L)<=N sufficient inequality with safety factor 2",
+    "D_and_R_rule": "D=64,R=16 satisfy 2*sqrt(d)R <= D < 4*sqrt(d)R and exact-enumeration budget",
+    "T_rule": "ceil(sqrt(d)*2**(bit_length(N)/d)), uses N only",
+    "development_input": 1763,
+    "finite_S_rule": "integer approximation 13 to sqrt(2)R/sqrt(d), shared by A and B",
+    "heldout_outputs_used_for_tuning": false,
+    "selector_weights": "none; lexicographic rule frozen in redteam.py"
+  },
+  "primary_generalization_unit": "N",
+  "samples_per_trial": 7,
+  "selector_relation_bound": 2,
+  "status": "frozen before held-out execution",
+  "trials_per_N_method_model": 32
+}

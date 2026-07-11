@@ -1,0 +1,1015 @@
+{
+  "pairwise_independent_joint_constraint": {
+    "construction": "K3=(K1+K2) mod M with K1,K2 uniform",
+    "covariance_effective_rank": 2.99998250091486,
+    "covariance_rank": 3,
+    "entropy_deficit_from_empirical_max_bits": 5.003867048612506,
+    "joint_entropy_bits": 9.996132951387494,
+    "mean_pairwise_mutual_information_bits": 0.003641496117928966,
+    "observed_support_size": 1024,
+    "shots": 200000,
+    "total_correlation_bits": 5.003528719870641
+  },
+  "planted_structure_runs": [
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 0
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 0
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 0
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 0
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 0
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 0
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 1
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 1
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 1
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 1
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 1
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 1
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 2
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 2
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 2
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 2
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 2
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 2
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 3
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 3
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 3
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 3
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 3
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 3
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 4
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 4
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 4
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 4
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 4
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 4
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 5
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 5
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 5
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 5
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 5
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 5
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 6
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 6
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 6
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 6
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 6
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 6
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 7
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 7
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 7
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 7
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 7
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 7
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 8
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 8
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 8
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 8
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 8
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 8
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 9
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 9
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 9
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 9
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 9
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 9
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 10
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 10
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 10
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 10
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 10
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 10
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 11
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 11
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 11
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 11
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 11
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 11
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 12
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 12
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 12
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 12
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 12
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 12
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 13
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 13
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 13
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 13
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 13
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 13
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 14
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 14
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 14
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 14
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 14
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 14
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 15
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 15
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 15
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 15
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 15
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 15
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 16
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 16
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 16
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 16
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 16
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 16
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 17
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 17
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 17
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 17
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 17
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 17
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 18
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 18
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 18
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 18
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 18
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 18
+    },
+    {
+      "bounded_product_diversity_B2": 1.0,
+      "case": "random",
+      "relation_count_B2": 0,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 0,
+      "seed": 19
+    },
+    {
+      "bounded_product_diversity_B2": 0.36,
+      "case": "duplicate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 19
+    },
+    {
+      "bounded_product_diversity_B2": 0.52,
+      "case": "power",
+      "relation_count_B2": 1,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 19
+    },
+    {
+      "bounded_product_diversity_B2": 0.488,
+      "case": "multivariate",
+      "relation_count_B2": 2,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 1,
+      "seed": 19
+    },
+    {
+      "bounded_product_diversity_B2": 0.046656,
+      "case": "three_planted",
+      "relation_count_B2": 62,
+      "relation_count_B3": 0,
+      "relation_rank_B2": 3,
+      "seed": 19
+    },
+    {
+      "bounded_product_diversity_B2": 0.68,
+      "case": "power_outside_B2",
+      "relation_count_B2": 0,
+      "relation_count_B3": 1,
+      "relation_rank_B2": 0,
+      "seed": 19
+    }
+  ],
+  "triple_relation_counterexample": {
+    "L0_classification": {
+      "class": "L0",
+      "factor": null,
+      "root_product": 1
+    },
+    "L0_roots": [
+      2,
+      3,
+      73
+    ],
+    "N": 437,
+    "bases": [
+      4,
+      9,
+      85
+    ],
+    "orders": [
+      99,
+      99,
+      99
+    ],
+    "pairwise_power_collisions_through_3": [],
+    "planted_relation": [
+      1,
+      1,
+      1
+    ],
+    "relation_check": 1,
+    "useful_classification": {
+      "class": "L_minus_L0",
+      "factor": 23,
+      "root_product": 208
+    },
+    "useful_roots": [
+      2,
+      3,
+      326
+    ]
+  }
+}

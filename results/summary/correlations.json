@@ -1,0 +1,106 @@
+{
+  "cluster_bootstrap_resamples": 5000,
+  "correlations": {
+    "bounded_product_diversity": {
+      "clusters": 10,
+      "instance_cluster_bootstrap_ci_high": -0.39391038381404914,
+      "instance_cluster_bootstrap_ci_low": -0.758420334627807,
+      "n": 50,
+      "naive_two_sided_p_not_used_for_claims": 3.6127241714697423e-06,
+      "spearman_rho": -0.6028128765152682,
+      "within_instance_permutation_p": 9.999000099990002e-05
+    },
+    "bounded_relation_count": {
+      "clusters": 10,
+      "instance_cluster_bootstrap_ci_high": 1.0,
+      "instance_cluster_bootstrap_ci_low": 0.9828067413836208,
+      "n": 50,
+      "naive_two_sided_p_not_used_for_claims": 5.040954785577565e-50,
+      "spearman_rho": 0.9951573565277041,
+      "within_instance_permutation_p": 0.00019998000199980003
+    },
+    "covariance_effective_rank": {
+      "clusters": 10,
+      "instance_cluster_bootstrap_ci_high": -0.18616451228055264,
+      "instance_cluster_bootstrap_ci_low": -0.5947674883385318,
+      "n": 50,
+      "naive_two_sided_p_not_used_for_claims": 0.002864051230929958,
+      "spearman_rho": -0.4131465171554217,
+      "within_instance_permutation_p": 0.0082991700829917
+    },
+    "joint_entropy_bits": {
+      "clusters": 10,
+      "instance_cluster_bootstrap_ci_high": -0.33838620604742164,
+      "instance_cluster_bootstrap_ci_low": -0.7439538190456465,
+      "n": 50,
+      "naive_two_sided_p_not_used_for_claims": 2.248538408545576e-05,
+      "spearman_rho": -0.5610989230926772,
+      "within_instance_permutation_p": 9.999000099990002e-05
+    },
+    "relation_signal_energy": {
+      "clusters": 10,
+      "instance_cluster_bootstrap_ci_high": 0.7137639666539134,
+      "instance_cluster_bootstrap_ci_low": 0.3259294695442362,
+      "n": 50,
+      "naive_two_sided_p_not_used_for_claims": 4.003343809150021e-05,
+      "spearman_rho": 0.5466655102800038,
+      "within_instance_permutation_p": 0.0030996900309969004
+    },
+    "total_correlation_bits": {
+      "clusters": 10,
+      "instance_cluster_bootstrap_ci_high": 0.7483141855309707,
+      "instance_cluster_bootstrap_ci_low": 0.05785609397032897,
+      "n": 50,
+      "naive_two_sided_p_not_used_for_claims": 0.00024808138007873106,
+      "spearman_rho": 0.496148565435647,
+      "within_instance_permutation_p": 0.009799020097990201
+    }
+  },
+  "endpoint": "finite-shot top bounded relation recovery",
+  "instance_clusters": 10,
+  "interpretation_guardrail": "Rows within N are dependent; use the within-instance permutation p and instance-cluster bootstrap interval, not the naive p-value.",
+  "paired_dependency_aware_vs_notebook": [
+    {
+      "N": 169,
+      "dependency_aware_minus_notebook": 0.0
+    },
+    {
+      "N": 247,
+      "dependency_aware_minus_notebook": 0.0
+    },
+    {
+      "N": 289,
+      "dependency_aware_minus_notebook": 0.0
+    },
+    {
+      "N": 299,
+      "dependency_aware_minus_notebook": -1.0
+    },
+    {
+      "N": 323,
+      "dependency_aware_minus_notebook": -1.0
+    },
+    {
+      "N": 361,
+      "dependency_aware_minus_notebook": 0.0
+    },
+    {
+      "N": 391,
+      "dependency_aware_minus_notebook": -1.0
+    },
+    {
+      "N": 437,
+      "dependency_aware_minus_notebook": 0.0
+    },
+    {
+      "N": 4199,
+      "dependency_aware_minus_notebook": 0.0
+    },
+    {
+      "N": 7429,
+      "dependency_aware_minus_notebook": 0.0
+    }
+  ],
+  "permutation_resamples": 10000,
+  "rows": 50
+}

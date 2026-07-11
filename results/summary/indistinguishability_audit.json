@@ -1,0 +1,191 @@
+[
+  {
+    "M": 16,
+    "N": 15,
+    "bases_both_cases": [
+      4,
+      4
+    ],
+    "clone_relation_class": {
+      "class": "L0",
+      "factor": null,
+      "root_product": 1
+    },
+    "clone_roots": [
+      2,
+      2
+    ],
+    "collision_relation_class": {
+      "class": "L_minus_L0",
+      "factor": 5,
+      "root_product": 11
+    },
+    "collision_roots": [
+      2,
+      7
+    ],
+    "collision_search_factor_leak": 5,
+    "max_probability_difference": 0.0,
+    "probability_sha256_both_cases": "c0e38548fedbe6b70e223103025647c753886d5e2b966bc59572ea08661ddd53"
+  },
+  {
+    "M": 16,
+    "N": 21,
+    "bases_both_cases": [
+      4,
+      4
+    ],
+    "clone_relation_class": {
+      "class": "L0",
+      "factor": null,
+      "root_product": 1
+    },
+    "clone_roots": [
+      2,
+      2
+    ],
+    "collision_relation_class": {
+      "class": "L_minus_L0",
+      "factor": 3,
+      "root_product": 13
+    },
+    "collision_roots": [
+      2,
+      5
+    ],
+    "collision_search_factor_leak": 3,
+    "max_probability_difference": 0.0,
+    "probability_sha256_both_cases": "b8762e3d20929dd392367644b34997a0cdb44b0e74937a091d36c0c283ef1ad8"
+  },
+  {
+    "M": 32,
+    "N": 77,
+    "bases_both_cases": [
+      4,
+      4
+    ],
+    "clone_relation_class": {
+      "class": "L0",
+      "factor": null,
+      "root_product": 1
+    },
+    "clone_roots": [
+      2,
+      2
+    ],
+    "collision_relation_class": {
+      "class": "L_minus_L0",
+      "factor": 7,
+      "root_product": 43
+    },
+    "collision_roots": [
+      2,
+      9
+    ],
+    "collision_search_factor_leak": 7,
+    "max_probability_difference": 0.0,
+    "probability_sha256_both_cases": "cb4d8488da090adb3a13d480b1991ed4783eb9167dda4ed7406536461ee09723"
+  },
+  {
+    "M": 32,
+    "N": 91,
+    "bases_both_cases": [
+      4,
+      4
+    ],
+    "clone_relation_class": {
+      "class": "L0",
+      "factor": null,
+      "root_product": 1
+    },
+    "clone_roots": [
+      2,
+      2
+    ],
+    "collision_relation_class": {
+      "class": "L_minus_L0",
+      "factor": 7,
+      "root_product": 64
+    },
+    "collision_roots": [
+      2,
+      37
+    ],
+    "collision_search_factor_leak": 7,
+    "max_probability_difference": 0.0,
+    "probability_sha256_both_cases": "b28035a99f6baa2d2a58e8c3b57facfd2f05348311b78aa073e172a85a5a068f"
+  },
+  {
+    "M": 32,
+    "N": 119,
+    "bases_both_cases": [
+      4,
+      4
+    ],
+    "clone_relation_class": {
+      "class": "L0",
+      "factor": null,
+      "root_product": 1
+    },
+    "clone_roots": [
+      2,
+      2
+    ],
+    "collision_relation_class": {
+      "class": "L_minus_L0",
+      "factor": 17,
+      "root_product": 69
+    },
+    "collision_roots": [
+      2,
+      19
+    ],
+    "collision_search_factor_leak": 17,
+    "max_probability_difference": 0.0,
+    "probability_sha256_both_cases": "1a87bb330362e7174ecc16c1491f28752bde3f24ecd430add7c051e563d95a1e"
+  },
+  {
+    "M": 16,
+    "N": 49,
+    "bases_both_cases": [
+      4,
+      4
+    ],
+    "clone_relation_class": {
+      "class": "L0",
+      "factor": null,
+      "root_product": 1
+    },
+    "clone_roots": [
+      2,
+      2
+    ],
+    "collision_relation_class": null,
+    "collision_roots": null,
+    "collision_search_factor_leak": null,
+    "max_probability_difference": 0.0,
+    "probability_sha256_both_cases": "4b60788c61f80a980ba65d4027a69821c7756c2c663ab8b1f0851c0acab79194"
+  },
+  {
+    "M": 32,
+    "N": 121,
+    "bases_both_cases": [
+      4,
+      4
+    ],
+    "clone_relation_class": {
+      "class": "L0",
+      "factor": null,
+      "root_product": 1
+    },
+    "clone_roots": [
+      2,
+      2
+    ],
+    "collision_relation_class": null,
+    "collision_roots": null,
+    "collision_search_factor_leak": null,
+    "max_probability_difference": 0.0,
+    "probability_sha256_both_cases": "7c7d4ad4d2756ccf55c17eb2845499c6cfb258849d33992867a3baf749c0ae29"
+  }
+]

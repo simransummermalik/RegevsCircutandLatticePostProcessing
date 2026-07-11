@@ -1,0 +1,106 @@
+{
+  "batches": 200,
+  "candidate_pool": [
+    2,
+    3,
+    5,
+    7,
+    11
+  ],
+  "instances": [
+    {
+      "M": 32,
+      "N": 169,
+      "class": "prime_power",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 32,
+      "N": 247,
+      "class": "semiprime",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 32,
+      "N": 289,
+      "class": "prime_power",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 32,
+      "N": 299,
+      "class": "semiprime",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 32,
+      "N": 323,
+      "class": "semiprime",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 32,
+      "N": 361,
+      "class": "prime_power",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 32,
+      "N": 391,
+      "class": "semiprime",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 32,
+      "N": 437,
+      "class": "semiprime",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 32,
+      "N": 4199,
+      "class": "three_prime",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 32,
+      "N": 7429,
+      "class": "three_prime",
+      "d": 3,
+      "primary": true
+    },
+    {
+      "M": 16,
+      "N": 15,
+      "class": "semiprime_setup_leak",
+      "d": 2,
+      "primary": false
+    },
+    {
+      "M": 16,
+      "N": 21,
+      "class": "semiprime_setup_leak",
+      "d": 3,
+      "primary": false
+    }
+  ],
+  "master_seed": 20260710,
+  "methods": [
+    "notebook_squared_primes",
+    "squared_primes_deduplicated",
+    "random_coprime_residues",
+    "random_coprime_squares",
+    "dependency_aware"
+  ],
+  "relation_bound": 2,
+  "shots": 128
+}

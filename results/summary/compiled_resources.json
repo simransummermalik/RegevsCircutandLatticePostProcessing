@@ -1,0 +1,338 @@
+[
+  {
+    "M": 16,
+    "N": 15,
+    "bases": [
+      4,
+      4
+    ],
+    "compiled_depth": 9242,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 6002,
+      "cp": 12,
+      "cswap": 32,
+      "cx": 2944,
+      "h": 16,
+      "measure": 8,
+      "swap": 4,
+      "u3": 28,
+      "x": 2981
+    },
+    "logical_depth": 5,
+    "logical_ops": {
+      "Exp(4)_Mod_15": 2,
+      "barrier": 3,
+      "h": 8,
+      "measure": 8,
+      "qft_dg": 2,
+      "x": 1
+    },
+    "method": "notebook_squared_primes",
+    "qubits": 17
+  },
+  {
+    "M": 16,
+    "N": 15,
+    "bases": [
+      4,
+      1
+    ],
+    "compiled_depth": 9244,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 6002,
+      "cp": 12,
+      "cswap": 32,
+      "cx": 2944,
+      "h": 16,
+      "measure": 8,
+      "swap": 4,
+      "u3": 30,
+      "x": 2983
+    },
+    "logical_depth": 5,
+    "logical_ops": {
+      "Exp(1)_Mod_15": 1,
+      "Exp(4)_Mod_15": 1,
+      "barrier": 3,
+      "h": 8,
+      "measure": 8,
+      "qft_dg": 2,
+      "x": 1
+    },
+    "method": "squared_primes_deduplicated",
+    "qubits": 17
+  },
+  {
+    "M": 16,
+    "N": 15,
+    "bases": [
+      2,
+      11
+    ],
+    "compiled_depth": 9238,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 6002,
+      "cp": 12,
+      "cswap": 32,
+      "cx": 2944,
+      "h": 16,
+      "measure": 8,
+      "swap": 4,
+      "u3": 29,
+      "x": 2980
+    },
+    "logical_depth": 5,
+    "logical_ops": {
+      "Exp(11)_Mod_15": 1,
+      "Exp(2)_Mod_15": 1,
+      "barrier": 3,
+      "h": 8,
+      "measure": 8,
+      "qft_dg": 2,
+      "x": 1
+    },
+    "method": "random_coprime_residues",
+    "qubits": 17
+  },
+  {
+    "M": 16,
+    "N": 15,
+    "bases": [
+      4,
+      4
+    ],
+    "compiled_depth": 9242,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 6002,
+      "cp": 12,
+      "cswap": 32,
+      "cx": 2944,
+      "h": 16,
+      "measure": 8,
+      "swap": 4,
+      "u3": 28,
+      "x": 2981
+    },
+    "logical_depth": 5,
+    "logical_ops": {
+      "Exp(4)_Mod_15": 2,
+      "barrier": 3,
+      "h": 8,
+      "measure": 8,
+      "qft_dg": 2,
+      "x": 1
+    },
+    "method": "random_coprime_squares",
+    "qubits": 17
+  },
+  {
+    "M": 16,
+    "N": 15,
+    "bases": [
+      2,
+      11
+    ],
+    "compiled_depth": 9238,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 6002,
+      "cp": 12,
+      "cswap": 32,
+      "cx": 2944,
+      "h": 16,
+      "measure": 8,
+      "swap": 4,
+      "u3": 29,
+      "x": 2980
+    },
+    "logical_depth": 5,
+    "logical_ops": {
+      "Exp(11)_Mod_15": 1,
+      "Exp(2)_Mod_15": 1,
+      "barrier": 3,
+      "h": 8,
+      "measure": 8,
+      "qft_dg": 2,
+      "x": 1
+    },
+    "method": "dependency_aware",
+    "qubits": 17
+  },
+  {
+    "M": 16,
+    "N": 21,
+    "bases": [
+      4,
+      4,
+      16
+    ],
+    "compiled_depth": 22586,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 15314,
+      "cp": 18,
+      "cswap": 60,
+      "cx": 6216,
+      "h": 24,
+      "measure": 12,
+      "swap": 6,
+      "u3": 49,
+      "x": 6622
+    },
+    "logical_depth": 6,
+    "logical_ops": {
+      "Exp(16)_Mod_21": 1,
+      "Exp(4)_Mod_21": 2,
+      "barrier": 3,
+      "h": 12,
+      "measure": 12,
+      "qft_dg": 3,
+      "x": 1
+    },
+    "method": "notebook_squared_primes",
+    "qubits": 23
+  },
+  {
+    "M": 16,
+    "N": 21,
+    "bases": [
+      4,
+      16,
+      1
+    ],
+    "compiled_depth": 22366,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 15202,
+      "cp": 18,
+      "cswap": 60,
+      "cx": 6152,
+      "h": 24,
+      "measure": 12,
+      "swap": 6,
+      "u3": 65,
+      "x": 6602
+    },
+    "logical_depth": 6,
+    "logical_ops": {
+      "Exp(1)_Mod_21": 1,
+      "Exp(16)_Mod_21": 1,
+      "Exp(4)_Mod_21": 1,
+      "barrier": 3,
+      "h": 12,
+      "measure": 12,
+      "qft_dg": 3,
+      "x": 1
+    },
+    "method": "squared_primes_deduplicated",
+    "qubits": 23
+  },
+  {
+    "M": 16,
+    "N": 21,
+    "bases": [
+      5,
+      2,
+      11
+    ],
+    "compiled_depth": 22688,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 15362,
+      "cp": 18,
+      "cswap": 60,
+      "cx": 6248,
+      "h": 24,
+      "measure": 12,
+      "swap": 6,
+      "u3": 56,
+      "x": 6669
+    },
+    "logical_depth": 6,
+    "logical_ops": {
+      "Exp(11)_Mod_21": 1,
+      "Exp(2)_Mod_21": 1,
+      "Exp(5)_Mod_21": 1,
+      "barrier": 3,
+      "h": 12,
+      "measure": 12,
+      "qft_dg": 3,
+      "x": 1
+    },
+    "method": "random_coprime_residues",
+    "qubits": 23
+  },
+  {
+    "M": 16,
+    "N": 21,
+    "bases": [
+      4,
+      16,
+      4
+    ],
+    "compiled_depth": 22586,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 15314,
+      "cp": 18,
+      "cswap": 60,
+      "cx": 6216,
+      "h": 24,
+      "measure": 12,
+      "swap": 6,
+      "u3": 50,
+      "x": 6621
+    },
+    "logical_depth": 6,
+    "logical_ops": {
+      "Exp(16)_Mod_21": 1,
+      "Exp(4)_Mod_21": 2,
+      "barrier": 3,
+      "h": 12,
+      "measure": 12,
+      "qft_dg": 3,
+      "x": 1
+    },
+    "method": "random_coprime_squares",
+    "qubits": 23
+  },
+  {
+    "M": 16,
+    "N": 21,
+    "bases": [
+      2,
+      5,
+      11
+    ],
+    "compiled_depth": 22688,
+    "compiled_ops": {
+      "barrier": 3,
+      "ccx": 15362,
+      "cp": 18,
+      "cswap": 60,
+      "cx": 6248,
+      "h": 24,
+      "measure": 12,
+      "swap": 6,
+      "u3": 57,
+      "x": 6670
+    },
+    "logical_depth": 6,
+    "logical_ops": {
+      "Exp(11)_Mod_21": 1,
+      "Exp(2)_Mod_21": 1,
+      "Exp(5)_Mod_21": 1,
+      "barrier": 3,
+      "h": 12,
+      "measure": 12,
+      "qft_dg": 3,
+      "x": 1
+    },
+    "method": "dependency_aware",
+    "qubits": 23
+  }
+]
