@@ -509,7 +509,252 @@ audit oracle, not scalable factoring post-processing. The local implementation
 is in
 [quotient_metrics.py](/Users/summermalik/Desktop/regevs/regev_research/quotient_metrics.py).
 
-## 9. Primary-literature audit
+## 9. Elementary limitations of quotient-only post-processing
+
+The following limitations are elementary consequences of subgroup closure and
+quotient geometry. They are not priority or novelty claims.
+
+### 9.1 Recovered-span barrier
+
+Suppose the exactly verified projected relation generators available to a
+post-processing procedure are
+
+\[
+H=\{h_1,\ldots,h_r\}\subseteq L_0,
+\]
+
+and let
+
+\[
+\langle H\rangle_{\mathbb Z}
+=\left\{\sum_{i=1}^r c_i h_i:c_i\in\mathbb Z\right\}.
+\]
+
+Because \(L_0\) is a subgroup,
+
+\[
+\boxed{\langle H\rangle_{\mathbb Z}\subseteq L_0.}
+\]
+
+Now let \(U\le L_0\). The image of the recovered span in the exact quotient
+satisfies
+
+\[
+\big(\langle H\rangle_{\mathbb Z}+U\big)/U
+\subseteq L_0/U.
+\]
+
+Therefore no procedure restricted to:
+
+- integer linear combinations of the recovered generators;
+- exact reduction modulo \(U\);
+- changes of lift by elements of \(U\); and
+- further quotient operations by subgroups already verified inside \(L_0\)
+
+can create a class in
+
+\[
+(L/U)\setminus(L_0/U).
+\]
+
+#### Proof
+
+Every integer combination of the \(h_i\) lies in \(L_0\). Adding or
+subtracting an element of \(U\subseteq L_0\) remains inside \(L_0\). Passing
+to the quotient sends those elements into \(L_0/U\). Repeating these
+operations cannot leave that subgroup.
+
+This is a span-only barrier, not an impossibility theorem for factoring. It
+can be escaped only by supplying information outside the recovered span, for
+example:
+
+- a newly recovered generator not in \(L_0\);
+- a larger or differently shaped relation search region;
+- a new sample batch that changes the reconstructed generator set; or
+- a separate algorithm that searches outside
+  \(\langle H\rangle_{\mathbb Z}\).
+
+Merely re-expressing, quotienting, or recombining the same \(L_0\) generators
+cannot produce a direct-factor-useful relation.
+
+### 9.2 Chosen-section geometry has no free lunch
+
+The exact quotient theorem preserves group classes, but an abstract quotient
+does not choose a canonical Euclidean representative for each class. Different
+integer sections can give arbitrarily different LLL geometry.
+
+Use the \(N=15\) arithmetic
+
+\[
+b=4,\qquad a=b^2=1\pmod{15},
+\]
+
+for which
+
+\[
+L=\mathbb Z,\qquad L_0=2\mathbb Z.
+\]
+
+Form the abstract augmented lattice
+
+\[
+\widetilde L=L\oplus\mathbb Z=\mathbb Z^2
+\]
+
+with direct-factor-useless sublattice
+
+\[
+\widetilde L_0=L_0\oplus\mathbb Z
+=2\mathbb Z\oplus\mathbb Z.
+\]
+
+Let the primitive nuisance direction be
+
+\[
+U=\langle(0,1)\rangle\subseteq\widetilde L_0.
+\]
+
+Then
+
+\[
+\widetilde L/U\cong\mathbb Z
+\]
+
+through the first coordinate. For every integer \(M\), both
+
+\[
+C_0=\langle(1,0)\rangle
+\quad\text{and}\quad
+C_M=\langle(1,M)\rangle
+\]
+
+are exact integral complements:
+
+\[
+\widetilde L=U\oplus C_0=U\oplus C_M.
+\]
+
+They define two valid sections of the same quotient. The useful odd quotient
+class has lifts
+
+\[
+(1,0)\in C_0
+\quad\text{and}\quad
+(1,M)\in C_M,
+\]
+
+with norms
+
+\[
+\|(1,0)\|_2=1,
+\qquad
+\|(1,M)\|_2=\sqrt{M^2+1}.
+\]
+
+Both lifts have first coordinate one and therefore correspond to the same
+direct-factor-useful class for \(b=4\). Nevertheless, their norms differ by an
+arbitrarily large factor.
+
+Equivalently, the two unimodular row bases
+
+\[
+\big((0,1),(1,0)\big)
+\quad\text{and}\quad
+\big((0,1),(1,M)\big)
+\]
+
+contain the same primitive \(U\) row. Simply deleting that row leaves a
+length-one quotient generator in the first presentation and a generator of
+length \(\sqrt{M^2+1}\) in the second. Once the row has been deleted, rank-one
+LLL cannot repair this choice.
+
+This example does not show that quotient methods must fail. It shows that:
+
+- exact class preservation alone supplies no Euclidean-quality guarantee;
+- primitive row deletion is not a canonical quotient construction;
+- a chosen section, closest-lift rule, projection, or quotient norm is an
+  additional algorithmic choice; and
+- finding minimum-norm lifts can itself require a closest-vector computation.
+
+Thus an improvement attributed to quotienting must specify and ablate the
+section or metric used. The abstract isomorphism theorem alone cannot predict
+LLL or BKZ performance.
+
+### 9.3 Same-\(A\) root twists are sample-indistinguishable
+
+Fix the exponent-state preparation, Fourier convention, and circuit bases
+\(A=(a_1,\ldots,a_d)\). The modular arithmetic evaluates
+
+\[
+h_A(x)=\prod_i a_i^{x_i}\pmod N.
+\]
+
+Consequently, the ideal quantum state after modular evaluation, the reduced
+exponent-register state, and the Fourier-sample law depend on \(A\), the
+state-preparation window, and the noise model. They do not depend on which
+stored roots \(B\) were used to generate the same squared residues \(A\).
+Equivalently, the period structure available to the sample law is
+\(L=\ker h_A\); the root-dependent \(L_0\) is not determined by those data.
+
+The extreme one-dimensional example is
+
+\[
+N=15,\qquad a=1.
+\]
+
+Two valid retained-root choices are
+
+\[
+b=1
+\quad\text{and}\quad
+b'=4,
+\]
+
+because
+
+\[
+1^2\equiv4^2\equiv1\pmod{15}.
+\]
+
+For both choices,
+
+\[
+h_A(x)=1
+\quad\text{and}\quad
+L=\mathbb Z,
+\]
+
+so every circuit and every sample distribution that uses only \(A\) is
+identical.
+
+For \(b=1\),
+
+\[
+L_0=\mathbb Z,
+\]
+
+and there is no direct-factor-useful class. For \(b'=4\),
+
+\[
+L_0'=2\mathbb Z,
+\]
+
+and every odd relation is useful, since
+
+\[
+\gcd(4-1,15)=3,
+\qquad
+\gcd(4+1,15)=5.
+\]
+
+Therefore no statistic computed solely from \(N\), \(A\), \(L\), or the
+quantum samples can determine the \(L_0\) classification for both retained
+root families. This is an identifiability limitation for residue-only or
+sample-only diagnostics, not an obstruction to a correct implementation:
+Regev's formulation begins with the chosen roots, and correct
+post-processing retains and uses them.
+
+## 10. Primary-literature audit
 
 The audit distinguishes existing \(L_0\)-aware reasoning from the more
 specific idea of saturation-certified quotient deflation.
@@ -528,7 +773,7 @@ specific idea of saturation-certified quotient deflation.
 The phrase “was not located” is intentional. Keyword searches and inspection
 of these sources do not establish global absence from the literature.
 
-## 10. Novelty boundaries
+## 11. Novelty boundaries
 
 ### Standard or already known
 

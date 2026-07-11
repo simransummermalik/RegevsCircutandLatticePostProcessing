@@ -47,7 +47,9 @@ records its theorem-selected grid and scale.  Each replicate generates one
 
 - 32 replicates per `(N, model)` cell.
 - Common bounded search: six reduced rows, coefficient bound two, support at
-  most three, and at most 50 raw coefficient nodes per sample count.
+  most three, and at most 50 visited coefficient candidates per sample count.
+  Exact-norm ordering materializes its declared finite search set first;
+  generated nodes, runtime, and memory are charged separately.
 - Complete LDAR: at most two 25-node rounds per sample count; a second round
   is allowed only after the exact integer `U` changes.
 - Exact augmented-row deflation: at most three deleted primitive basis rows.
@@ -56,6 +58,10 @@ records its theorem-selected grid and scale.  Each replicate generates one
 - Target probability: 0.8.  Report `>11` if it is not reached.
 - Post-hoc quotient-gap box: `[-16,16]^3`; natural precommitted threshold
   `log2(lambda_L0/lambda_useful) > 0`.
+- Competing base-diversity predictor: bounded product diversity on
+  `[-2,2]^3`; all other predictor definitions are fixed by their audited
+  implementation (empirical Fourier-sample entropy/covariance, exact
+  relation-lattice determinant, sample count, and bounded ordinary minimum).
 - Inference: paired comparisons and 5,000-resample cluster bootstrap over
   holdout `N`.
 

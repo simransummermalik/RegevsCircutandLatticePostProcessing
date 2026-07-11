@@ -1,0 +1,125 @@
+{
+  "cases": [
+    {
+      "N": 6557,
+      "p": 79,
+      "q": 83,
+      "split": "heldout"
+    },
+    {
+      "N": 7031,
+      "p": 79,
+      "q": 89,
+      "split": "heldout"
+    },
+    {
+      "N": 7663,
+      "p": 79,
+      "q": 97,
+      "split": "heldout"
+    },
+    {
+      "N": 7979,
+      "p": 79,
+      "q": 101,
+      "split": "heldout"
+    },
+    {
+      "N": 8137,
+      "p": 79,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 8453,
+      "p": 79,
+      "q": 107,
+      "split": "heldout"
+    },
+    {
+      "N": 7387,
+      "p": 83,
+      "q": 89,
+      "split": "heldout"
+    },
+    {
+      "N": 8051,
+      "p": 83,
+      "q": 97,
+      "split": "heldout"
+    },
+    {
+      "N": 8383,
+      "p": 83,
+      "q": 101,
+      "split": "heldout"
+    },
+    {
+      "N": 8549,
+      "p": 83,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 8881,
+      "p": 83,
+      "q": 107,
+      "split": "heldout"
+    },
+    {
+      "N": 8633,
+      "p": 89,
+      "q": 97,
+      "split": "heldout"
+    },
+    {
+      "N": 8989,
+      "p": 89,
+      "q": 101,
+      "split": "heldout"
+    },
+    {
+      "N": 9167,
+      "p": 89,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 9523,
+      "p": 89,
+      "q": 107,
+      "split": "heldout"
+    },
+    {
+      "N": 9797,
+      "p": 97,
+      "q": 101,
+      "split": "heldout"
+    },
+    {
+      "N": 9991,
+      "p": 97,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 10379,
+      "p": 97,
+      "q": 107,
+      "split": "heldout"
+    },
+    {
+      "N": 10403,
+      "p": 101,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 10807,
+      "p": 101,
+      "q": 107,
+      "split": "heldout"
+    }
+  ],
+  "scope": "posthoc product validation only; never recovery input"
+}

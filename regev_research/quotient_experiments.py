@@ -176,10 +176,11 @@ class QuotientExperimentFreeze:
         max_nodes=50,
         max_materialized_nodes=1_000_000,
     )
-    # A complete LDAR stage receives half of the common 50-node cap and may
-    # rerun once after U changes.  Thus it cannot exceed the same 50 raw
-    # coefficient nodes at a fixed sample count; the extra LLL call is
-    # separately charged and reported.
+    # A complete LDAR stage receives half of the common 50-visited-candidate
+    # cap and may rerun once after U changes.  Thus it cannot exceed 50 visited
+    # coefficient candidates at a fixed sample count.  Exact-norm ordering
+    # materializes the declared finite search set before visiting it; generated
+    # nodes, the extra LLL call, runtime, and memory are separately charged.
     ldar_stage_budget: RecoveryBudget = RecoveryBudget(
         enumeration_rows=6,
         coefficient_bound=2,
@@ -195,6 +196,7 @@ class QuotientExperimentFreeze:
     target_recovery_probability: Fraction = Fraction(4, 5)
     quotient_gap_log2_threshold: Fraction = Fraction(0, 1)
     bootstrap_resamples_at_N_level: int = 5_000
+    predictor_diversity_relation_bound: int = 2
     quotient_relation_box_bound: int = 16
 
     def __post_init__(self) -> None:
@@ -562,11 +564,15 @@ def frozen_manifest() -> dict:
         "target_recovery_probability": freeze.target_recovery_probability,
         "quotient_gap_log2_threshold": freeze.quotient_gap_log2_threshold,
         "bootstrap_resamples_at_N_level": freeze.bootstrap_resamples_at_N_level,
+        "predictor_diversity_relation_bound": (
+            freeze.predictor_diversity_relation_bound
+        ),
         "quotient_relation_box_bound": freeze.quotient_relation_box_bound,
         "matching_rule": (
-            "at each sample count: at most 50 raw bounded-enumeration nodes; "
-            "complete LDAR uses at most two 25-node rounds and every reduction, "
-            "runtime, memory estimate, and sample is separately charged"
+            "at each sample count: at most 50 visited bounded-enumeration candidates; "
+            "exact-norm ordering materialization is charged separately; complete LDAR "
+            "uses at most two 25-visit rounds and every generated node, reduction, "
+            "runtime, memory estimate, and sample is separately reported"
         ),
         "factor_blind_family_rule": (
             "roots [2,3,5], skip nonunits by gcd only, then deterministic prime expansion"

@@ -1,0 +1,365 @@
+{
+  "ablation_labels": {
+    "RV_structured_finite_comparator": "finite_RV_structured_comparator_not_theorem_backed",
+    "adaptive_sampling_without_deflation": "remove_B_and_C_keep_nested_A",
+    "common_exact_norm_LLL_bounded_enumeration": "A_short_combinations_no_deflation",
+    "complete_sequential_LDAR": "complete_A_plus_B_plus_C_plus_new_samples",
+    "exact_augmented_row_deflation": "B_exact_augmented_free_row_deletion",
+    "quotient_gap_scoring_only": "score_only_identical_recovery_no_deflation",
+    "random_genuine_extra_sample_acquisition": "replace_natural_acquisition_by_random_permutation",
+    "root_blind_search_posthoc_roots": "remove_roots_during_search_posthoc_evaluation_only",
+    "standard_regev_LLL_basis_endpoint": "baseline_standard_claim_5_1_LLL_rows_only",
+    "verified_fpylll_BKZ_same_enumeration": "compute_matched_stronger_reduction"
+  },
+  "command_python": "/Users/summermalik/Desktop/regevs/.venv/bin/python",
+  "dependency_versions": {
+    "fpylll": "0.6.4",
+    "numpy": "2.5.1",
+    "python": "3.14.3",
+    "qiskit": "2.5.0",
+    "qiskit-aer": "0.17.2",
+    "scipy": "1.18.0",
+    "sympy": "1.14.0"
+  },
+  "development_manifest": [
+    {
+      "N": 1763,
+      "p": 41,
+      "q": 43,
+      "split": "development"
+    },
+    {
+      "N": 1927,
+      "p": 41,
+      "q": 47,
+      "split": "development"
+    },
+    {
+      "N": 2173,
+      "p": 41,
+      "q": 53,
+      "split": "development"
+    },
+    {
+      "N": 2279,
+      "p": 43,
+      "q": 53,
+      "split": "development"
+    },
+    {
+      "N": 2419,
+      "p": 41,
+      "q": 59,
+      "split": "development"
+    },
+    {
+      "N": 2491,
+      "p": 47,
+      "q": 53,
+      "split": "development"
+    },
+    {
+      "N": 2501,
+      "p": 41,
+      "q": 61,
+      "split": "development"
+    },
+    {
+      "N": 2537,
+      "p": 43,
+      "q": 59,
+      "split": "development"
+    },
+    {
+      "N": 2623,
+      "p": 43,
+      "q": 61,
+      "split": "development"
+    },
+    {
+      "N": 2747,
+      "p": 41,
+      "q": 67,
+      "split": "development"
+    },
+    {
+      "N": 2773,
+      "p": 47,
+      "q": 59,
+      "split": "development"
+    },
+    {
+      "N": 2867,
+      "p": 47,
+      "q": 61,
+      "split": "development"
+    },
+    {
+      "N": 2881,
+      "p": 43,
+      "q": 67,
+      "split": "development"
+    },
+    {
+      "N": 2911,
+      "p": 41,
+      "q": 71,
+      "split": "development"
+    },
+    {
+      "N": 2993,
+      "p": 41,
+      "q": 73,
+      "split": "development"
+    },
+    {
+      "N": 3053,
+      "p": 43,
+      "q": 71,
+      "split": "development"
+    },
+    {
+      "N": 3127,
+      "p": 53,
+      "q": 59,
+      "split": "development"
+    },
+    {
+      "N": 3139,
+      "p": 43,
+      "q": 73,
+      "split": "development"
+    },
+    {
+      "N": 3149,
+      "p": 47,
+      "q": 67,
+      "split": "development"
+    },
+    {
+      "N": 3233,
+      "p": 53,
+      "q": 61,
+      "split": "development"
+    },
+    {
+      "N": 3337,
+      "p": 47,
+      "q": 71,
+      "split": "development"
+    },
+    {
+      "N": 3431,
+      "p": 47,
+      "q": 73,
+      "split": "development"
+    },
+    {
+      "N": 3551,
+      "p": 53,
+      "q": 67,
+      "split": "development"
+    },
+    {
+      "N": 3599,
+      "p": 59,
+      "q": 61,
+      "split": "development"
+    },
+    {
+      "N": 3763,
+      "p": 53,
+      "q": 71,
+      "split": "development"
+    }
+  ],
+  "factor_firewall": "trial functions receive N only; manifest p,q are used only after a trial to validate a returned factor pair and are written separately",
+  "freeze": {
+    "bkz_block_size": 6,
+    "bootstrap_resamples_at_N_level": 5000,
+    "corrupt_shot_probability": "1/20",
+    "dimension": 3,
+    "exact_difference_point_budget": 2500000,
+    "finite_modulus_D": 64,
+    "finite_reconstruction_scale": "13/1",
+    "gaussian_radius_R": 16,
+    "ldar_stage_budget": {
+      "coefficient_bound": 2,
+      "enumeration_rows": 6,
+      "max_materialized_nodes": 1000000,
+      "max_nodes": 25,
+      "max_support": 3
+    },
+    "master_seed": 2026071203,
+    "max_augmented_deflation_deletions": 3,
+    "max_ldar_rounds_per_sample_count": 2,
+    "predictor_diversity_relation_bound": 2,
+    "quotient_gap_log2_threshold": "0/1",
+    "quotient_relation_box_bound": 16,
+    "readout_bit_flip_probability": "1/100",
+    "recovery_budget": {
+      "coefficient_bound": 2,
+      "enumeration_rows": 6,
+      "max_materialized_nodes": 1000000,
+      "max_nodes": 50,
+      "max_support": 3
+    },
+    "rv_pool_sample_count": 11,
+    "rv_target_sample_count": 7,
+    "sample_counts": [
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "target_recovery_probability": "4/5",
+    "theorem_noise_safety": "2/1",
+    "trials_per_case_model_count": 32,
+    "version": "quotient-recovery-freeze-v2-final-before-holdout"
+  },
+  "heldout_executed": false,
+  "heldout_manifest": [
+    {
+      "N": 6557,
+      "p": 79,
+      "q": 83,
+      "split": "heldout"
+    },
+    {
+      "N": 7031,
+      "p": 79,
+      "q": 89,
+      "split": "heldout"
+    },
+    {
+      "N": 7663,
+      "p": 79,
+      "q": 97,
+      "split": "heldout"
+    },
+    {
+      "N": 7979,
+      "p": 79,
+      "q": 101,
+      "split": "heldout"
+    },
+    {
+      "N": 8137,
+      "p": 79,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 8453,
+      "p": 79,
+      "q": 107,
+      "split": "heldout"
+    },
+    {
+      "N": 7387,
+      "p": 83,
+      "q": 89,
+      "split": "heldout"
+    },
+    {
+      "N": 8051,
+      "p": 83,
+      "q": 97,
+      "split": "heldout"
+    },
+    {
+      "N": 8383,
+      "p": 83,
+      "q": 101,
+      "split": "heldout"
+    },
+    {
+      "N": 8549,
+      "p": 83,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 8881,
+      "p": 83,
+      "q": 107,
+      "split": "heldout"
+    },
+    {
+      "N": 8633,
+      "p": 89,
+      "q": 97,
+      "split": "heldout"
+    },
+    {
+      "N": 8989,
+      "p": 89,
+      "q": 101,
+      "split": "heldout"
+    },
+    {
+      "N": 9167,
+      "p": 89,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 9523,
+      "p": 89,
+      "q": 107,
+      "split": "heldout"
+    },
+    {
+      "N": 9797,
+      "p": 97,
+      "q": 101,
+      "split": "heldout"
+    },
+    {
+      "N": 9991,
+      "p": 97,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 10379,
+      "p": 97,
+      "q": 107,
+      "split": "heldout"
+    },
+    {
+      "N": 10403,
+      "p": 101,
+      "q": 103,
+      "split": "heldout"
+    },
+    {
+      "N": 10807,
+      "p": 101,
+      "q": 107,
+      "split": "heldout"
+    }
+  ],
+  "methods": [
+    "standard_regev_LLL_basis_endpoint",
+    "common_exact_norm_LLL_bounded_enumeration",
+    "verified_fpylll_BKZ_same_enumeration",
+    "exact_augmented_row_deflation",
+    "complete_sequential_LDAR",
+    "adaptive_sampling_without_deflation",
+    "root_blind_search_posthoc_roots",
+    "quotient_gap_scoring_only",
+    "random_genuine_extra_sample_acquisition"
+  ],
+  "nested_batch_rule": "one m=11 batch per N/model/replicate; immutable source-order prefixes 7..11",
+  "optional_method": "RV_structured_finite_comparator",
+  "source_sha256": {
+    "quotient_experiments": "3a7e78d697df0e7a7c01a213b5a81ac1ad44a0453f1b74bc7afe9d6760f4024e",
+    "quotient_metrics": "3a6cb722f654fba645cac793a146f3fcc4ec3ad8a026212355665fdcce93050a",
+    "quotient_recovery": "70c54530a7f2811d4110929641b613e9627be03af951e7156fba5ff2f661b9a7",
+    "quotient_study": "5946a0b08e0ead3bcd56b2ae083133b2fd7129ef1f3db46800f9b589b0602a71",
+    "rv_filter": "e284a84b835e249b1202a8e628fc3f22432cccade77bf992f3f46a1cb5f0ff86"
+  },
+  "status": "configuration written before held-out trial loop"
+}

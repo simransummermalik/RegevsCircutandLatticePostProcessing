@@ -45,6 +45,7 @@ def test_freeze_parameters_seeds_and_budgets_are_literal_and_deterministic():
     assert freeze.max_ldar_rounds_per_sample_count == 2
     assert freeze.quotient_relation_box_bound == 16
     assert freeze.quotient_gap_log2_threshold == 0
+    assert freeze.predictor_diversity_relation_bound == 2
     first = deterministic_model_seed(3, FINITE_GAUSSIAN_MODEL, 9, 4)
     assert first == deterministic_model_seed(3, FINITE_GAUSSIAN_MODEL, 9, 4)
     assert first != deterministic_model_seed(3, UNIFORM_HARD_BOX_MODEL, 9, 4)
