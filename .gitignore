@@ -3,3 +3,9 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .DS_Store
+
+# Raw quotient-study trial data: large, regenerable via scripts/run_quotient_study.py.
+# Keep only the compact summary/config outputs in git.
+results/quotient_study/checkpoints/
+results/quotient_study/trial_rows.csv
+results/quotient_study/resource_rows.csv

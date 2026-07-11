@@ -8,8 +8,10 @@ base-selection strategies across three sampling models, and then red-teamed
 its own claims — downgrading or retracting anything that turned out to be a
 routine identity or a circular endpoint rather than a genuine result. A
 second, larger body of code (`quotient*.py`, `rv_filter.py`) implements a
-follow-on "quotient deflation" study that is fully built and tested but
-**has not been executed on its held-out inputs yet**.
+follow-on "quotient deflation" study, pre-registered in
+[`FROZEN_QUOTIENT_PROTOCOL.md`](FROZEN_QUOTIENT_PROTOCOL.md); its held-out
+run has now completed (`results/quotient_study/`) and its own pre-registered
+falsification criterion was met — see "Quotient-study result" below.
 
 **Read this first:** [`REDTEAM_REVISION.md`](REDTEAM_REVISION.md) is the
 authoritative, current result. `RESEARCH_REPORT.md` is the original,
@@ -256,8 +258,8 @@ visited, modular checks, classifications, a deterministic memory-footprint
 - `matched_cost_recovery_suite` runs all six arms under one shared node
   budget so comparisons aren't skewed by unequal search effort.
 
-This is all real, tested code — it's just infrastructure for an experiment
-that hasn't been run yet (see below).
+This is the infrastructure that `quotient_study.py` (below) drives for the
+now-completed held-out run.
 
 ### `quotient_experiments.py` — frozen configuration only (no execution loop)
 
@@ -273,10 +275,11 @@ whole-shot corruption layered on Model A, never claimed to be gate-level or
 device noise). `DEVELOPMENT_SEMIPRIMES` (25, reused from earlier work) and
 `HELDOUT_SEMIPRIMES` (20 new products of primes 79–107) are disjoint and
 frozen under version tag `quotient-recovery-freeze-v2-final-before-holdout`.
-`frozen_manifest()` returns this configuration as a dict and explicitly sets
-`"heldout_executed": False`.
+`frozen_manifest()` returns this configuration as a dict and always sets
+`"heldout_executed": False` — it's a pre-run manifest function, called before
+`quotient_study.py` does the actual run described next.
 
-### `quotient_study.py` — the (not-yet-run) holdout execution orchestrator
+### `quotient_study.py` — the holdout execution orchestrator (now executed)
 
 Defines the **nine primary comparison methods** for the quotient study
 (standard Regev LLL, common exact-norm enumeration, verified-BKZ
@@ -288,12 +291,14 @@ RV-structured-comparator arm. Uses **atomic writes** everywhere (write to a
 result file, and `study_configuration()` records the SHA-256 of every
 source file plus installed dependency versions for reproducibility.
 `write_factor_manifest` keeps known `(p, q)` factors in a separate file from
-the trial path — trial functions receive only `N`. The entry point
-`run_heldout_quotient_study` has not been invoked; `results/quotient_study/`
-does not exist yet. `tests/test_quotient_study.py` exercises its pieces
-(batch generation, a toy LDAR cell, RV-comparator pool accounting,
-nested-prefix determinism, bootstrap aggregation) without running the real
-holdout.
+the trial path — trial functions receive only `N`. `tests/test_quotient_study.py`
+exercises its pieces (batch generation, a toy LDAR cell, RV-comparator pool
+accounting, nested-prefix determinism, bootstrap aggregation) independently
+of the real holdout.
+
+`run_heldout_quotient_study` has since been run to completion — see
+"Quotient-study result" below and `results/quotient_study/completion.json`
+(`"heldout_executed": true`).
 
 ### `rv_filter.py` — a named, honest comparator for Ragavan–Vaikuntanathan filtering
 
@@ -325,7 +330,7 @@ import — check each file's own docstring for its entry points.
 |---|---|
 | `run_research.py` | Runs the superseded experiment suite (`regev_research.experiments.main`) → `results/raw/`, `results/summary/`. |
 | `run_redteam.py` | Runs the authoritative frozen experiment (`regev_research.redteam_experiments.main`) → `results/redteam/`. **Run this one.** |
-| `run_quotient_study.py` | Would execute the frozen-but-not-yet-run quotient holdout (`regev_research.quotient_study.run_heldout_quotient_study`) → `results/quotient_study/`. Not yet invoked. |
+| `run_quotient_study.py` | Executes the frozen quotient holdout (`regev_research.quotient_study.run_heldout_quotient_study`) → `results/quotient_study/`. Already run; takes on the order of 40 minutes and writes one ~40 MB checkpoint per held-out `N` as it goes. |
 | `build_revised_notebook.py` | Builds the notebook cell-by-cell via `nbformat` and writes it to **both** `..._redteam_revision.ipynb` and `..._research_revision.ipynb` — these two files are byte-identical (confirmed by hash); the second name exists only for backward-compatible linking. |
 | `execute_revised_notebook.py` | Executes the generated notebook via `nbclient` with `allow_errors=False` (fails loud on the first cell error). Requires the `regev-research` Jupyter kernel to be installed first (see Setup below). |
 
@@ -387,8 +392,20 @@ Notebooks are generated from Python, not hand-edited — change
   (from the superseded experiment), `redteam_diversity_vs_lattice_success.png`
   and `redteam_model_ablation.png` (from the current one, per-model scatter
   and bar charts with bootstrap error bars).
-
-There is no `results/quotient_study/` yet — that experiment hasn't run.
+- `results/quotient_study/` — the completed quotient-deflation holdout:
+  `checkpoints/N*.json` (20 files, one per held-out semiprime, ~40 MB each —
+  every raw trial row for that `N` across all methods/models/sample-counts/
+  replicates, written incrementally as the run progressed), `trial_rows.csv`
+  (117,760 rows — the same data flattened and concatenated across all 20
+  `N`), `resource_rows.csv` (per-trial cost accounting), `per_N_rows.csv`
+  (3,680 rows — factor-success rates and resource means aggregated per
+  `(N, method, model, sample_count)`), `paired_N_comparisons.json` (200
+  cluster-bootstrap paired comparisons of every method against the
+  `common_exact_norm_LLL_bounded_enumeration` reference), `configuration.json`
+  / `factor_manifest.json` (written before the run started), and
+  `completion.json` (written only after every output was replaced —
+  `"heldout_executed": true`, SHA-256 of every output file, and
+  `"posthoc_factor_manifest_validation": "passed for every returned pair"`).
 
 ## Setup
 
@@ -445,3 +462,60 @@ base-selection strategies:
   finite-precision or resource-constrained artifact of models A/B, not a
   property of Regev's algorithm in the regime the theorem covers. No claim
   is made about Regev's full algorithm.
+
+## Quotient-study result (see `results/quotient_study/`)
+
+The frozen hypothesis in `FROZEN_QUOTIENT_PROTOCOL.md` was: does **complete
+LDAR** (Lattice-reduce → Deflate verified-`L0` directions → Adaptively
+resample, repeated) recover `L \ L0` more often than the matched
+no-deflation baseline (`common_exact_norm_LLL_bounded_enumeration`), at the
+same bounded-search budget? The protocol's own stated falsification
+condition — "it does not outperform the matched no-deflation endpoint
+across held-out `N`" — **was met**, i.e. the hypothesis is falsified by its
+own pre-registered test, based on all 20 held-out `N`, 4 sampling models,
+5 sample-count budgets, and 32 replicates per cell (117,760 trials total):
+
+- At the full 11-sample budget, mean factor-success rate across the 20
+  held-out `N`, by method and model:
+
+  | method | A: hard box | B: finite Gaussian | C: noisy dual | D: corruption surrogate |
+  |---|---:|---:|---:|---:|
+  | standard Regev LLL (Claim 5.1 only) | 0.181 | 0.130 | 0.950 | 0.161 |
+  | common exact-norm bounded enumeration (reference) | 0.273 | 0.216 | 0.950 | 0.247 |
+  | verified BKZ + same enumeration | 0.300 | 0.233 | 0.950 | 0.247 |
+  | exact augmented-row deflation | 0.181 | 0.130 | 0.950 | 0.161 |
+  | **complete sequential LDAR** | **0.255** | **0.188** | 0.950 | **0.211** |
+  | adaptive sampling, no deflation | 0.273 | 0.216 | 0.950 | 0.247 |
+  | root-blind post-hoc search | 0.273 | 0.216 | 0.950 | 0.247 |
+  | quotient-gap scoring only | 0.273 | 0.216 | 0.950 | 0.247 |
+  | random genuine extra samples | 0.277 | 0.222 | 0.950 | 0.225 |
+  | RV-structured comparator (not theorem-backed) | 0.153 | 0.134 | 0.950 | 0.133 |
+
+- Complete LDAR is **not better** than the reference — it's measurably
+  *worse* under models A, B, and D, with `N`-cluster bootstrap confidence
+  intervals that exclude zero (A: mean diff −0.019, 95% CI [−0.030, −0.008],
+  0 wins/8 losses/12 ties across the 20 `N`; B: −0.028, CI [−0.055, −0.006];
+  D: −0.036, CI [−0.059, −0.016]). Under model C both are already
+  saturated near 0.95, so there's no room for either to show an advantage
+  (0 wins/0 losses/20 ties).
+- The secondary target — reaching 80% recovery probability with fewer
+  circuit executions — was essentially unreachable within the 7–11 sample
+  budget for any method under models A, B, and D (177/200, 180/200, and
+  180/200 method×`N` cells respectively never hit the 0.8 target and are
+  censored at "more than 11"). Under model C, 190/200 cells did reach it.
+  Complete LDAR needed exactly as many samples as the reference wherever
+  both were measurable (paired mean difference 0.000 in all four models).
+- Several ablations (adaptive-sampling-without-deflation, exact
+  augmented-row deflation, quotient-gap-scoring-only, root-blind search)
+  produced numerically identical success rates to either the reference or
+  the plain standard-LLL baseline at this budget — deflation and quotient-gap
+  scoring didn't change which relations were found, only how they were
+  labeled or ordered.
+- The RV-structured comparator was the weakest method everywhere, consistent
+  with its own code explicitly flagging that the frozen stress cell fails
+  RV's asymptotic recovery inequality (see `rv_filter.py` above) — it isn't
+  claimed to be theorem-backed, and the data bears that out.
+- Every returned factor pair passed post-hoc validation against the known
+  `(p, q)` for its `N` (`completion.json`), so the "worse" outcome isn't a
+  correctness bug — deflation and adaptive resampling, as implemented and at
+  this bounded-search budget, simply didn't help.

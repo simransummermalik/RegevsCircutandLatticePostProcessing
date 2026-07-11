@@ -217,6 +217,16 @@ def join_standard_and_gap_rows(
     for key in common_keys:
         standard_row = standard[key]
         gap_row = gaps[key]
+        standard_seed = standard_row.get("batch_seed")
+        gap_seed = gap_row.get("batch_seed")
+        if not _missing(standard_seed) and not _missing(gap_seed):
+            if _integer(standard_seed, "standard batch_seed") != _integer(
+                gap_seed, "quotient-gap batch_seed"
+            ):
+                raise ValueError(
+                    "matched standard and quotient-gap rows disagree on batch_seed: "
+                    f"{_serializable_key(key)}"
+                )
         row = dict(gap_row)
         row.update(_serializable_key(key))
         row["outcome_standard_regev_factor_success"] = _optional_binary(
@@ -467,9 +477,16 @@ def leave_one_n_out_logistic(
         finite_fit = bool(
             np.all(np.isfinite(beta)) and np.all(np.isfinite(probabilities))
         )
+        valid_fit = bool(fit.success and finite_fit)
         fold.update(
             {
-                "status": "evaluated" if finite_fit else "nonfinite_fit",
+                "status": (
+                    "evaluated"
+                    if valid_fit
+                    else "optimizer_failed"
+                    if finite_fit
+                    else "nonfinite_fit"
+                ),
                 "optimizer_success": bool(fit.success),
                 "optimizer_message": str(fit.message),
                 "training_predictor_mean": mean,
@@ -480,7 +497,7 @@ def leave_one_n_out_logistic(
             }
         )
         folds.append(fold)
-        if finite_fit:
+        if valid_fit:
             predicted_y.extend(int(value) for value in test_y)
             predicted_probability.extend(float(value) for value in probabilities)
 

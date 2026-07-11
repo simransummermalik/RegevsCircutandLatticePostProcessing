@@ -1,0 +1,18 @@
+{
+  "completed_case_count": 20,
+  "completed_model_count": 4,
+  "freeze_version": "quotient-recovery-freeze-v2-final-before-holdout",
+  "heldout_executed": true,
+  "output_sha256": {
+    "paired_N_comparisons.json": "8e837498d137cc29eecba1cb4b12702894517e0a15d5b7a59fbee401ef756a84",
+    "per_N_rows.csv": "89b0efddf459e91735670ff1cb685e43f3a3a49d8303ea81499625207e82743c",
+    "resource_rows.csv": "7a3d9f0b396ddee27330053e20e14c44ab85f1b51e4b769d8415f0160a083756",
+    "trial_rows.csv": "be9938594443d2bd0b6b81a5a377e38b79ebe070984a6f135473232e896e0ddb"
+  },
+  "paired_comparison_count": 200,
+  "per_N_row_count": 3680,
+  "posthoc_factor_manifest_validation": "passed for every returned pair",
+  "replicates_per_case_model": 32,
+  "resource_row_count": 117760,
+  "trial_row_count": 117760
+}
