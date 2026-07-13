@@ -1,8 +1,7 @@
 # Beginner's guide to this Regev-style quantum factoring research repository
 
-This repository reconstructs and red-teams a Qiskit notebook inspired by
+This repository reconstructs and red-teams our original research at UIUC's Qiskit notebook inspired by
 [Regev's factoring algorithm](https://arxiv.org/abs/2308.06572). It contains:
-
 - a verified audit of the original circuit and its external arithmetic gates;
 - immutable root/base provenance and exact `L` versus `L0` classification;
 - an exact integer augmented-lattice/LLL post-processing endpoint;
