@@ -74,14 +74,3 @@ small-state models and LLL decoder. The boundary proxies are heterogeneous,
 and the predictor's failures prevent safe automatic approval. The open theorem
 is a scalable, factor-blind state-and-decoder-aware precision bound.
 
-## Publication-safe claim
-
-> We present a reproducible Shor-to-Regev factoring testbed and evaluate QFT
-> approximation at circuit, prepared-state, measurement, and verified-decoder
-> levels. In separate frozen finite holdouts, both continued-fraction and
-> augmented-lattice recovery tolerate truncations rejected by a worst-case
-> QFT certificate, while direct distribution analysis closes the tested Shor
-> gap but not every Regev cell. A factor-blind empirical surrogate reduces
-> false rejections relative to the worst-case certificate but is not reliable
-> enough to constitute a new certificate.
-
