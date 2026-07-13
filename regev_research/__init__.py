@@ -35,6 +35,7 @@ from .qft_noise import (
     fiber_qft_tv_distance,
     grid_quantization_bound,
     omitted_rotation_angle_sum,
+    omitted_rotation_angle_sum_closed_form,
     qft_gate_counts,
     qft_matrix,
     qft_operator_error_bound,
@@ -44,6 +45,7 @@ from .qft_noise import (
     roots_of_unity_amplitude,
     select_fiber_qft_cutoff,
     select_qft_cutoff,
+    dimensionless_precision_ratio,
     weighted_fiber_fourier_distribution,
     weighted_fiber_qft_tv_distance,
 )
@@ -77,6 +79,7 @@ __all__ = [
     "fiber_qft_tv_distance",
     "grid_quantization_bound",
     "omitted_rotation_angle_sum",
+    "omitted_rotation_angle_sum_closed_form",
     "qft_gate_counts",
     "qft_matrix",
     "qft_operator_error_bound",
@@ -86,6 +89,7 @@ __all__ = [
     "roots_of_unity_amplitude",
     "select_fiber_qft_cutoff",
     "select_qft_cutoff",
+    "dimensionless_precision_ratio",
     "weighted_fiber_fourier_distribution",
     "weighted_fiber_qft_tv_distance",
 ]

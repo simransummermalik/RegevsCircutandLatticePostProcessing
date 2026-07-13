@@ -106,6 +106,38 @@ def omitted_rotation_angle_sum(q: int, cutoff: int) -> float:
     )
 
 
+def omitted_rotation_angle_sum_closed_form(q: int, cutoff: int) -> float:
+    """Closed form for ``omitted_rotation_angle_sum``.
+
+    For ``s=q-cutoff`` the finite tail is
+    ``pi * 2**(-cutoff) * (s-2+2**(-(s-1)))``.  The form is useful for scaling
+    studies because it avoids summing over all omitted rotations.
+    """
+
+    q, cutoff = int(q), int(cutoff)
+    if q <= 0 or cutoff < 0:
+        raise ValueError("q must be positive and cutoff nonnegative")
+    if cutoff >= q - 1:
+        return 0.0
+    s = q - cutoff
+    return float(pi * 2.0 ** (-cutoff) * (s - 2 + 2.0 ** (-(s - 1))))
+
+
+def dimensionless_precision_ratio(
+    d: int, M: int, sample_count: int, cutoff: int, loss_budget: float
+) -> float:
+    """The normalized m-shot truncation certificate ``m*delta/Delta``."""
+
+    if not 0 < float(loss_budget):
+        raise ValueError("loss_budget must be positive")
+    q = register_bits(M)
+    return float(
+        int(sample_count)
+        * qft_tv_bound(int(d), q, int(cutoff))
+        / float(loss_budget)
+    )
+
+
 def qft_operator_error_bound(d: int, q: int, cutoff: int) -> float:
     """Telescoping operator-norm bound for ``F_t**d-F**d``."""
 

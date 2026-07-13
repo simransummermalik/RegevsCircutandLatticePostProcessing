@@ -1,5 +1,9 @@
 # A finite-parameter QFT-to-lattice criterion for Regev-style factoring
 
+> Superseded as the central contribution by `QFT_PRECISION_SCALING_REPORT.md`.
+> This file records the first finite-parameter experiment and remains useful
+> background; its `d=3,M=8,m=12` result must not be read as the final claim.
+
 ## Status and claim scope
 
 This is a new, isolated contribution on top of the notebook audit.  It is

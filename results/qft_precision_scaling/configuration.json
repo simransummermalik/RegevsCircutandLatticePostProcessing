@@ -1,0 +1,50 @@
+{
+  "M_values": [
+    8,
+    16,
+    32,
+    64,
+    128
+  ],
+  "RV_status": "finite structural comparator; theorem applicability false in these cells",
+  "analytic_rows": 1200,
+  "cluster_bootstrap_rows": 24,
+  "d_values": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "endpoint_M": [
+    8,
+    16,
+    32
+  ],
+  "endpoint_inputs": [
+    35,
+    77,
+    143
+  ],
+  "endpoint_replicates": 16,
+  "endpoint_rows": 72,
+  "freeze_version": "qft-precision-scaling-v1",
+  "full_Qiskit_scope": "matrix overlap M<=16; resource/decomposition validation remains in results/qft_noise",
+  "loss_budgets": [
+    0.05,
+    0.1,
+    0.2
+  ],
+  "master_seed": 2026071211,
+  "matrix_rows": 10,
+  "paired_N_rows": 72,
+  "primary_variable": "B=m*min(1,2*d*eta)/Delta",
+  "resource_rows": 20,
+  "rv_rows": 32,
+  "sample_counts": [
+    4,
+    8,
+    12,
+    24
+  ],
+  "selection_is_factor_blind": true
+}
