@@ -1,5 +1,13 @@
 # Beginner's guide to this Regev-style quantum factoring research repository
 
+## TL;DR
+
+This project implements and audits a small-scale, end-to-end Regev-style factoring pipeline: quantum-circuit construction, several exact sampling models, augmented integer-lattice construction, LLL recovery, exact relation verification, stored-root classification, and factor extraction.
+
+The main research question was whether a theorem requiring the exact quantum Fourier transform (QFT) revealed a genuine loss of factoring information or merely used an overly conservative error bound. The original worst-case certificate predicted that no resource-saving approximate-QFT cutoff could be certified under the frozen 5% loss budget. In held-out experiments on eight previously unused semiprimes, however, omitting one QFT phase layer was empirically non-inferior in every tested hard-box and finite-Gaussian setting, while the Gaussian model safely omitted two layers at `M=16` and `M=32` under the preregistered criterion.
+
+The largest observed saving was six logical controlled-phase gates and 12 QFT-only transpiled CX gates, not a demonstrated end-to-end hardware speedup. The result is limited to small semiprimes, `d=2`, `M<=32`, `m=7`, two finite exact state models, and the repository's current LLL decoder; it does not prove that truncation is safe for full-scale Regev factoring or every post-processing algorithm. The finding matters because it shows that failure of a worst-case QFT certificate is not evidence of information-theoretic or algorithmic failure, and that state-specific roots-of-unity cancellation can support sharper, less wasteful precision decisions.
+
 This repository reconstructs and red-teams our original research at UIUC's Qiskit notebook inspired by
 [Regev's factoring algorithm](https://arxiv.org/abs/2308.06572). It contains:
 - a verified audit of the original circuit and its external arithmetic gates;
@@ -11,8 +19,10 @@ This repository reconstructs and red-teams our original research at UIUC's Qiski
 
 The project deliberately keeps failed hypotheses. The diversity selector did
 not establish a general Regev improvement, quotient deflation did not beat its
-matched baseline, and the current worst-case QFT certificate does not permit a
-resource-saving approximate QFT in the tested regime.
+matched baseline, and the worst-case QFT certificate did not permit a
+resource-saving approximate QFT in the tested regime. The final certificate-
+gap study then showed that this exact-QFT decision was substantially more
+conservative than the prepared-state recovery endpoint.
 
 ## If you are completely new, start here
 
@@ -341,6 +351,17 @@ all cutoffs across `d=2..5`, `M=8..128`, multiple sample counts, and three
 loss budgets. The positive resource-saving claim was falsified for the primary
 budget. The surviving result is the narrow no-certificate law described next.
 
+### Stage 7: certification-gap holdout
+
+A complete theorem audit found and corrected a reversed gate-order bug in the
+custom approximate QFT, invalidated the old approximate rows, and regenerated
+them. Three factor-blind state/distribution certificates and a new eight-
+semiprime holdout then measured the gap between theorem rejection and actual
+recovery. One omitted phase layer was empirically safe in every tested
+hard-box/Gaussian cell; the Gaussian safely omitted two layers at `M=16,32`.
+The final result is Outcome C: the old exact-QFT requirement was mainly a
+proof-technique limitation in this finite regime.
+
 ## Papers and how they relate to this repository
 
 These links are primary sources. Reading them is not required to run the code,
@@ -353,6 +374,7 @@ only to this repository.
 | [Regev, *An Efficient Quantum Factoring Algorithm*](https://arxiv.org/abs/2308.06572) | High-dimensional Gaussian sampling, the relation lattice, noisy-dual interpretation, augmented lattice, and classical lattice reduction. The paper describes roughly `sqrt(n)+4` independent circuit runs and a lower asymptotic gate count under a number-theoretic heuristic. | Supplies the mathematical target used to judge the notebook and build the classical endpoint. The repository does not claim to prove Regev's heuristic or reproduce the full asymptotic regime. |
 | [Ragavan and Vaikuntanathan, *Space-Efficient and Noise-Robust Quantum Factoring*](https://eprint.iacr.org/2023/1501) | Space-efficient reversible arithmetic and a classical filter tolerating a constant fraction of corrupted quantum runs under stated hypotheses. | `rv_filter.py` implements a finite structural comparator. It explicitly does not claim the paper's theorem when the finite alpha/gamma, scale, well-spread-error, and recovery hypotheses are unmet. |
 | [Coppersmith, *An Approximate Fourier Transform Useful in Quantum Factoring*](https://arxiv.org/abs/quant-ph/0201067) | Prior approximate-QFT truncation ideas for quantum factoring. | Establishes that approximate QFT is not novel here. This repository studies a particular distance cutoff and a conservative Regev-endpoint certificate. |
+| [Barenco, Ekert, Suominen, and Törmä, *Approximate Quantum Fourier Transform and Decoherence*](https://arxiv.org/abs/quant-ph/9601018) | Shows that task-level periodicity estimation can tolerate substantial QFT approximation and studies decoherence tradeoffs. | Important prior warning that all-state/worst-case QFT error need not equal algorithmic failure; the final holdout measures this issue at the Regev-style lattice endpoint. |
 | [Nam, Su, and Maslov, *Approximate Quantum Fourier Transform with O(n log n) T Gates*](https://arxiv.org/abs/1803.04933) | Gate-efficient approximate-QFT constructions. | Literature boundary for resource claims; the repository does not claim a new general QFT synthesis algorithm. |
 | [Pawlitko et al., *Implementation and Analysis of Regev's Quantum Factorization Algorithm*](https://arxiv.org/abs/2502.09772) | An independent implementation-oriented study emphasizing small-instance variability and practical costs. | Context for why toy success alone is not enough evidence for a broad algorithmic claim. |
 
@@ -364,8 +386,10 @@ standard tools.
 
 ## Current status
 
-The current contribution is an **Outcome-E negative scaling result**, not a
-faster factoring algorithm:
+The current contribution is an **Outcome-C certification-gap result**, not a
+general faster factoring algorithm.
+
+The earlier theorem remains correct as a statement about its own certificate:
 
 ```text
 M < 4*pi*d*m/Delta
@@ -380,9 +404,22 @@ downstream recovery-event probability. For the frozen primary budget
 `d in {2,3,4,5}`, `M in {8,16,32,64,128}`, and
 `m in {4,8,12,24}` configuration.
 
-This is a rigorous limitation of this operator-norm/hybrid **certificate**.
-It is not a universal lower bound on approximate QFTs, a proof about Regev's
-asymptotic Gaussian state, or a hardware-noise result.
+The new result shows why that implication is not a lower bound on actual
+recovery. The first omitted-layer operator step can be almost tight, yet the
+bound loses state/fiber/measurement structure. In eight new held-out
+semiprimes:
+
+- the original certificate approved zero omitted layers;
+- one layer was empirically non-inferior for A and B at `M=8,16,32`;
+- B was empirically non-inferior with two omitted layers at `M=16,32`;
+- safe cells saved up to six logical controlled phases and 12 QFT-only
+  transpiled CX gates;
+- an explicit finite example has identical exact/approximate measurement laws
+  even though the original certificate rejects.
+
+Therefore the exact-QFT requirement is mainly certificate conservatism in this
+finite regime. This is not a proof that truncation is always safe, a result for
+Regev's asymptotic Gaussian state, or a hardware speedup.
 
 Beginner interpretation: the first possible approximation removes only the
 smallest-angle layer. Even that layer cannot pass this five-percent guarantee
@@ -393,33 +430,48 @@ the first available value above it is `16,384`. The frozen experiment stops at
 QFT. This says the **bound is too conservative to authorize savings here**. It
 does not say an unknown sharper, state-specific analysis could never do so.
 
-The complete test suite currently reports **96 passed**.
+The final holdout supplies that missing state-specific evidence: exact
+roots-of-unity distribution and Hellinger certificates approve some
+truncations, and the preregistered recovery endpoint safely omits layers that
+the original theorem rejects. The old inequality is still useful as a robust
+all-state guarantee, but it is not a necessary precision condition.
+
+The complete test suite currently reports **102 passed**.
 
 ## Read this first
 
 The documents have a deliberate hierarchy:
 
-1. [`QFT_PRECISION_SCALING_REPORT.md`](QFT_PRECISION_SCALING_REPORT.md) —
-   current central result, experiments, resource accounting, and limitations.
-2. [`QFT_PRECISION_THEORY.md`](QFT_PRECISION_THEORY.md) — exact omitted-phase
+1. [`QFT_CERTIFICATE_GAP_REPORT.md`](QFT_CERTIFICATE_GAP_REPORT.md) — current
+   central result, held-out recovery gap, resources, and exact claim boundary.
+2. [`QFT_CERTIFICATE_PROOF_AUDIT.md`](QFT_CERTIFICATE_PROOF_AUDIT.md) and
+   [`QFT_CERTIFICATE_TIGHTNESS.md`](QFT_CERTIFICATE_TIGHTNESS.md) — line-by-line
+   theorem audit, proof-step slack, sharper certificates, and examples.
+3. [`QFT_CERTIFICATE_GAP_PROTOCOL.md`](QFT_CERTIFICATE_GAP_PROTOCOL.md) and
+   [`QFT_CERTIFICATE_GAP_ADVERSARIAL_AUDIT.md`](QFT_CERTIFICATE_GAP_ADVERSARIAL_AUDIT.md)
+   — frozen final holdout and threats-to-validity audit.
+4. [`QFT_PRECISION_SCALING_REPORT.md`](QFT_PRECISION_SCALING_REPORT.md) — the
+   superseded Outcome-E certificate-scaling stage.
+5. [`QFT_PRECISION_THEORY.md`](QFT_PRECISION_THEORY.md) — exact omitted-phase
    formula, finite-shot hybrid proof, and certificate-scaling law.
-3. [`QFT_PRECISION_PROTOCOL.md`](QFT_PRECISION_PROTOCOL.md) and
+6. [`QFT_PRECISION_PROTOCOL.md`](QFT_PRECISION_PROTOCOL.md) and
    [`QFT_ADVERSARIAL_AUDIT.md`](QFT_ADVERSARIAL_AUDIT.md) — frozen choices,
    falsification rules, matrix adversaries, and RV-comparator limitations.
-4. [`REDTEAM_REVISION.md`](REDTEAM_REVISION.md) — authoritative account of the
+7. [`REDTEAM_REVISION.md`](REDTEAM_REVISION.md) — authoritative account of the
    notebook reconstruction, root-provenance correction, three sampling models,
    and frozen base-selection red team.
    [`ROOT_PROVENANCE_RED_TEAM.md`](ROOT_PROVENANCE_RED_TEAM.md) isolates the
    corresponding metadata regression and its `N=437` reevaluation.
-5. [`FROZEN_QUOTIENT_PROTOCOL.md`](FROZEN_QUOTIENT_PROTOCOL.md) and
+8. [`FROZEN_QUOTIENT_PROTOCOL.md`](FROZEN_QUOTIENT_PROTOCOL.md) and
    [`QUOTIENT_THEORY_AND_LITERATURE.md`](QUOTIENT_THEORY_AND_LITERATURE.md) —
    quotient-deflation preregistration and exact integer-quotient theory.
-6. [`RESEARCH_REPORT.md`](RESEARCH_REPORT.md) — superseded first-stage analysis.
+9. [`RESEARCH_REPORT.md`](RESEARCH_REPORT.md) — superseded first-stage analysis.
    Its early novelty and improvement language was withdrawn after red-teaming.
 
 [`QFT_NOISE_CONTRIBUTION_REPORT.md`](QFT_NOISE_CONTRIBUTION_REPORT.md) records
 the initial `d=3, M=8, m=12` QFT study. It is useful background but is
-explicitly superseded as the central contribution by the scaling report.
+explicitly superseded as the central contribution by the certificate-gap
+report.
 
 ## What is verified, falsified, and still open
 
@@ -441,6 +493,12 @@ explicitly superseded as the central contribution by the scaling report.
 - Direct roots-of-unity QFT matrices agree with Qiskit's exact inverse-QFT
   matrices for `M<=16` to numerical precision. Tests detect reversed signs,
   missing swaps, wrong cutoffs, and coordinate-order mistakes.
+- The certificate-gap audit found and corrected a reversed layer order in the
+  custom approximate-QFT decomposition. All approximate-QFT tables were
+  regenerated after the correction.
+- Exact finite distribution-TV, product-Hellinger, and prepared-fiber-state
+  trace certificates are implemented without factors and can approve some
+  cutoffs rejected by the original all-state certificate.
 - The hard-box chi-squared formula is an immediate finite-group
   autocorrelation/Parseval identity. No novelty is claimed for it.
 
@@ -454,6 +512,11 @@ explicitly superseded as the central contribution by the scaling report.
   models A, B, and D and tied in saturated model C.
 - The five-percent QFT selector does not save controlled-phase gates anywhere
   in the frozen `d=2..5`, `M=8..128`, `m=4,8,12,24` grid.
+- That selector result does not reflect a fundamental exact-QFT requirement:
+  the final held-out endpoint safely omitted one or two layers in the stated
+  finite cells. The original positive selector remains falsified because it
+  always chooses exact; the broader “truncation cannot work” interpretation is
+  also falsified.
 - The finite RV-structured comparator does not establish that approximate-QFT
   error is equivalent to Ragavan–Vaikuntanathan sparse whole-run corruption;
   its theorem hypotheses are explicitly marked inapplicable in these toy
@@ -464,6 +527,8 @@ explicitly superseded as the central contribution by the scaling report.
 - No claim that this code is faster than Shor's or Regev's published method.
 - No proof that all approximate QFTs fail; only the stated worst-case
   certificate has the derived barrier.
+- No proof that all empirically safe cutoffs are information-theoretically
+  sufficient; the new result is state/model/decoder-specific.
 - No hardware experiment or calibrated device-noise result.
 - No publication-priority or “breakthrough” claim.
 - No generalization from the hard-box surrogate to Regev's full algorithm
@@ -573,9 +638,9 @@ are not treated as interchangeable noise parameters.
 ## Repository layout
 
 ```text
-regev_research/   16 Python modules for circuits, exact laws, lattices, and studies
-scripts/           8 reproducible entry points
-tests/            15 test files; 96 tests currently pass
+regev_research/   17 Python modules for circuits, exact laws, lattices, and studies
+scripts/           9 reproducible entry points
+tests/            16 test files; 102 tests currently pass
 results/          frozen raw and aggregate outputs
 figures/          plots from the original and red-team studies
 external/         audited arithmetic dependency at a fixed commit
@@ -590,6 +655,7 @@ external/         audited arithmetic dependency at a fixed commit
 | `core.py` | `RootedBase`/`RootedBaseFamily`, factor-blind modular math, bounded relation diagnostics, the superseded diversity selector, exact hard-box Fourier law, and stored-root factor extraction. |
 | `circuits.py` | Qiskit circuit builder using the audited modular-exponentiation gates; supports exact or distance-truncated product QFTs and compiled resource reporting. |
 | `qft_noise.py` | Direct roots-of-unity matrices, Qiskit matrix checks, exact/approximate fiber laws, four noise mappings, gate counts, omitted-angle formulas, dimensionless precision ratio, and factor-blind cutoff selectors. |
+| `qft_certificate.py` | Original theorem decision, strict boundary audit, exact distribution-TV and product-Hellinger certificates, prepared-fiber trace certificate, feasible matrix distances, and proof-slack utilities. |
 | `dual.py` | Factor-blind Cayley/HNF construction of `L` for oracle-side validation and theorem-consistent noisy-dual sample generation. The oracle is not passed to reconstruction. |
 | `lattice.py` | Exact denominator clearing, integer augmented lattice, verified LLL transform, Claim 5.1 prefix, `L`/`L0` classification, and primary factor endpoint. |
 | `redteam.py` | Exact hard-box and finite-Gaussian laws plus the six frozen rooted-base ablations. |
@@ -608,6 +674,7 @@ external/         audited arithmetic dependency at a fixed commit
 
 | Script | Purpose |
 |---|---|
+| `run_qft_certificate_gap.py` | Runs the final eight-semiprime exact-fiber holdout, actual lattice endpoint, sharper certificates, proof-slack table, controlled examples, resource compilation, clustered comparisons, and figure. |
 | `run_qft_precision_scaling.py` | Reproduces the current scaling grid, matrix audit, feasible exact-fiber endpoints, RV comparison, paired/clustered summaries, resources, and figures. |
 | `run_qft_noise_experiment.py` | Reproduces the superseded first finite QFT/noise experiment and model-C/Qiskit validation rows. |
 | `run_redteam.py` | Reproduces the frozen base-selection red-team study. |
@@ -619,7 +686,33 @@ external/         audited arithmetic dependency at a fixed commit
 
 ## Experimental results
 
-### 1. QFT precision scaling — current result
+### 1. QFT certification gap — current result
+
+The final frozen holdout uses eight new semiprimes, roots `(2,3)`, `d=2`,
+`M={8,16,32}`, `m=7`, hard-box and finite-Gaussian laws, every cutoff, and 64
+replicates per cell. It contains 12,288 raw endpoint trials and whole-`N`
+cluster intervals.
+
+The original theorem certified zero omitted layers. Empirically safe omitted
+layers were:
+
+| M | Hard box A | Finite Gaussian B |
+|---:|---:|---:|
+| 8 | 1 | 1 |
+| 16 | 1 | 2 |
+| 32 | 1 | 2 |
+
+“Safe” means both factor and verified-`L\L0` approximate-minus-exact lower
+confidence bounds exceeded the frozen `-0.10` non-inferiority margin. The
+largest safe cells saved six logical controlled phases and 12 QFT-only
+transpiled CX gates. These are not full-device savings.
+
+The proof audit shows the omitted-gate operator step is nearly tight, but the
+all-state-to-fiber, measurement, and event conversions discard substantial
+cancellation. This establishes Outcome C: a finite certification gap, not an
+information-theoretic exact-QFT barrier.
+
+### 2. QFT precision scaling — superseded certificate result
 
 Frozen analytic grid:
 
@@ -640,9 +733,10 @@ The positive adaptive-QFT hypothesis is falsified at the primary five-percent
 budget: every selected cutoff is exact and the selected logical
 controlled-phase saving is zero. This does not prove physical failure of all
 approximate QFTs; it identifies where this conservative certificate is
-incapable of authorizing truncation.
+incapable of authorizing truncation. The later certificate-gap holdout confirms
+that warning by finding safe rejected cutoffs.
 
-### 2. Quotient-deflation holdout — completed, negative
+### 3. Quotient-deflation holdout — completed, negative
 
 The completed study contains 20 held-out semiprimes, four sampling models,
 five sample-count budgets (`7..11`), 32 replicates per cell, 117,760 trial
@@ -669,7 +763,7 @@ in saturated model C. It did not reduce samples needed to reach the 0.8 target.
 This is a bounded finite-study result, not a theorem that all quotient-aware
 methods must fail.
 
-### 3. Base-selection red team — background evidence
+### 4. Base-selection red team — background evidence
 
 Across 24 frozen semiprimes, six root-selection methods, three sampling models,
 and 32 trials per cell, bounded-product diversity was negatively associated
@@ -678,7 +772,7 @@ with lattice factor success in the hard-box and finite-Gaussian models
 noisy-dual model (approximately `-0.06`). This model disagreement prevents a
 general claim about Regev's algorithm and is now background evidence only.
 
-### 4. Initial QFT/noise study — superseded background
+### 5. Initial QFT/noise study — superseded background
 
 For `d=3`, `M=8`, and `m=12`, the five-percent rule selected exact QFT and
 aggressive truncation reduced small-instance factor recovery in both A and B.
@@ -688,7 +782,8 @@ That result motivated the scaling theorem; it is not the final contribution.
 
 | Directory | Contents |
 |---|---|
-| `results/qft_precision_scaling/` | Current configuration, 1,200 analytic rows, matrix rows, exact endpoints, paired and cluster-bootstrap comparisons, resource rows, RV rows, and two figures. |
+| `results/qft_certificate_gap/` | Final frozen configuration, hashed completion manifest, 192 certificate rows, 12,288 raw trials, 192 per-`N` rows, 24 paired cluster rows, six gap summaries, 912 proof-slack rows, controlled examples, and certification/recovery figure. |
+| `results/qft_precision_scaling/` | Earlier certificate-scaling configuration, 1,200 analytic rows, matrix rows, exact endpoints, paired and cluster-bootstrap comparisons, resource rows, RV rows, and two figures. |
 | `results/qft_noise/` | First finite QFT/noise experiment: analytic/fiber/model-C/Qiskit/endpoint rows and two figures. |
 | `results/quotient_study/` | Completed 20-`N` quotient run: 20 checkpoints, 117,760 trials/resources, per-`N` aggregates, 200 paired comparisons, manifest, hashes, and completion record. Approximately 1.1 GB. |
 | `results/redteam/` | Frozen base families, exact A/B laws, 13,824 trial rows, per-`N` summaries, clustered statistics, configuration, and hashes. |
@@ -716,12 +811,12 @@ presented as cells in that notebook.
 |---|---|
 | Understand the project without running code | Read this README, then `QFT_PRECISION_SCALING_REPORT.md`. |
 | Check that the installed code is healthy | Run the full pytest command below. |
-| Reproduce the current contribution | Run `scripts/run_qft_precision_scaling.py`. |
+| Reproduce the current contribution | Run `scripts/run_qft_certificate_gap.py`. |
 | Inspect the original notebook audit | Open `REDTEAM_REVISION.md` and the revised notebook. |
 | Reproduce the base-selection red team | Run `scripts/run_redteam.py`. |
 | Inspect quotient-deflation results | Read `FROZEN_QUOTIENT_PROTOCOL.md` and `results/quotient_study/completion.json`. |
 | Recompute quotient predictor summaries without the expensive holdout | Run `scripts/analyze_quotient_study.py`. |
-| Work on QFT matrices/noise functions | Start with `regev_research/qft_noise.py` and `tests/test_qft_noise.py`. |
+| Work on QFT matrices/noise functions | Start with `qft_noise.py`, `qft_certificate.py`, and their matching tests. |
 | Work on classical factor recovery | Start with `regev_research/lattice.py`, then `quotient_recovery.py`. |
 
 ## How to read an experiment row
@@ -821,7 +916,7 @@ MPLCONFIGDIR=/tmp/mpl PYTHONPATH=. .venv/bin/python -m pytest -q
 Expected final line:
 
 ```text
-96 passed
+102 passed
 ```
 
 `PYTHONPATH=.` tells Python that the current repository is an import root.
@@ -836,7 +931,25 @@ Run the full test suite:
 MPLCONFIGDIR=/tmp/mpl PYTHONPATH=. .venv/bin/python -m pytest -q
 ```
 
-Reproduce the current QFT scaling contribution:
+Reproduce the current QFT certification-gap contribution:
+
+```bash
+MPLCONFIGDIR=/tmp/mpl PYTHONPATH=. .venv/bin/python scripts/run_qft_certificate_gap.py
+```
+
+This rewrites `results/qft_certificate_gap/`, including raw trials, per-`N`
+and cluster comparisons, proof-step slack, controlled examples, resources, and
+the certification-versus-recovery figure. `completion.json` records row counts
+and SHA-256 hashes for every output, so a copied result bundle can be checked
+against the files produced by that run.
+
+The repository also includes `.github/workflows/tests.yml`. It installs the
+pinned Python requirements and arithmetic dependency, then runs the same full
+pytest suite on Python 3.12 for every push and pull request. A green local run
+does not imply that GitHub Actions passed; the hosted check exists only after
+the branch is pushed to GitHub.
+
+Reproduce the earlier QFT scaling stage:
 
 ```bash
 MPLCONFIGDIR=/tmp/mpl PYTHONPATH=. .venv/bin/python scripts/run_qft_precision_scaling.py
@@ -973,6 +1086,8 @@ When adding a new method or experiment:
   [*Space-Efficient and Noise-Robust Quantum Factoring*](https://eprint.iacr.org/2023/1501).
 - Don Coppersmith, [*An Approximate Fourier Transform Useful in Quantum
   Factoring*](https://arxiv.org/abs/quant-ph/0201067).
+- Adriano Barenco, Artur Ekert, Kalle-Antti Suominen, and Päivi Törmä,
+  [*Approximate Quantum Fourier Transform and Decoherence*](https://arxiv.org/abs/quant-ph/9601018).
 - Yunseong Nam, Yuan Su, and Dmitri Maslov, [*Approximate Quantum Fourier
   Transform with O(n log n) T Gates*](https://arxiv.org/abs/1803.04933).
 - Przemysław Pawlitko, Natalia Moćko, Marcin Niemiec, and Piotr Chołda,
@@ -998,6 +1113,8 @@ When adding a new method or experiment:
   deterministic memory estimates.
 
 This repository should be read as an auditable sequence of corrections and
-falsification tests. Its strongest current result is a narrow precision-
-certificate scaling law, with the boundary between proof, finite experiment,
-and open hypothesis stated explicitly.
+falsification tests. Its strongest current result is a finite certification-
+gap result: the old worst-case theorem requires exact QFT, while corrected
+state-specific calculations and a frozen held-out lattice endpoint safely
+permit limited truncation. The boundary between proof, finite experiment, and
+open hypothesis is stated explicitly.

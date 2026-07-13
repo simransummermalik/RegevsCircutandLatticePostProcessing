@@ -429,24 +429,18 @@ def qft_matrix(M: int, cutoff: int | None = None, *, inverse: bool = True) -> np
     if cutoff < 0:
         raise ValueError("cutoff must be nonnegative")
     from qiskit import QuantumCircuit
-    from qiskit.circuit.library import QFTGate
     from qiskit.quantum_info import Operator
-
-    if cutoff >= q - 1:
-        circuit = QuantumCircuit(q)
-        circuit.append(QFTGate(q).inverse() if inverse else QFTGate(q), range(q))
-        return np.asarray(Operator(circuit).data, dtype=complex)
 
     # Use the same standard decomposition as QFTGate, omitting phases whose
     # qubit separation exceeds cutoff.  Inverse is applied after construction
     # so the approximation remains the adjoint of the forward approximation.
     circuit = QuantumCircuit(q)
-    for j in range(q):
+    for j in reversed(range(q)):
         circuit.h(j)
-        for k in range(j + 1, q):
-            separation = k - j
+        for k in reversed(range(j)):
+            separation = j - k
             if separation <= cutoff:
-                circuit.cp(pi / (2**separation), k, j)
+                circuit.cp(pi / (2**separation), j, k)
     for j in range(q // 2):
         circuit.swap(j, q - 1 - j)
     if inverse:

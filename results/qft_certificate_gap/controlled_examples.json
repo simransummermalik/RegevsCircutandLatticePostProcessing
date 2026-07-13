@@ -1,0 +1,80 @@
+{
+  "change_most_concentrated_on_low_probability_outcomes": {
+    "M": 8,
+    "N": 85,
+    "approximate_peak": "[0, 0]",
+    "cutoff": 0,
+    "distribution_tv": 0.028204841029192712,
+    "entropy_broadening_bits": -0.007401415968102398,
+    "exact_peak": "[0, 0]",
+    "fraction_change_on_low_probability_outcomes": 1.0,
+    "model": "B_exact_finite_discrete_gaussian",
+    "omitted_layers": 2,
+    "peak_torus_displacement": 0.0,
+    "top2_gap_change": 0.0
+  },
+  "extreme_loose": {
+    "M": 4,
+    "N": 15,
+    "bases": [
+      4,
+      1
+    ],
+    "cutoff": 0,
+    "distribution_certified": true,
+    "distribution_tv": 5.912538359805628e-35,
+    "mechanism": "fiber/measurement cancellation: identical measured laws despite nonzero all-state unitary error",
+    "original_certified": false
+  },
+  "largest_observed_broadening": {
+    "M": 32,
+    "N": 55,
+    "approximate_peak": "[0, 0]",
+    "cutoff": 0,
+    "distribution_tv": 0.6846711717648164,
+    "entropy_broadening_bits": 2.003034409151863,
+    "exact_peak": "[0, 0]",
+    "fraction_change_on_low_probability_outcomes": 0.5166580312709846,
+    "model": "A_uniform_hard_box",
+    "omitted_layers": 4,
+    "peak_torus_displacement": 0.0,
+    "top2_gap_change": 0.0
+  },
+  "largest_observed_peak_shift": {
+    "M": 16,
+    "N": 119,
+    "approximate_peak": "[0, 0]",
+    "cutoff": 0,
+    "distribution_tv": 0.4102233085424146,
+    "entropy_broadening_bits": 0.4950452697235459,
+    "exact_peak": "[12, 2]",
+    "fraction_change_on_low_probability_outcomes": 0.5229877594825029,
+    "model": "A_uniform_hard_box",
+    "omitted_layers": 3,
+    "peak_torus_displacement": 0.2795084971874737,
+    "top2_gap_change": 0.0
+  },
+  "near_tight_gate_step": {
+    "M": 128,
+    "cutoff": 5,
+    "mechanism": "largest singular-vector input aligns with the omitted-layer unitary error",
+    "operator_error": 0.04908245704582458,
+    "phase_sum_bound": 0.04908738521234052,
+    "q": 7,
+    "tightness_ratio": 0.999899604216142
+  },
+  "strongest_observed_top_peak_merge": {
+    "M": 8,
+    "N": 161,
+    "approximate_peak": "[0, 0]",
+    "cutoff": 0,
+    "distribution_tv": 0.15570175798829355,
+    "entropy_broadening_bits": 0.0433372175190323,
+    "exact_peak": "[0, 0]",
+    "fraction_change_on_low_probability_outcomes": 0.4874559862057123,
+    "model": "A_uniform_hard_box",
+    "omitted_layers": 2,
+    "peak_torus_displacement": 0.0,
+    "top2_gap_change": -0.0004290428009962703
+  }
+}

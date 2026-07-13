@@ -64,12 +64,12 @@ def build_arbitrary_base_circuit(
             if qft_cutoff < 0:
                 raise ValueError("qft_cutoff must be nonnegative")
             qft_subcircuit = QuantumCircuit(nd, name=f"ApproxQFT_t{qft_cutoff}")
-            for j in range(nd):
+            for j in reversed(range(nd)):
                 qft_subcircuit.h(j)
-                for k in range(j + 1, nd):
-                    separation = k - j
+                for k in reversed(range(j)):
+                    separation = j - k
                     if separation <= qft_cutoff:
-                        qft_subcircuit.cp(pi / (2**separation), k, j)
+                        qft_subcircuit.cp(pi / (2**separation), j, k)
             for j in range(nd // 2):
                 qft_subcircuit.swap(j, nd - 1 - j)
             if inverse_qft:

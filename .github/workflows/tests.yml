@@ -1,0 +1,38 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-research.txt
+
+      - name: Install Python dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-research.txt
+
+      - name: Install pinned arithmetic dependency
+        run: |
+          if [ ! -d external/regev-quantum-algorithm/.git ]; then
+            git clone https://github.com/Wlitkopa/regev-quantum-algorithm.git external/regev-quantum-algorithm
+          fi
+          git -C external/regev-quantum-algorithm fetch --depth 1 origin a18f75d414485086db9b257407e0bd01f8a8f81c
+          git -C external/regev-quantum-algorithm checkout a18f75d414485086db9b257407e0bd01f8a8f81c
+
+      - name: Run test suite
+        env:
+          MPLBACKEND: Agg
+          MPLCONFIGDIR: /tmp/mpl
+          PYTHONPATH: .
+        run: python -m pytest -q
+

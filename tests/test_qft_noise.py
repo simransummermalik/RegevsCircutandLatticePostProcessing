@@ -44,10 +44,10 @@ def test_matrix_validation_detects_sign_swap_and_endian_errors():
     # QFTGate itself already includes swaps, so appending it is the exact
     # control case rather than the failure case.
     no_swap = QuantumCircuit(3)
-    for j in range(3):
+    for j in reversed(range(3)):
         no_swap.h(j)
-        for k in range(j + 1, 3):
-            no_swap.cp(np.pi / (2 ** (k - j)), k, j)
+        for k in reversed(range(j)):
+            no_swap.cp(np.pi / (2 ** (j - k)), j, k)
     no_swap = no_swap.inverse()
     no_swap_matrix = np.asarray(Operator(no_swap).data)
     assert np.max(np.abs(no_swap_matrix - exact_inverse)) > 0.1

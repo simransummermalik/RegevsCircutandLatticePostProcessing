@@ -1,5 +1,11 @@
 # Outcome E: a finite-shot scaling limit for non-exact Regev QFTs
 
+> Superseded as the final contribution by `QFT_CERTIFICATE_GAP_REPORT.md`.
+> The analytic no-certificate law remains valid, but the final corrected
+> holdout shows empirically safe non-exact cutoffs that this worst-case theorem
+> rejects. Approximate-QFT tables in this stage were regenerated after fixing
+> the custom decomposition's reversed layer order.
+
 ## Title and abstract
 
 **Title.** *A finite-shot precision barrier for distance-truncated

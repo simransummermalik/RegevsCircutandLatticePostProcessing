@@ -1,5 +1,9 @@
 # QFT precision adversarial audit
 
+> Historical audit for the certificate-scaling stage. The final audit is
+> `QFT_CERTIFICATE_GAP_ADVERSARIAL_AUDIT.md`; corrected held-out data falsify
+> interpreting the Outcome-E certificate barrier as actual exact-QFT necessity.
+
 This audit is separate from the positive/negative scaling claim.
 
 ## Matrix-level adversaries
@@ -50,4 +54,3 @@ chooses exact QFT, and the first non-exact layer cannot satisfy the bound for
 any `M<=128` in the requested `d,m` range.  The surviving result is Outcome E:
 a rigorous no-certificate scaling limit plus finite endpoint evidence, not a
 resource-saving algorithm.
-

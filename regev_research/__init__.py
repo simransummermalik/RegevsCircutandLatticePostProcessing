@@ -49,6 +49,20 @@ from .qft_noise import (
     weighted_fiber_fourier_distribution,
     weighted_fiber_qft_tv_distance,
 )
+from .qft_certificate import (
+    CertificateDecision,
+    FiberStateAudit,
+    barrier_excludes_nonexact,
+    distribution_tv_certificate,
+    feasible_matrix_distances,
+    fiber_state_audit,
+    fiber_state_certificate,
+    first_nonexact_barrier,
+    hellinger_affinity,
+    original_certificate,
+    product_hellinger_certificate,
+    total_variation_distance,
+)
 
 __all__ = [
     "audit_square_base_family",
@@ -92,4 +106,16 @@ __all__ = [
     "dimensionless_precision_ratio",
     "weighted_fiber_fourier_distribution",
     "weighted_fiber_qft_tv_distance",
+    "CertificateDecision",
+    "FiberStateAudit",
+    "barrier_excludes_nonexact",
+    "distribution_tv_certificate",
+    "feasible_matrix_distances",
+    "fiber_state_audit",
+    "fiber_state_certificate",
+    "first_nonexact_barrier",
+    "hellinger_affinity",
+    "original_certificate",
+    "product_hellinger_certificate",
+    "total_variation_distance",
 ]

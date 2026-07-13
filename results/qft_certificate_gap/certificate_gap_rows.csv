@@ -1,0 +1,7 @@
+G_layers,M,empirically_safe_layers,exact_cutoff,model,original_certified_layers
+1,8,1,2,A_uniform_hard_box,0
+1,8,1,2,B_exact_finite_discrete_gaussian,0
+1,16,1,3,A_uniform_hard_box,0
+2,16,2,3,B_exact_finite_discrete_gaussian,0
+1,32,1,4,A_uniform_hard_box,0
+2,32,2,4,B_exact_finite_discrete_gaussian,0

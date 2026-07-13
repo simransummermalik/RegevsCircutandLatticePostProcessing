@@ -1,5 +1,10 @@
 # QFT precision theory: the finite-shot certificate and its scaling limit
 
+> This document proves a limitation of the original worst-case certificate.
+> `QFT_CERTIFICATE_PROOF_AUDIT.md` supplies the final boundary audit, and
+> `QFT_CERTIFICATE_GAP_REPORT.md` shows that the certificate is conservative
+> relative to corrected held-out recovery.
+
 Let `q=log2(M)`.  The distance-truncated inverse QFT keeps all controlled
 phases with qubit separation `r<=t` and removes those with `r>t`.  There are
 `q-r` phases at separation `r`, each of angle `pi/2^r`.

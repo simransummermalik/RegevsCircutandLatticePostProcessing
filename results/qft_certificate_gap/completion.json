@@ -1,0 +1,35 @@
+{
+  "freeze_version": "qft-certificate-gap-v1",
+  "heldout_moduli_executed": [
+    55,
+    65,
+    85,
+    95,
+    115,
+    119,
+    133,
+    161
+  ],
+  "known_factors_used_only_posthoc": true,
+  "primary_unit_of_generalization": "N",
+  "row_counts": {
+    "configuration_rows": 192,
+    "gap_rows": 6,
+    "paired_cluster_rows": 24,
+    "per_N_rows": 192,
+    "slack_rows": 912,
+    "trial_rows": 12288
+  },
+  "sha256": {
+    "certificate_gap_rows.csv": "99e22682f5ad1b2b2eb2f7c4c01bc1690879caa11b3d16a797acb3c5f6a0c6bf",
+    "certification_vs_recovery.png": "6a22d3df6faebffe30f9dfa50852e326575679768039897fe37d4ecc13ec4d86",
+    "configuration.json": "c8209b9dde73d45f1a5be1cf385f016cc0f0a53c59d846bbf0bdfdd604915956",
+    "configuration_rows.csv": "7a9f2617c8226ccb6ab9a07f98533ee1af08fa4bf44d76d0761ad71c1b56d853",
+    "controlled_examples.json": "bf7219b224102e00cd3fe4e19fd477fe8313bf6e2355107f68b6058df3ca509c",
+    "paired_cluster_rows.csv": "5ebbe9709956a97b3e229e8587324539eda516baf0f9b9cd85af92a7c1e64d8b",
+    "per_N_rows.csv": "13ac20de979fa0ba39a2224512db48aa6dcad8579d1bafd1a67c20f6a1ff5f28",
+    "proof_slack_rows.csv": "cd8838d6d49cbc81c1a109eb462f404e5a23cafa9dc52ec07fc236794c2e5772",
+    "trial_rows.csv": "b331e239c38260ffc0fb9ea31a55929e3398517a1e42fc4e1ce1c8f9647c5cfc"
+  },
+  "status": "complete"
+}

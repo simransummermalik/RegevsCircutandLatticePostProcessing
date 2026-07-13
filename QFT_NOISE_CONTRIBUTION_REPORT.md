@@ -1,8 +1,12 @@
 # A finite-parameter QFT-to-lattice criterion for Regev-style factoring
 
-> Superseded as the central contribution by `QFT_PRECISION_SCALING_REPORT.md`.
+> Superseded as the central contribution by `QFT_CERTIFICATE_GAP_REPORT.md`;
+> `QFT_PRECISION_SCALING_REPORT.md` is the intervening certificate-only stage.
 > This file records the first finite-parameter experiment and remains useful
 > background; its `d=3,M=8,m=12` result must not be read as the final claim.
+> Approximate-QFT rows were regenerated after the certificate-gap audit found
+> and corrected a reversed custom-decomposition gate order. Full-cutoff tests
+> now exercise the custom circuit instead of substituting `QFTGate`.
 
 ## Status and claim scope
 
@@ -346,8 +350,8 @@ certified for a truncated transform at these parameters.
 
 The raw `fiber_rows.csv` contains the exact roots-of-unity laws.  On the three
 development semiprimes, A's TV distances for `t=0,1` range from roughly
-`0.50--0.57` and `0.54--0.69`; B's range from roughly `0.43--0.62` and
-`0.45--0.68`.  Both become numerical zero at the exact cutoff `t=2`.  The
+`0.50--0.57` and `0.12--0.16`; B's range from roughly `0.43--0.62` and
+`0.09--0.14`.  Both become numerical zero at the exact cutoff `t=2`.  The
 Gaussian model is therefore not silently identified with the hard box; its
 fiber interference differs on these collision-rich small instances.
 
@@ -356,8 +360,9 @@ fiber interference differs on these collision-rich small instances.
 The `endpoint_rows.csv` table is the primary empirical endpoint.  At seven
 samples and 32 paired replicates, exact `t=2` recovery was `0.81--0.97` for A
 and `0.875--1.00` for B on `N=35,77,143`.  The same inputs at `t=0` gave
-`0.44--0.63` for A and `0.25--0.53` for B; `t=1` gave `0.16--0.50` for A
-and `0.22--0.47` for B.  These are feasibility estimates, not a claim of
+`0.44--0.63` for A and `0.25--0.53` for B; `t=1` gave `0.75--0.91` for A
+and `0.59--0.94` for B.  Thus the aggressive cutoff fails materially, while
+the one-layer cutoff is much closer to exact recovery.  These are feasibility estimates, not a claim of
 asymptotic performance.  Each row also records a 95% Wilson binomial
 interval over replicates; repeated shots are not treated as independent
 inputs, and `N` remains the primary paired unit.
@@ -392,13 +397,14 @@ roots-of-unity QFT definition, and feed the actual integer augmented lattice
 to LLL and stored-root factor extraction.
 
 **Verified empirical result for the uniform-box notebook.** Under the frozen
-finite hard-box law, truncated QFTs at `t=0,1` materially change the exact
-Fourier law and lower factor recovery on the small augmented-lattice endpoint;
-the five-percent factor-blind certificate selects the exact QFT.
+finite hard-box law, aggressive `t=0` truncation materially changes the exact
+Fourier law and lowers factor recovery. The one-layer `t=1` cutoff has a much
+smaller distribution and recovery effect, even though the five-percent
+worst-case certificate still selects exact QFT.
 
 **Unverified hypothesis concerning full Regev sampling.** The exact finite
-Gaussian state shows the same qualitative endpoint degradation in these small
-collision-rich tests, but this is not a proof for Regev's asymptotic Gaussian
+Gaussian state shows the same aggressive-versus-one-layer distinction in these
+small collision-rich tests, but this is not a proof for Regev's asymptotic Gaussian
 state, a hardware implementation, or arbitrary lattice families.  Model C is
 the theorem-consistent noisy-dual check, not evidence that QFT truncation is
 safe or unsafe there.
