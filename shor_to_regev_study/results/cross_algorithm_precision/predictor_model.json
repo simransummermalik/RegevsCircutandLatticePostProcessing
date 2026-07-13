@@ -1,0 +1,45 @@
+{
+  "boundary_threshold_from_development": 0.9620324480449225,
+  "coefficients": [
+    0.7185836556404794,
+    0.5599758085138087,
+    0.11940989188697645,
+    -0.13203336665961884,
+    -0.8880881625255104,
+    -0.08529950327875273,
+    0.04458265924262801
+  ],
+  "feature_names": [
+    "algorithm_is_shor",
+    "register_bits",
+    "omitted_layers",
+    "shots",
+    "measured_tv",
+    "decoder_boundary_proxy",
+    "controlled_phase_saving"
+  ],
+  "intercept": 2.9466772226756124,
+  "layer_threshold_from_development": 11.0,
+  "mean": [
+    0.7428571428571429,
+    8.428571428571429,
+    4.214285714285714,
+    5.019047619047619,
+    0.12033744271877846,
+    0.2247994327288852,
+    15.5
+  ],
+  "scale": [
+    0.4370588154508104,
+    2.775255090316301,
+    2.661325433167558,
+    2.7324538156893445,
+    0.20413777808523964,
+    0.3000558849425317,
+    14.657762448614045
+  ],
+  "tv_threshold_from_development": 0.16379111408360086,
+  "uses_factors": false,
+  "uses_success_as_feature": false,
+  "uses_true_orders": false
+}

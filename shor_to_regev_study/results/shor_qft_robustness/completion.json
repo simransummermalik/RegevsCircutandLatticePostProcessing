@@ -1,0 +1,38 @@
+{
+  "freeze_identifier": "shor-qft-robustness-v1",
+  "heldout_instances_executed": [
+    "35:2",
+    "35:11",
+    "39:2",
+    "51:2",
+    "55:2",
+    "65:3",
+    "77:8",
+    "91:9"
+  ],
+  "primary_generalization_unit": "(N,base)",
+  "row_counts": {
+    "bootstrap_draw_rows": 120000,
+    "configuration_rows": 192,
+    "leave_one_instance_out_rows": 144,
+    "margin_sensitivity_rows": 96,
+    "margin_summary_rows": 24,
+    "paired_exact_test_rows": 36,
+    "paired_rows": 24,
+    "per_instance_rows": 192,
+    "trial_rows": 12288
+  },
+  "sha256": {
+    "bootstrap_draw_rows.csv": "8e2e35ef6d9381a532797e5b213d978211e0222a756db8c21a20d636af2e8e70",
+    "configuration.json": "ac9f63a43c0598e0f617525d30834eef3b9bd72d779561c3d93d0f17cc6cfe2c",
+    "configuration_rows.csv": "878f8aaf5a2b30de2bd4dab23f555ab488348d7cee3ce4abc2e287502ca07ac7",
+    "leave_one_instance_out_rows.csv": "767103b93ab8f10379025a823b149261f677d174cb1644c3696bd7eca31088e9",
+    "margin_sensitivity_rows.csv": "06f673b2cda925d0ea0487b9f377a8f74b9b7747823c6b72b50d5bd4b45a722e",
+    "margin_summary_rows.csv": "16276139169ad9623ce45675dbf6e5bfbdd3ffb5fd937fde787262421792e86b",
+    "paired_exact_test_rows.csv": "ef42c27bb669c4c7503dd79e0d3532500a039f45e1dac998f01a4b7e09882b2a",
+    "paired_rows.csv": "d8b35718bf73614399deee4fa0c9937335965f4d781a9f2d9a0a92cad325719c",
+    "per_instance_rows.csv": "592b33adc948ec6e62c18a62dc29489d92337c0728165e9f534ba062c327c8c4",
+    "trial_rows.csv": "6f7a561156107356654f0f21b94a8cdf51f293cf8a83ae69c42fbd104c811595"
+  },
+  "status": "complete"
+}

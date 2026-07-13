@@ -1,0 +1,13 @@
+bin,count,lower,mean_prediction,method,observed_frequency,upper
+0,5,0.0,0.1472509301497494,factor_blind_logistic,0.6,0.2
+1,16,0.2,0.3020773600386083,factor_blind_logistic,0.5,0.4
+2,28,0.4,0.5121234128439555,factor_blind_logistic,0.5714285714285714,0.6000000000000001
+3,93,0.6000000000000001,0.7061691328833926,factor_blind_logistic,0.946236559139785,0.8
+4,146,0.8,0.9859471760535187,factor_blind_logistic,1.0,1.0
+0,228,0.0,0.0,worst_case_certificate,0.881578947368421,0.2
+4,60,0.8,1.0,worst_case_certificate,1.0,1.0
+0,45,0.0,0.0,measured_tv_alone,0.5333333333333333,0.2
+4,243,0.8,1.0,measured_tv_alone,0.9753086419753086,1.0
+4,288,0.8,1.0,omitted_layers_alone,0.90625,1.0
+0,6,0.0,0.0,decoder_boundary_proxy_alone,1.0,0.2
+4,282,0.8,1.0,decoder_boundary_proxy_alone,0.9042553191489362,1.0

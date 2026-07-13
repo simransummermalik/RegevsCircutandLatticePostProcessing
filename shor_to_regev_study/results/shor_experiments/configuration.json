@@ -1,0 +1,38 @@
+{
+  "decoder_received_factors": false,
+  "decoder_received_true_order": false,
+  "examples": [
+    [
+      15,
+      2,
+      "factor-yielding order"
+    ],
+    [
+      15,
+      14,
+      "trivial square root"
+    ],
+    [
+      21,
+      2,
+      "factor-yielding order"
+    ],
+    [
+      21,
+      4,
+      "odd order"
+    ],
+    [
+      21,
+      5,
+      "trivial square root"
+    ],
+    [
+      33,
+      10,
+      "factor-yielding order"
+    ]
+  ],
+  "seed_base": 2026071201,
+  "shots": 64
+}

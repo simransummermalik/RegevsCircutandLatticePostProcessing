@@ -1,0 +1,6 @@
+{
+  "meaning": "Both Shor and Regev show held-out task robustness beyond the worst-case certificate.",
+  "outcome": "A",
+  "regev_uncertified_noninferior_truncation": true,
+  "shor_uncertified_noninferior_truncation": true
+}

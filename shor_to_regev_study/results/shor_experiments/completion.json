@@ -1,0 +1,10 @@
+{
+  "row_counts": {
+    "examples": 6
+  },
+  "sha256": {
+    "configuration.json": "75068e98899f9623241ae8e1fcca0759295f1a1d2404a8f2af9156317185b3f1",
+    "examples.csv": "3b008aa0cba5f71b85f84c4b22b4e139b684b79570eb8fbcfa79426c280da392"
+  },
+  "status": "complete"
+}

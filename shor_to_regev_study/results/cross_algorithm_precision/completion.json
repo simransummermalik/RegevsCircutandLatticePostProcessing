@@ -1,0 +1,27 @@
+{
+  "outcome": "A",
+  "row_counts": {
+    "algorithm_summary_rows": 18,
+    "predictor_calibration_rows": 12,
+    "predictor_development_rows": 210,
+    "predictor_evaluation_rows": 5,
+    "predictor_failure_rows": 319,
+    "predictor_heldout_rows": 288,
+    "predictor_prediction_rows": 1440,
+    "task_aware_records": 768
+  },
+  "sha256": {
+    "algorithm_summary_rows.csv": "ebfe48b7d4183a667a88b197920f3dbcd6dc3a995a2c7eb214aae1d620cbb571",
+    "configuration.json": "060b69aef2eb20d0fae9d0a430ebc43e3b25d1db717c63fc43a0f5409e21a12a",
+    "outcome.json": "d4a49f20b4a7415f4ebd48812ee6df731696972deb1eba1be043e1d7807e2159",
+    "predictor_calibration_rows.csv": "de8ef172d29510dd5f804459a35d779dc80b54ba9a9d2b430fab1f73b1484891",
+    "predictor_development_rows.csv": "f1839862f1c1b1bfad9638adaf3ff58bed1ced33f848eddc02997967365d7eaa",
+    "predictor_evaluation_rows.csv": "afaeba3407bd7e53335abb3fc158f30fc21853f630899bed3a21a4920b6e5c3e",
+    "predictor_failure_rows.csv": "3134e4e32b35644e1cbcdb9ec8584a1b773a30fc741b84f9ef75a0183a015627",
+    "predictor_heldout_rows.csv": "c880de33d6ec3a0fddd603f438f123dca9f237c0dc2985e6705e0ebf3922e24b",
+    "predictor_model.json": "8cd7acd6f862ba9bd3e2d5e1294aa1d6e27d70215eed6cd538924076c9a2fc40",
+    "predictor_prediction_rows.csv": "0347d8b4989d0fa533688b49bcb48ada214c95432b8b1f2324ab6176d7cfb53a",
+    "task_aware_records.csv": "e6254f453657d04369b1fda659b3728a559888b4d36f1541426d7a054f50990d"
+  },
+  "status": "complete"
+}

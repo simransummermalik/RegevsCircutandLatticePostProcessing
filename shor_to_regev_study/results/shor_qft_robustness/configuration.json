@@ -1,0 +1,76 @@
+{
+  "bootstrap_replicates": 5000,
+  "freeze_identifier": "shor-qft-robustness-v1",
+  "heldout_instances": [
+    [
+      35,
+      2
+    ],
+    [
+      35,
+      11
+    ],
+    [
+      39,
+      2
+    ],
+    [
+      51,
+      2
+    ],
+    [
+      55,
+      2
+    ],
+    [
+      65,
+      3
+    ],
+    [
+      77,
+      8
+    ],
+    [
+      91,
+      9
+    ]
+  ],
+  "known_factors_used_only_posthoc": true,
+  "known_order_used_by_decoder": false,
+  "loss_budget": 0.05,
+  "master_seed": 2026071201,
+  "noninferiority_margin": 0.1,
+  "omitted_layers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "readout_bitflip_probabilities": [
+    0.0,
+    0.01
+  ],
+  "replicates": 64,
+  "row_counts": {
+    "bootstrap_draw_rows": 120000,
+    "configuration_rows": 192,
+    "leave_one_instance_out_rows": 144,
+    "margin_sensitivity_rows": 96,
+    "margin_summary_rows": 24,
+    "paired_exact_test_rows": 36,
+    "paired_rows": 24,
+    "per_instance_rows": 192,
+    "trial_rows": 12288
+  },
+  "sensitivity_margins": [
+    0.02,
+    0.05,
+    0.1,
+    0.15
+  ],
+  "shot_counts": [
+    4,
+    8,
+    16
+  ]
+}

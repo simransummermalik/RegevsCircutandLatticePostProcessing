@@ -1,0 +1,53 @@
+{
+  "known_factors_as_predictor_features": false,
+  "known_orders_as_predictor_features": false,
+  "margin": 0.1,
+  "predictor_features": [
+    "algorithm_is_shor",
+    "register_bits",
+    "omitted_layers",
+    "shots",
+    "measured_tv",
+    "decoder_boundary_proxy",
+    "controlled_phase_saving"
+  ],
+  "regev_results_path": "results/qft_certificate_gap",
+  "row_counts": {
+    "algorithm_summary_rows": 18,
+    "predictor_calibration_rows": 12,
+    "predictor_development_rows": 210,
+    "predictor_evaluation_rows": 5,
+    "predictor_failure_rows": 319,
+    "predictor_heldout_rows": 288,
+    "predictor_prediction_rows": 1440,
+    "task_aware_records": 768
+  },
+  "shor_development_instances": [
+    [
+      15,
+      2
+    ],
+    [
+      15,
+      14
+    ],
+    [
+      21,
+      2
+    ],
+    [
+      21,
+      4
+    ],
+    [
+      21,
+      5
+    ],
+    [
+      33,
+      10
+    ]
+  ],
+  "shor_results_path": "results/shor_qft_robustness",
+  "uses_frozen_regev_results_read_only": true
+}
