@@ -381,7 +381,12 @@ def coherent_phase_tv_bound(max_phase_error: float) -> float:
 def bitflip_channel(
     probabilities: np.ndarray, bitflip_probability: float
 ) -> np.ndarray:
-    """Apply independent computational-basis bit flips to a tensor law."""
+    """Apply an independent bit-flip channel to every qubit of a tensor law.
+
+    Each array axis represents one power-of-two-sized quantum register.  For
+    example, an array of shape ``(4, 4)`` has two two-qubit registers, so this
+    function applies four independent Bernoulli flips—not one flip per axis.
+    """
 
     p = float(bitflip_probability)
     if not 0 <= p <= 1:
@@ -389,19 +394,15 @@ def bitflip_channel(
     arr = np.asarray(probabilities, dtype=float)
     if arr.ndim == 0 or any(size <= 0 or size & (size - 1) for size in arr.shape):
         raise ValueError("each outcome axis must have a power-of-two length")
-    out = np.zeros_like(arr)
-    for index in np.ndindex(arr.shape):
-        mass = arr[index]
-        if mass == 0:
-            continue
-        for mask in range(1 << arr.ndim):
-            target = list(index)
-            flips = mask.bit_count()
-            for axis, size in enumerate(arr.shape):
-                if mask & (1 << axis):
-                    bit_width = int(log2(size))
-                    target[axis] ^= 1 << (bit_width - 1)
-            out[tuple(target)] += mass * p**flips * (1 - p) ** (arr.ndim - flips)
+    if np.any(~np.isfinite(arr)) or np.any(arr < 0) or float(arr.sum()) <= 0:
+        raise ValueError("probabilities must be finite, nonnegative, and have positive mass")
+
+    out = arr / arr.sum()
+    for axis, size in enumerate(arr.shape):
+        for bit in range(int(log2(size))):
+            xor_indices = np.arange(size) ^ (1 << bit)
+            flipped = np.take(out, xor_indices, axis=axis)
+            out = (1.0 - p) * out + p * flipped
     return out / out.sum()
 
 

@@ -15,6 +15,11 @@ from regev_research.qft_certificate import (
     total_variation_distance,
 )
 from regev_research.qft_noise import fiber_fourier_distribution
+from scripts.run_qft_certificate_gap import (
+    exact_sign_flip_p,
+    exact_sign_test,
+    largest_uniformly_certified_layers,
+)
 
 
 def test_strict_barrier_and_nonstrict_certificate_boundary():
@@ -73,3 +78,27 @@ def test_observed_matrix_errors_respect_triangle_bounds():
     distances = feasible_matrix_distances(2, 8, cutoff=1)
     assert distances["one_register_operator_error"] <= distances["one_register_triangle_bound"] + 1e-12
     assert distances["product_operator_error"] <= distances["product_triangle_bound"] + 1e-12
+
+
+def test_certified_layer_count_is_derived_from_all_configuration_rows():
+    rows = [
+        {"N": 15, "M": 8, "model": "A", "omitted_layers": 0, "original_certified": True},
+        {"N": 21, "M": 8, "model": "A", "omitted_layers": 0, "original_certified": True},
+        {"N": 15, "M": 8, "model": "A", "omitted_layers": 1, "original_certified": True},
+        {"N": 21, "M": 8, "model": "A", "omitted_layers": 1, "original_certified": False},
+    ]
+    assert largest_uniformly_certified_layers(rows, 8, "A") == 0
+    rows[-1]["original_certified"] = True
+    assert largest_uniformly_certified_layers(rows, 8, "A") == 1
+
+
+def test_exact_paired_sensitivity_statistics_have_known_small_cases():
+    values = np.asarray([1.0, 1.0, 1.0])
+    sign = exact_sign_test(values)
+    assert sign == {
+        "nonzero_pairs": 3,
+        "positive_pairs": 3,
+        "two_sided_p": 0.25,
+    }
+    assert exact_sign_flip_p(values) == pytest.approx(0.25)
+    assert exact_sign_test(np.zeros(3))["two_sided_p"] == 1.0

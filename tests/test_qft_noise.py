@@ -119,9 +119,22 @@ def test_noise_mapping_and_hybrid_bound():
 
 def test_bitflip_channel_preserves_mass_and_rejects_invalid():
     probabilities = np.zeros((4, 4))
-    probabilities[1, 2] = 1.0
-    output = bitflip_channel(probabilities, 0.1)
+    probabilities[0, 0] = 1.0
+    p = 0.1
+    output = bitflip_channel(probabilities, p)
     assert np.isclose(output.sum(), 1.0)
     assert output.shape == probabilities.shape
+    # There are four physical bits across two length-four axes.  Starting at
+    # 0000, each outcome has the independent Bernoulli probability determined
+    # by the Hamming weight of its two register indices.
+    for first in range(4):
+        for second in range(4):
+            weight = first.bit_count() + second.bit_count()
+            assert output[first, second] == pytest.approx(
+                p**weight * (1 - p) ** (4 - weight)
+            )
+    assert np.argmax(bitflip_channel(probabilities, 1.0)) == np.ravel_multi_index((3, 3), (4, 4))
     with pytest.raises(ValueError):
         bitflip_channel(probabilities, 1.1)
+    with pytest.raises(ValueError):
+        bitflip_channel(np.asarray([[1.0, -0.1], [0.0, 0.1]]), 0.1)

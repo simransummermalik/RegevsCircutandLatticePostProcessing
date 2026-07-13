@@ -4,7 +4,7 @@
 
 This project implements and audits a small-scale, end-to-end Regev-style factoring pipeline: quantum-circuit construction, several exact sampling models, augmented integer-lattice construction, LLL recovery, exact relation verification, stored-root classification, and factor extraction.
 
-The main research question was whether a theorem requiring the exact quantum Fourier transform (QFT) revealed a genuine loss of factoring information or merely used an overly conservative error bound. The original worst-case certificate predicted that no resource-saving approximate-QFT cutoff could be certified under the frozen 5% loss budget. In held-out experiments on eight previously unused semiprimes, however, omitting one QFT phase layer was empirically non-inferior in every tested hard-box and finite-Gaussian setting, while the Gaussian model safely omitted two layers at `M=16` and `M=32` under the preregistered criterion.
+The main research question was whether a theorem requiring the exact quantum Fourier transform (QFT) revealed a genuine loss of factoring information or merely used an overly conservative error bound. The original worst-case certificate predicted that no resource-saving approximate-QFT cutoff could be certified under the frozen 5% loss budget. In held-out experiments on eight previously unused semiprimes, however, omitting one QFT phase layer was empirically non-inferior in every tested hard-box and finite-Gaussian setting, while two omitted layers met the preregistered absolute `0.10` non-inferiority rule for the Gaussian model at `M=16` and `M=32`.
 
 The largest observed saving was six logical controlled-phase gates and 12 QFT-only transpiled CX gates, not a demonstrated end-to-end hardware speedup. The result is limited to small semiprimes, `d=2`, `M<=32`, `m=7`, two finite exact state models, and the repository's current LLL decoder; it does not prove that truncation is safe for full-scale Regev factoring or every post-processing algorithm. The finding matters because it shows that failure of a worst-case QFT certificate is not evidence of information-theoretic or algorithmic failure, and that state-specific roots-of-unity cancellation can support sharper, less wasteful precision decisions.
 
@@ -357,8 +357,9 @@ A complete theorem audit found and corrected a reversed gate-order bug in the
 custom approximate QFT, invalidated the old approximate rows, and regenerated
 them. Three factor-blind state/distribution certificates and a new eight-
 semiprime holdout then measured the gap between theorem rejection and actual
-recovery. One omitted phase layer was empirically safe in every tested
-hard-box/Gaussian cell; the Gaussian safely omitted two layers at `M=16,32`.
+recovery. One omitted phase layer met the frozen non-inferiority rule in every
+tested hard-box/Gaussian cell; the Gaussian met it with two layers at
+`M=16,32`.
 The final result is Outcome C: the old exact-QFT requirement was mainly a
 proof-technique limitation in this finite regime.
 
@@ -412,7 +413,7 @@ semiprimes:
 - the original certificate approved zero omitted layers;
 - one layer was empirically non-inferior for A and B at `M=8,16,32`;
 - B was empirically non-inferior with two omitted layers at `M=16,32`;
-- safe cells saved up to six logical controlled phases and 12 QFT-only
+- cells meeting the frozen rule saved up to six logical controlled phases and 12 QFT-only
   transpiled CX gates;
 - an explicit finite example has identical exact/approximate measurement laws
   even though the original certificate rejects.
@@ -432,11 +433,12 @@ does not say an unknown sharper, state-specific analysis could never do so.
 
 The final holdout supplies that missing state-specific evidence: exact
 roots-of-unity distribution and Hellinger certificates approve some
-truncations, and the preregistered recovery endpoint safely omits layers that
-the original theorem rejects. The old inequality is still useful as a robust
+truncations, and the preregistered recovery endpoint meets its declared
+non-inferiority rule after omitting layers that the original theorem rejects.
+The old inequality is still useful as a robust
 all-state guarantee, but it is not a necessary precision condition.
 
-The complete test suite currently reports **102 passed**.
+The complete test suite currently reports **104 passed**.
 
 ## Read this first
 
@@ -513,8 +515,9 @@ report.
 - The five-percent QFT selector does not save controlled-phase gates anywhere
   in the frozen `d=2..5`, `M=8..128`, `m=4,8,12,24` grid.
 - That selector result does not reflect a fundamental exact-QFT requirement:
-  the final held-out endpoint safely omitted one or two layers in the stated
-  finite cells. The original positive selector remains falsified because it
+  the final held-out endpoint met its frozen non-inferiority rule with one or
+  two omitted layers in the stated finite cells. The original positive
+  selector remains falsified because it
   always chooses exact; the broader “truncation cannot work” interpretation is
   also falsified.
 - The finite RV-structured comparator does not establish that approximate-QFT
@@ -527,7 +530,7 @@ report.
 - No claim that this code is faster than Shor's or Regev's published method.
 - No proof that all approximate QFTs fail; only the stated worst-case
   certificate has the derived barrier.
-- No proof that all empirically safe cutoffs are information-theoretically
+- No proof that all empirically non-inferior cutoffs are information-theoretically
   sufficient; the new result is state/model/decoder-specific.
 - No hardware experiment or calibrated device-noise result.
 - No publication-priority or “breakthrough” claim.
@@ -640,7 +643,7 @@ are not treated as interchangeable noise parameters.
 ```text
 regev_research/   17 Python modules for circuits, exact laws, lattices, and studies
 scripts/           9 reproducible entry points
-tests/            16 test files; 102 tests currently pass
+tests/            16 test files; 104 tests currently pass
 results/          frozen raw and aggregate outputs
 figures/          plots from the original and red-team studies
 external/         audited arithmetic dependency at a fixed commit
@@ -693,8 +696,8 @@ The final frozen holdout uses eight new semiprimes, roots `(2,3)`, `d=2`,
 replicates per cell. It contains 12,288 raw endpoint trials and whole-`N`
 cluster intervals.
 
-The original theorem certified zero omitted layers. Empirically safe omitted
-layers were:
+The original theorem certified zero omitted layers. The largest omissions
+meeting the frozen absolute `0.10` non-inferiority rule were:
 
 | M | Hard box A | Finite Gaussian B |
 |---:|---:|---:|
@@ -702,10 +705,19 @@ layers were:
 | 16 | 1 | 2 |
 | 32 | 1 | 2 |
 
-“Safe” means both factor and verified-`L\L0` approximate-minus-exact lower
+Passing means both factor and verified-`L\L0` approximate-minus-exact lower
 confidence bounds exceeded the frozen `-0.10` non-inferiority margin. The
-largest safe cells saved six logical controlled phases and 12 QFT-only
+largest passing cells saved six logical controlled phases and 12 QFT-only
 transpiled CX gates. These are not full-device savings.
+
+Post-hoc robustness checks preserve but qualify that result. Every selected
+cutoff still passed after removing each held-out `N` in turn. Exact paired
+sign-flip tests at the `-0.10` boundary returned one-sided sensitivity
+`p<=0.015625` for the selected cells, under the test's symmetry assumption.
+At a stricter absolute `0.05` margin, at least one omitted layer still passed
+in all six cells, but the Gaussian `M=16` result fell from two layers to one;
+at `0.02`, hard-box `M=8` permitted no omission. These analyses were not
+preregistered and do not increase the number of independent moduli.
 
 The proof audit shows the omitted-gate operator step is nearly tight, but the
 all-state-to-fiber, measurement, and event conversions discard substantial
@@ -734,7 +746,7 @@ budget: every selected cutoff is exact and the selected logical
 controlled-phase saving is zero. This does not prove physical failure of all
 approximate QFTs; it identifies where this conservative certificate is
 incapable of authorizing truncation. The later certificate-gap holdout confirms
-that warning by finding safe rejected cutoffs.
+that warning by finding rejected cutoffs that met the frozen recovery rule.
 
 ### 3. Quotient-deflation holdout — completed, negative
 
@@ -782,7 +794,7 @@ That result motivated the scaling theorem; it is not the final contribution.
 
 | Directory | Contents |
 |---|---|
-| `results/qft_certificate_gap/` | Final frozen configuration, hashed completion manifest, 192 certificate rows, 12,288 raw trials, 192 per-`N` rows, 24 paired cluster rows, six gap summaries, 912 proof-slack rows, controlled examples, and certification/recovery figure. |
+| `results/qft_certificate_gap/` | Final frozen configuration, hashed completion manifest, 192 certificate rows, 12,288 raw trials, 192 per-`N` rows, 24 paired cluster rows, six gap summaries, 912 proof-slack rows, raw bootstrap draws, exact paired tests, leave-one-`N`-out and margin-sensitivity tables, controlled examples, and certification/recovery figure. |
 | `results/qft_precision_scaling/` | Earlier certificate-scaling configuration, 1,200 analytic rows, matrix rows, exact endpoints, paired and cluster-bootstrap comparisons, resource rows, RV rows, and two figures. |
 | `results/qft_noise/` | First finite QFT/noise experiment: analytic/fiber/model-C/Qiskit/endpoint rows and two figures. |
 | `results/quotient_study/` | Completed 20-`N` quotient run: 20 checkpoints, 117,760 trials/resources, per-`N` aggregates, 200 paired comparisons, manifest, hashes, and completion record. Approximately 1.1 GB. |
@@ -916,7 +928,7 @@ MPLCONFIGDIR=/tmp/mpl PYTHONPATH=. .venv/bin/python -m pytest -q
 Expected final line:
 
 ```text
-102 passed
+104 passed
 ```
 
 `PYTHONPATH=.` tells Python that the current repository is an import root.
@@ -938,7 +950,8 @@ MPLCONFIGDIR=/tmp/mpl PYTHONPATH=. .venv/bin/python scripts/run_qft_certificate_
 ```
 
 This rewrites `results/qft_certificate_gap/`, including raw trials, per-`N`
-and cluster comparisons, proof-step slack, controlled examples, resources, and
+and cluster comparisons, raw bootstrap draws, post-hoc exact/leave-one-out/
+margin sensitivity checks, proof-step slack, controlled examples, resources, and
 the certification-versus-recovery figure. `completion.json` records row counts
 and SHA-256 hashes for every output, so a copied result bundle can be checked
 against the files produced by that run.
@@ -1115,6 +1128,7 @@ When adding a new method or experiment:
 This repository should be read as an auditable sequence of corrections and
 falsification tests. Its strongest current result is a finite certification-
 gap result: the old worst-case theorem requires exact QFT, while corrected
-state-specific calculations and a frozen held-out lattice endpoint safely
-permit limited truncation. The boundary between proof, finite experiment, and
+state-specific calculations and a frozen held-out lattice endpoint meet the
+declared recovery-loss tolerance with limited truncation. The boundary between
+proof, finite experiment, and
 open hypothesis is stated explicitly.

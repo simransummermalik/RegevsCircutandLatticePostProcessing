@@ -1,4 +1,4 @@
-M,N_cluster_count,bootstrap_replicates,cutoff,empirically_safe,factor_cluster_ci95_high,factor_cluster_ci95_low,factor_mean_difference,lminus_cluster_ci95_high,lminus_cluster_ci95_low,lminus_mean_difference,margin,model,omitted_layers
+M,N_cluster_count,bootstrap_replicates,cutoff,empirically_noninferior,factor_cluster_ci95_high,factor_cluster_ci95_low,factor_mean_difference,lminus_cluster_ci95_high,lminus_cluster_ci95_low,lminus_mean_difference,margin,model,omitted_layers
 8,8,5000,0,False,-0.013671875,-0.12890625,-0.064453125,-0.013671875,-0.12890625,-0.064453125,0.1,A_uniform_hard_box,2
 8,8,5000,1,True,0.0,-0.02734375,-0.01171875,0.0,-0.02734375,-0.01171875,0.1,A_uniform_hard_box,1
 8,8,5000,2,True,0.0,0.0,0.0,0.0,0.0,0.0,0.1,A_uniform_hard_box,0

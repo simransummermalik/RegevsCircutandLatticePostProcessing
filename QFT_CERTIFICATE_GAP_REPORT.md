@@ -12,8 +12,8 @@ roots-of-unity cancellation under measurement. An explicit finite example has
 zero exact distribution distance despite certificate rejection. In a frozen
 eight-semiprime holdout, the original certificate approved zero omitted layers,
 whereas one layer was empirically non-inferior for both hard-box and finite-
-Gaussian models at every `M in {8,16,32}`; the Gaussian model safely omitted
-two layers at `M=16` and `M=32` under the preregistered margin.
+Gaussian models at every `M in {8,16,32}`; two layers met the preregistered
+absolute `0.10` non-inferiority rule for the Gaussian model at `M=16,32`.
 
 This is not an information-theoretic theorem that truncation always works. It
 is a theorem that worst-case matrix rejection cannot establish failure on the
@@ -75,7 +75,7 @@ criterion. No information-theoretic failure was proved.
 | Claim | Meaning | Result here |
 |---|---|---|
 | A. Certificate failure | A sufficient theorem cannot approve the cutoff | Proven throughout the original five-percent non-exact grid |
-| B. Empirical recovery failure | Held-out factor or verified-`L\L0` rate decreases materially | False for the empirically safe cutoffs; true for some more aggressive cutoffs |
+| B. Empirical recovery failure | Held-out factor or verified-`L\L0` rate decreases materially | Not detected beyond the frozen margin for passing cutoffs; present for some more aggressive cutoffs |
 | C. Information-theoretic failure | No classical decoder could recover the information | Not proved; an identical-law counterexample refutes deriving it from certificate failure alone |
 | D. Algorithm-specific failure | This augmented-lattice/LLL endpoint fails | Measured per cutoff; does not imply C |
 
@@ -93,8 +93,8 @@ The protocol was written before execution in
 * exact cleared augmented lattice, SymPy LLL, Claim-5.1 prefix, stored-root
   classification, no enumeration/BKZ/deflation;
 * whole-`N` 5,000-resample cluster bootstrap;
-* empirical safety requires both factor and verified-`L\L0` lower confidence
-  bounds to be at least `-0.10` relative to exact QFT.
+* empirical non-inferiority requires both factor and verified-`L\L0` lower
+  confidence bounds to be at least `-0.10` relative to exact QFT.
 
 Known factors were used only after recovery to validate a returned pair.
 
@@ -103,12 +103,12 @@ Known factors were used only after recovery to validate a returned pair.
 Omitted layers are `s=(q-1)-t`; exact QFT has `s=0`. The additive statistic
 
 ```text
-G_layers = empirically_safe_layers - original_certified_layers
+G_layers = empirically_noninferior_layers - original_certified_layers
 ```
 
 avoids division by zero. Results:
 
-| M | Model | Original certified layers | Empirically safe layers | `G_layers` |
+| M | Model | Original certified layers | Non-inferior layers | `G_layers` |
 |---:|---|---:|---:|---:|
 | 8 | hard box A | 0 | 1 | 1 |
 | 8 | finite Gaussian B | 0 | 1 | 1 |
@@ -117,13 +117,14 @@ avoids division by zero. Results:
 | 32 | hard box A | 0 | 1 | 1 |
 | 32 | finite Gaussian B | 0 | 2 | 2 |
 
-Thus every tested model/modulus cell contains a non-exact empirically safe
-cutoff rejected by the original certificate.
+Thus every tested model/modulus cell contains a non-exact cutoff rejected by
+the original certificate that nevertheless met the frozen non-inferiority
+rule.
 
 ## Paired recovery results
 
 The rows below are approximate-minus-exact differences over eight held-out
-`N` clusters for the largest safe truncation in each cell:
+`N` clusters for the largest truncation meeting the frozen rule in each cell:
 
 | M | Model | Omitted layers | Factor mean difference | 95% cluster lower bound | `L\L0` mean difference | 95% cluster lower bound |
 |---:|---|---:|---:|---:|---:|---:|
@@ -140,12 +141,38 @@ class produced the verified factor pair; this is observed behavior, not an
 assumed identity for arbitrary composites.
 
 More aggressive cutoffs did fail the empirical rule in most cells. The result
-is therefore not “truncation never matters”; it identifies a finite safe gap
-between exact QFT and destructive approximation.
+is therefore not “truncation never matters”; it identifies a finite gap
+between certificate rejection and the declared recovery-loss tolerance.
 
-## Resources at the empirically safe cutoffs
+## Post-hoc robustness and margin sensitivity
 
-| M | Model | Safe omitted layers | Logical controlled-phase saving | QFT-only transpiled CX saving | QFT-only depth saving |
+These checks were added after the primary holdout and are explicitly
+secondary. They reuse the same eight `N` clusters and therefore do not enlarge
+the generalization sample.
+
+* Removing each held-out `N` in turn left all six selected cutoffs
+  non-inferior at the original absolute `0.10` margin: 48 of 48
+  cell/omission checks passed. The worst leave-one-out lower bound among those
+  cells was `-0.08482` for finite-Gaussian `M=16` with two omitted layers.
+* Exact paired sign-flip tests at the `-0.10` boundary gave one-sided
+  sensitivity `p<=0.015625` for both endpoints in every selected cell. This
+  calculation assumes sign symmetry and is not substituted for the frozen
+  cluster-bootstrap decision.
+* At margin `0.05`, at least one omitted layer still passed in all six cells;
+  finite-Gaussian `M=32` still passed with two, whereas `M=16` fell from two
+  to one. At margin `0.02`, hard-box `M=8` permitted zero omitted layers, so
+  the statement “one layer in every cell” depends on allowing more than a
+  two-percentage-point absolute loss.
+* Raw values for all 120,000 bootstrap draws are preserved rather than only
+  their confidence endpoints.
+
+The exact outputs are `bootstrap_draw_rows.csv`,
+`paired_exact_test_rows.csv`, `leave_one_N_out_rows.csv`,
+`margin_sensitivity_rows.csv`, and `margin_summary_rows.csv`.
+
+## Resources at the cutoffs meeting the frozen rule
+
+| M | Model | Passing omitted layers | Logical controlled-phase saving | QFT-only transpiled CX saving | QFT-only depth saving |
 |---:|---|---:|---:|---:|---:|
 | 8 | A/B | 1 | 2 | 4 | 2 |
 | 16 | A | 1 | 2 | 4 | 0 |
@@ -173,8 +200,8 @@ representative row had TV `0.00575`, m-shot bound `0.04024`, and Hellinger
 bound `0.03955`, below `Delta=.05`.
 
 These certificates do not fully close the empirical gap. For example, the
-Gaussian two-layer cutoffs at `M=16,32` were empirically safe at the frozen
-margin but were not uniformly distribution-certified across all held-out
+Gaussian two-layer cutoffs at `M=16,32` met the frozen margin but were not
+uniformly distribution-certified across all held-out
 moduli. A scalable recovery-aware theorem remains open.
 
 ## Where the original proof loses tightness
@@ -243,7 +270,7 @@ filtering closes this certification gap.
 | Gaussian samples and augmented-lattice factoring | Regev | Finite exact laws, stored-root endpoint, and cutoff comparison | Regev framework is prior |
 | Tolerance of corrupted circuit runs | Ragavan–Vaikuntanathan | Coherent all-run QFT bias is not assumed to satisfy sparse-corruption hypotheses | Distinction/negative applicability result |
 | TV, Hellinger, trace-distance certificates | Standard probability/quantum-information inequalities | Instantiated factor-blindly on exact modular fibers and connected to `L\L0` recovery | Standard inequalities; application is the contribution |
-| Worst-case rejection with held-out safe truncation | AQFT literature already shows task-specific bounds outperform worst-case intuition | Frozen Regev-style `L\L0`/factor endpoint, additive layer-gap statistic, and proof-step slack | Novelty lead only; no priority claim |
+| Worst-case rejection with held-out non-inferior truncation | AQFT literature already shows task-specific bounds outperform worst-case intuition | Frozen Regev-style `L\L0`/factor endpoint, additive layer-gap statistic, and proof-step slack | Novelty lead only; no priority claim |
 
 Primary sources include [Regev](https://arxiv.org/abs/2308.06572),
 [Ragavan–Vaikuntanathan](https://eprint.iacr.org/2023/1501),
@@ -256,13 +283,14 @@ proof of priority.
 ## Exact claim boundary
 
 **Verified:** the previous custom cutoff ordering was wrong and is corrected;
-the original certificate rejects all non-exact frozen cells; held-out safe
-uncertified cutoffs exist for the current finite A/B laws and current LLL
+the original certificate rejects all non-exact frozen cells; held-out
+uncertified cutoffs meet the declared non-inferiority rule for the current
+finite A/B laws and current LLL
 endpoint; direct state/distribution certificates can approve some of them.
 
 **Not verified:** information-theoretic impossibility or sufficiency, full
 Regev asymptotics, calibrated hardware performance, end-to-end circuit speedup,
-or a scalable certificate that approves every empirically safe cutoff.
+or a scalable certificate that approves every empirically non-inferior cutoff.
 
 ## Reproduction
 
@@ -271,6 +299,6 @@ MPLCONFIGDIR=/tmp/mpl PYTHONPATH=. .venv/bin/python -m pytest -q
 MPLCONFIGDIR=/tmp/mpl PYTHONPATH=. .venv/bin/python scripts/run_qft_certificate_gap.py
 ```
 
-Raw outputs, paired cluster rows, slack tables, controlled examples, and the
-figure are under `results/qft_certificate_gap/`.
-
+Raw outputs, paired cluster rows, all bootstrap draws, sensitivity tables,
+slack tables, controlled examples, and the figure are under
+`results/qft_certificate_gap/`.

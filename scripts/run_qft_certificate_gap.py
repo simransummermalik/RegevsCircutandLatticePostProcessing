@@ -12,7 +12,8 @@ import csv
 import hashlib
 import json
 import sys
-from math import pi, sqrt
+from itertools import product
+from math import comb, pi, sqrt
 from pathlib import Path
 from time import perf_counter
 
@@ -67,6 +68,7 @@ LOSS_BUDGET = 0.05
 NONINFERIORITY_MARGIN = 0.10
 MASTER_SEED = 2026071301
 BOOTSTRAPS = 5000
+SENSITIVITY_MARGINS = (0.02, 0.05, 0.10, 0.15)
 
 
 def write_csv(path: Path, rows: list[dict]) -> None:
@@ -85,6 +87,71 @@ def wilson(successes: int, trials: int, z: float = 1.96) -> tuple[float, float]:
     center = (p + z * z / (2 * trials)) / denominator
     radius = z * sqrt(p * (1 - p) / trials + z * z / (4 * trials * trials)) / denominator
     return max(0.0, center - radius), min(1.0, center + radius)
+
+
+def largest_uniformly_certified_layers(
+    configurations: list[dict], M: int, model: str
+) -> int:
+    """Derive the largest layer omission certified for every held-out ``N``."""
+
+    relevant = [
+        row
+        for row in configurations
+        if int(row["M"]) == int(M) and row["model"] == model
+    ]
+    if not relevant:
+        raise ValueError("no configuration rows match M and model")
+    decisions: dict[int, list[bool]] = {}
+    for row in relevant:
+        decisions.setdefault(int(row["omitted_layers"]), []).append(
+            bool(row["original_certified"])
+        )
+    certified = [layers for layers, values in decisions.items() if all(values)]
+    if not certified:
+        raise ValueError("no uniformly certified cutoff, including exact QFT")
+    return max(certified)
+
+
+def exact_sign_test(values: np.ndarray) -> dict[str, float | int]:
+    """Two-sided exact paired sign test, discarding exact zero differences."""
+
+    nonzero = np.asarray(values, dtype=float)
+    nonzero = nonzero[np.abs(nonzero) > 1e-15]
+    n = len(nonzero)
+    if n == 0:
+        return {"nonzero_pairs": 0, "positive_pairs": 0, "two_sided_p": 1.0}
+    positive = int(np.sum(nonzero > 0))
+    tail = sum(comb(n, k) for k in range(min(positive, n - positive) + 1)) / (2**n)
+    return {
+        "nonzero_pairs": n,
+        "positive_pairs": positive,
+        "two_sided_p": min(1.0, 2.0 * tail),
+    }
+
+
+def exact_sign_flip_p(
+    values: np.ndarray, *, shift: float = 0.0, alternative: str = "two-sided"
+) -> float:
+    """Exact paired sign-flip randomization p-value under symmetry.
+
+    ``shift=margin`` tests the boundary ``mean(values)=-margin`` after moving
+    it to zero.  The one-sided ``greater`` alternative is a non-inferiority
+    sensitivity analysis, not the primary preregistered cluster bootstrap.
+    """
+
+    shifted = np.asarray(values, dtype=float) + float(shift)
+    if shifted.ndim != 1 or len(shifted) == 0:
+        raise ValueError("values must be a nonempty one-dimensional array")
+    observed = float(np.mean(shifted))
+    permuted = np.asarray(
+        [np.mean(shifted * np.asarray(signs)) for signs in product((-1.0, 1.0), repeat=len(shifted))]
+    )
+    tolerance = 1e-15
+    if alternative == "two-sided":
+        return float(np.mean(np.abs(permuted) >= abs(observed) - tolerance))
+    if alternative == "greater":
+        return float(np.mean(permuted >= observed - tolerance))
+    raise ValueError("alternative must be 'two-sided' or 'greater'")
 
 
 def qft_only_resources(d: int, M: int, cutoff: int) -> dict[str, int]:
@@ -298,7 +365,12 @@ def run_trials(cache: dict[tuple[int, int, str, int], np.ndarray]) -> list[dict]
     return rows
 
 
-def aggregate_trials(trials: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
+def aggregate_trials(
+    trials: list[dict], configurations: list[dict]
+) -> tuple[
+    list[dict], list[dict], list[dict], list[dict],
+    list[dict], list[dict], list[dict], list[dict],
+]:
     import pandas as pd
 
     frame = pd.DataFrame(trials)
@@ -325,7 +397,11 @@ def aggregate_trials(trials: list[dict]) -> tuple[list[dict], list[dict], list[d
         })
     per_n = pd.DataFrame(per_n_rows)
     paired_rows: list[dict] = []
+    bootstrap_rows: list[dict] = []
+    sensitivity_rows: list[dict] = []
+    leave_one_out_rows: list[dict] = []
     rng = np.random.default_rng(MASTER_SEED + 90_000)
+    leave_one_out_rng = np.random.default_rng(MASTER_SEED + 190_000)
     for (M, model, cutoff), group in per_n.groupby(["M", "model", "cutoff"]):
         q = register_bits(int(M))
         exact = per_n[(per_n.M == M) & (per_n.model == model) & (per_n.cutoff == q - 1)].set_index("N")
@@ -345,6 +421,18 @@ def aggregate_trials(trials: list[dict]) -> tuple[list[dict], list[dict], list[d
             np.mean(lminus_diff[rng.integers(0, len(common), size=len(common))])
             for _ in range(BOOTSTRAPS)
         ])
+        for draw, (factor_value, lminus_value) in enumerate(
+            zip(factor_boot, lminus_boot, strict=True)
+        ):
+            bootstrap_rows.append({
+                "M": int(M),
+                "model": model,
+                "cutoff": int(cutoff),
+                "omitted_layers": q - 1 - int(cutoff),
+                "draw": draw,
+                "factor_mean_difference": float(factor_value),
+                "lminus_mean_difference": float(lminus_value),
+            })
         factor_lower = float(np.quantile(factor_boot, 0.025))
         lminus_lower = float(np.quantile(lminus_boot, 0.025))
         paired_rows.append({
@@ -359,7 +447,7 @@ def aggregate_trials(trials: list[dict]) -> tuple[list[dict], list[dict], list[d
             "lminus_mean_difference": float(np.mean(lminus_diff)),
             "lminus_cluster_ci95_low": lminus_lower,
             "lminus_cluster_ci95_high": float(np.quantile(lminus_boot, 0.975)),
-            "empirically_safe": bool(
+            "empirically_noninferior": bool(
                 factor_lower >= -NONINFERIORITY_MARGIN
                 and lminus_lower >= -NONINFERIORITY_MARGIN
             ),
@@ -367,12 +455,83 @@ def aggregate_trials(trials: list[dict]) -> tuple[list[dict], list[dict], list[d
             "bootstrap_replicates": BOOTSTRAPS,
         })
 
+        if int(cutoff) != q - 1:
+            for endpoint, differences in (
+                ("factor", factor_diff),
+                ("L_minus_L0", lminus_diff),
+            ):
+                sign = exact_sign_test(differences)
+                sensitivity_rows.append({
+                    "M": int(M),
+                    "model": model,
+                    "cutoff": int(cutoff),
+                    "omitted_layers": q - 1 - int(cutoff),
+                    "endpoint": endpoint,
+                    "N_cluster_count": len(common),
+                    "mean_difference": float(np.mean(differences)),
+                    "sign_nonzero_pairs": sign["nonzero_pairs"],
+                    "sign_positive_pairs": sign["positive_pairs"],
+                    "sign_two_sided_p": sign["two_sided_p"],
+                    "sign_flip_two_sided_p": exact_sign_flip_p(differences),
+                    "sign_flip_noninferiority_p_at_0_10": exact_sign_flip_p(
+                        differences, shift=NONINFERIORITY_MARGIN, alternative="greater"
+                    ),
+                })
+
+            for omitted_N in common:
+                keep = np.asarray([N != omitted_N for N in common])
+                factor_remaining = factor_diff[keep]
+                lminus_remaining = lminus_diff[keep]
+                factor_leave_boot = np.asarray([
+                    np.mean(
+                        factor_remaining[
+                            leave_one_out_rng.integers(
+                                0, len(factor_remaining), size=len(factor_remaining)
+                            )
+                        ]
+                    )
+                    for _ in range(BOOTSTRAPS)
+                ])
+                lminus_leave_boot = np.asarray([
+                    np.mean(
+                        lminus_remaining[
+                            leave_one_out_rng.integers(
+                                0, len(lminus_remaining), size=len(lminus_remaining)
+                            )
+                        ]
+                    )
+                    for _ in range(BOOTSTRAPS)
+                ])
+                factor_leave_lower = float(np.quantile(factor_leave_boot, 0.025))
+                lminus_leave_lower = float(np.quantile(lminus_leave_boot, 0.025))
+                leave_one_out_rows.append({
+                    "M": int(M),
+                    "model": model,
+                    "cutoff": int(cutoff),
+                    "omitted_layers": q - 1 - int(cutoff),
+                    "omitted_N": int(omitted_N),
+                    "remaining_N_clusters": len(factor_remaining),
+                    "factor_mean_difference": float(np.mean(factor_remaining)),
+                    "factor_cluster_ci95_low": factor_leave_lower,
+                    "lminus_mean_difference": float(np.mean(lminus_remaining)),
+                    "lminus_cluster_ci95_low": lminus_leave_lower,
+                    "noninferior_at_0_10": bool(
+                        factor_leave_lower >= -NONINFERIORITY_MARGIN
+                        and lminus_leave_lower >= -NONINFERIORITY_MARGIN
+                    ),
+                    "bootstrap_replicates": BOOTSTRAPS,
+                })
+
     paired = pd.DataFrame(paired_rows)
     gap_rows: list[dict] = []
     for (M, model), group in paired.groupby(["M", "model"]):
         q = register_bits(int(M))
-        empirical_layers = int(group[group.empirically_safe].omitted_layers.max())
-        original_layers = 0
+        empirical_layers = int(
+            group[group.empirically_noninferior].omitted_layers.max()
+        )
+        original_layers = largest_uniformly_certified_layers(
+            configurations, int(M), model
+        )
         # State/distribution certificates are N-specific; require all held-out
         # N values to certify a layer before reporting it as a general layer.
         gap_rows.append({
@@ -380,10 +539,49 @@ def aggregate_trials(trials: list[dict]) -> tuple[list[dict], list[dict], list[d
             "model": model,
             "exact_cutoff": q - 1,
             "original_certified_layers": original_layers,
-            "empirically_safe_layers": empirical_layers,
+            "empirically_noninferior_layers": empirical_layers,
             "G_layers": empirical_layers - original_layers,
         })
-    return per_n_rows, paired_rows, gap_rows
+
+    margin_rows: list[dict] = []
+    margin_summary_rows: list[dict] = []
+    for margin in SENSITIVITY_MARGINS:
+        for row in paired_rows:
+            margin_rows.append({
+                "M": row["M"],
+                "model": row["model"],
+                "cutoff": row["cutoff"],
+                "omitted_layers": row["omitted_layers"],
+                "margin": margin,
+                "factor_cluster_ci95_low": row["factor_cluster_ci95_low"],
+                "lminus_cluster_ci95_low": row["lminus_cluster_ci95_low"],
+                "noninferior": bool(
+                    row["factor_cluster_ci95_low"] >= -margin
+                    and row["lminus_cluster_ci95_low"] >= -margin
+                ),
+            })
+        margin_frame = pd.DataFrame(margin_rows)
+        margin_frame = margin_frame[margin_frame.margin == margin]
+        for (M, model), group in margin_frame.groupby(["M", "model"]):
+            passing = group[group.noninferior]
+            margin_summary_rows.append({
+                "M": int(M),
+                "model": model,
+                "margin": margin,
+                "largest_noninferior_omitted_layers": (
+                    None if passing.empty else int(passing.omitted_layers.max())
+                ),
+            })
+    return (
+        per_n_rows,
+        paired_rows,
+        gap_rows,
+        bootstrap_rows,
+        sensitivity_rows,
+        leave_one_out_rows,
+        margin_rows,
+        margin_summary_rows,
+    )
 
 
 def proof_slack_rows(configurations: list[dict], per_n_rows: list[dict]) -> list[dict]:
@@ -508,7 +706,12 @@ def make_figures(configurations: list[dict], paired_rows: list[dict]) -> None:
         for M in MODULI:
             points = subset[subset.M == M].sort_values("omitted_layers")
             axes[1].plot(points.omitted_layers, points.factor_mean_difference, marker=marker, label=f"{model[0]}, M={M}")
-    axes[1].axhline(-NONINFERIORITY_MARGIN, color="black", linestyle="--", label="safety margin")
+    axes[1].axhline(
+        -NONINFERIORITY_MARGIN,
+        color="black",
+        linestyle="--",
+        label="non-inferiority margin",
+    )
     axes[1].set_xlabel("omitted phase layers")
     axes[1].set_ylabel("approximate - exact factor probability")
     axes[1].set_title("Held-out recovery certification gap")
@@ -522,7 +725,16 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     configurations, cache = audit_configurations()
     trials = run_trials(cache)
-    per_n, paired, gaps = aggregate_trials(trials)
+    (
+        per_n,
+        paired,
+        gaps,
+        bootstrap_draws,
+        sensitivity,
+        leave_one_out,
+        margin_sensitivity,
+        margin_summary,
+    ) = aggregate_trials(trials, configurations)
     slack = proof_slack_rows(configurations, per_n)
     examples = controlled_examples(configurations)
     write_csv(OUT / "configuration_rows.csv", configurations)
@@ -531,6 +743,11 @@ def main() -> None:
     write_csv(OUT / "paired_cluster_rows.csv", paired)
     write_csv(OUT / "certificate_gap_rows.csv", gaps)
     write_csv(OUT / "proof_slack_rows.csv", slack)
+    write_csv(OUT / "bootstrap_draw_rows.csv", bootstrap_draws)
+    write_csv(OUT / "paired_exact_test_rows.csv", sensitivity)
+    write_csv(OUT / "leave_one_N_out_rows.csv", leave_one_out)
+    write_csv(OUT / "margin_sensitivity_rows.csv", margin_sensitivity)
+    write_csv(OUT / "margin_summary_rows.csv", margin_summary)
     (OUT / "controlled_examples.json").write_text(json.dumps(examples, indent=2, sort_keys=True))
     make_figures(configurations, paired)
     config = {
@@ -545,12 +762,19 @@ def main() -> None:
         "noninferiority_margin": NONINFERIORITY_MARGIN,
         "master_seed": MASTER_SEED,
         "bootstrap_replicates": BOOTSTRAPS,
+        "sensitivity_margins": SENSITIVITY_MARGINS,
+        "sensitivity_analyses_posthoc": True,
         "configuration_rows": len(configurations),
         "trial_rows": len(trials),
         "per_N_rows": len(per_n),
         "paired_cluster_rows": len(paired),
         "gap_rows": len(gaps),
         "slack_rows": len(slack),
+        "bootstrap_draw_rows": len(bootstrap_draws),
+        "paired_exact_test_rows": len(sensitivity),
+        "leave_one_N_out_rows": len(leave_one_out),
+        "margin_sensitivity_rows": len(margin_sensitivity),
+        "margin_summary_rows": len(margin_summary),
         "known_factors_used_only_posthoc": True,
     }
     (OUT / "configuration.json").write_text(json.dumps(config, indent=2, sort_keys=True))
@@ -562,6 +786,11 @@ def main() -> None:
         "paired_cluster_rows.csv",
         "certificate_gap_rows.csv",
         "proof_slack_rows.csv",
+        "bootstrap_draw_rows.csv",
+        "paired_exact_test_rows.csv",
+        "leave_one_N_out_rows.csv",
+        "margin_sensitivity_rows.csv",
+        "margin_summary_rows.csv",
         "controlled_examples.json",
         "certification_vs_recovery.png",
     )
@@ -578,6 +807,11 @@ def main() -> None:
             "paired_cluster_rows": len(paired),
             "gap_rows": len(gaps),
             "slack_rows": len(slack),
+            "bootstrap_draw_rows": len(bootstrap_draws),
+            "paired_exact_test_rows": len(sensitivity),
+            "leave_one_N_out_rows": len(leave_one_out),
+            "margin_sensitivity_rows": len(margin_sensitivity),
+            "margin_summary_rows": len(margin_summary),
         },
         "sha256": {
             name: hashlib.sha256((OUT / name).read_bytes()).hexdigest()

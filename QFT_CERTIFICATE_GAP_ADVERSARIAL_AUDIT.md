@@ -16,6 +16,15 @@ Consequences:
 * the certificate-gap holdout was executed only after the correction;
 * tests compare the custom full cutoff directly with roots-of-unity matrices.
 
+A later review found that the auxiliary `bitflip_channel` claimed independent
+per-qubit flips but flipped only the most significant bit of each register
+axis. It now applies one independent channel to every physical bit and has an
+analytic four-bit output test. This helper is unused by the primary A/B
+holdout, so the correction changes no certificate-gap endpoint. The gap
+aggregator also now derives the largest certified omission from the recorded
+certificate rows rather than hardcoding zero; the derived frozen result is
+still zero.
+
 ## Claim-separation audit
 
 The report never infers:
@@ -43,12 +52,20 @@ certificates, and LLL recovery receive no factors or group orders.
 * Approximate/exact configurations use the same seed schedule.
 * Final differences are computed per `N`; confidence intervals resample eight
   whole-`N` clusters 5,000 times.
-* Empirical safety requires both factor and verified-`L\L0` lower bounds to
-  exceed the preregistered `-0.10` margin.
+* Empirical non-inferiority requires both factor and verified-`L\L0` lower
+  bounds to exceed the preregistered `-0.10` margin.
 * The margin is a finite engineering non-inferiority definition, not a theorem
   and not proof of exact equality.
 * Multiple cutoff rows are descriptive under a frozen rule; no uncorrected
   minimum p-value is reported as a discovery claim.
+
+Post-hoc sensitivity analyses do not alter that primary rule. All selected
+cutoffs remain non-inferior in every leave-one-`N`-out rerun. Exact paired
+sign/sign-flip statistics, all raw bootstrap draws, and margins
+`{0.02,0.05,0.10,0.15}` are reported separately. The one-layer-everywhere
+statement survives margin `0.05` but not `0.02`, and the Gaussian `M=16`
+two-layer statement requires a margin larger than `0.05`. These analyses add
+no independent moduli and are not described as preregistered confirmation.
 
 ## Adversarial and favorable examples
 
@@ -99,4 +116,3 @@ measured.
 
 These limitations narrow the claim to Outcome C: a demonstrated finite
 certification gap caused by discarded state/fiber/measurement structure.
-
