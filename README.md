@@ -4,14 +4,14 @@
 
 This project implements and audits a small-scale, end-to-end Regev-style factoring pipeline: quantum-circuit construction, several exact sampling models, augmented integer-lattice construction, LLL recovery, exact relation verification, stored-root classification, and factor extraction.
 
-The main research question was whether a theorem requiring the exact quantum Fourier transform (QFT) revealed a genuine loss of factoring information or merely used an overly conservative error bound. The original worst-case certificate predicted that no resource-saving approximate-QFT cutoff could be certified under the frozen 5% loss budget. In held-out experiments on eight previously unused semiprimes, however, omitting one QFT phase layer was empirically non-inferior in every tested hard-box and finite-Gaussian setting, while two omitted layers met the preregistered absolute `0.10` non-inferiority rule for the Gaussian model at `M=16` and `M=32`.
+The main research question was whether a theorem requiring the exact quantum Fourier transform (QFT) revealed a genuine loss of factoring information or merely used an overly conservative error bound. The original worst-case certificate predicted that no resource-saving approximate-QFT cutoff could be certified under the frozen 5% loss budget. In held-out experiments on eight previously unused semiprimes, however, omitting one QFT phase layer was empirically non-inferior in every tested hard-box and finite-Gaussian setting, while two omitted layers met the preregistered absolute $0.10$ non-inferiority rule for the Gaussian model at $M=16$ and $M=32$.
 
-The largest observed saving was six logical controlled-phase gates and 12 QFT-only transpiled CX gates, not a demonstrated end-to-end hardware speedup. The result is limited to small semiprimes, `d=2`, `M<=32`, `m=7`, two finite exact state models, and the repository's current LLL decoder; it does not prove that truncation is safe for full-scale Regev factoring or every post-processing algorithm. The finding matters because it shows that failure of a worst-case QFT certificate is not evidence of information-theoretic or algorithmic failure, and that state-specific roots-of-unity cancellation can support sharper, less wasteful precision decisions.
+The largest observed saving was six logical controlled-phase gates and 12 QFT-only transpiled CX gates, not a demonstrated end-to-end hardware speedup. The result is limited to small semiprimes, $d=2$, $M\leq 32$, $m=7$, two finite exact state models, and the repository's current LLL decoder; it does not prove that truncation is safe for full-scale Regev factoring or every post-processing algorithm. The finding matters because it shows that failure of a worst-case QFT certificate is not evidence of information-theoretic or algorithmic failure, and that state-specific roots-of-unity cancellation can support sharper, less wasteful precision decisions.
 
 This repository reconstructs and red-teams our original research at UIUC's Qiskit notebook inspired by
 [Regev's factoring algorithm](https://arxiv.org/abs/2308.06572). It contains:
 - a verified audit of the original circuit and its external arithmetic gates;
-- immutable root/base provenance and exact `L` versus `L0` classification;
+- immutable root/base provenance and exact $L$ versus $L0$ classification;
 - an exact integer augmented-lattice/LLL post-processing endpoint;
 - four explicitly separated sample models;
 - frozen base-selection and quotient-deflation experiments;
@@ -30,15 +30,15 @@ conservative than the prepared-state recovery endpoint.
 
 Suppose someone gives us a composite integer such as
 
-```text
-N = 15.
-```
+$$
+N = 15
+$$
 
-Factoring means finding smaller integers whose product is `N`:
+Factoring means finding smaller integers whose product is $N$:
 
-```text
-15 = 3 * 5.
-```
+$$
+15 = 3 \times 5
+$$
 
 Factoring small numbers is easy. Factoring carefully chosen very large
 numbers is believed to be hard for ordinary computers and is the mathematical
@@ -84,7 +84,7 @@ Run LLL to search for short multiplicative relations
 Verify z is in L; distinguish L0 from L\L0 using stored roots
           |
           v
-Use gcd(beta-1,N) and gcd(beta+1,N) to try to obtain factors
+Use gcd(β-1,N) and gcd(β+1,N) to try to obtain factors
 ```
 
 The quantum circuit does not directly print the factors. Its job is to produce
@@ -96,75 +96,77 @@ divisor calculation.
 
 The circuit uses squared bases
 
-```text
-a_i = b_i^2 mod N,
-```
+$$
+a_i = b_i^2 \pmod N
+$$
 
-but factor extraction needs the particular roots `b_i` that produced them.
-Knowing only `a_i` is not enough because a modular number can have several
-square roots. The code therefore stores each pair `(b_i,a_i)` together in an
+but factor extraction needs the particular roots $b_i$ that produced them.
+Knowing only $a_i$ is not enough because a modular number can have several
+square roots. The code therefore stores each pair $(b_i,a_i)$ together in an
 immutable `RootedBase` object. It never guesses a square root later.
 
-For a concrete example, `4` is a nontrivial square root of `1 modulo 15`:
+For a concrete example, $4$ is a nontrivial square root of $1 \text(modulo) 15$:
 
-```text
-4^2 = 16 = 1 mod 15.
-gcd(4 - 1, 15) = 3
-gcd(4 + 1, 15) = 5
-```
+$$
+4^2 = 16 = 1 \mod 15
+$$$$
+\gcd(4 - 1, 15) = 3
+$$$$
+\gcd(4 + 1, 15) = 5
+$$
 
 That is the final number-theoretic mechanism. The hard part is recovering a
-relation whose stored-root product gives a nontrivial square root such as `4`,
-instead of the useless roots `+1` or `-1`.
+relation whose stored-root product gives a nontrivial square root such as $4$,
+instead of the useless roots $+1$ or $-1$.
 
 ## Beginner glossary
 
 | Term | Meaning in this project |
 |---|---|
-| `N` | The odd composite integer we are trying to factor. |
-| `n` | Bit length of `N`, computed as `N.bit_length()`. It is not the same as `N`. |
-| `d` | Number of modular bases and exponent registers; also the relation-lattice dimension. Regev chooses it on the order of `sqrt(n)`. |
-| `nd` | Number of qubits in each exponent register. The reproduced notebook mode uses `int(n/d + d)`; the audit also exposes a `ceil(2*n/d)` cover-`2n` mode instead of silently treating them as identical. |
-| `M` | Number of values in one exponent/Fourier register. For `nd` qubits, `M=2^nd`. |
-| `q` | In the QFT documents, shorthand for `log2(M)`, the number of qubits per Fourier register. Some older derivations use another symbol for total box size; always check the local definition. |
-| `m` | Number of measured Fourier samples passed to classical recovery. This is different from `M`. |
-| `S` | Scaling factor in the augmented lattice; theoretically tied to the inverse sample-noise bound. |
-| `T` | Declared norm bound for target relation/embedding vectors in the Regev recovery condition. |
-| `Delta` | Allowed loss in downstream recovery-event probability in the finite-shot QFT certificate. |
+| $N$ | The odd composite integer we are trying to factor. |
+| $n$ | Bit length of $N$, computed as `N.bit_length()`. It is not the same as $N$. |
+| $d$ | Number of modular bases and exponent registers; also the relation-lattice dimension. Regev chooses it on the order of $\sqrt{n}$. |
+| $qd$ | Number of qubits in each exponent register. The reproduced notebook mode uses `int(n/d + d)`; the audit also exposes a `ceil(2*n/d)` cover-$2n$ mode instead of silently treating them as identical. |
+| $M$ | Number of values in one exponent/Fourier register. For $qd$ qubits, $M=2^nd$. |
+| $q$ | In the QFT documents, shorthand for $\log_2(M)$, the number of qubits per Fourier register. Some older derivations use another symbol for total box size; always check the local definition. |
+| $m$ | Number of measured Fourier samples passed to classical recovery. This is different from $M$. |
+| $S$ | Scaling factor in the augmented lattice; theoretically tied to the inverse sample-noise bound. |
+| $T$ | Declared norm bound for target relation/embedding vectors in the Regev recovery condition. |
+| $\Delta$ | Allowed loss in downstream recovery-event probability in the finite-shot QFT certificate. |
 | Prime | An integer greater than one with no positive divisors except one and itself. |
 | Composite | An integer that is a product of smaller positive integers. |
-| Factor | A number that divides `N` without a remainder. |
-| `gcd(x,N)` | Greatest common divisor. A value strictly between `1` and `N` is a proper factor of `N`. |
-| Modulo `N` | Arithmetic where values differing by a multiple of `N` are identified. For example, `16 = 1 mod 15`. |
-| Residue | The canonical representative of a value modulo `N`. |
-| Coprime / unit | A value `a` with `gcd(a,N)=1`; it has a multiplicative inverse modulo `N`. |
-| Root `b_i` | A selected coprime integer retained for final factor extraction. |
-| Circuit base `a_i` | The squared residue `b_i^2 mod N` used by modular exponentiation. |
+| Factor | A number that divides $N$ without a remainder. |
+| $\gcd(x,N)$ | Greatest common divisor. A value strictly between $1$ and $N$ is a proper factor of $N$. |
+| Modulo $N$ | Arithmetic where values differing by a multiple of $N$ are identified. For example, $16 = 1 \pmod{15}$. |
+| Residue | The canonical representative of a value modulo $N$. |
+| Coprime / unit | A value $a$ with $\gcd(a,N=1)$; it has a multiplicative inverse modulo $N$. |
+| Root $b_i$ | A selected coprime integer retained for final factor extraction. |
+| Circuit base $a_i$ | The squared residue $b_i^2 \pmod N$ used by modular exponentiation. |
 | Qubit | A quantum two-level system. A register is an ordered collection of qubits. |
 | Ancilla | Temporary work qubits used by reversible arithmetic. Correct circuits normally return them to zero. |
 | Superposition | A quantum state containing amplitudes for many computational basis values. |
 | QFT | Quantum Fourier transform. It changes the basis so periodic/multiplicative structure can affect measurement probabilities. |
-| Root of unity | A complex phase such as `exp(2*pi*i*j/M)` whose integer power returns to one. QFT amplitudes are sums of these phases. |
-| Shot / sample / circuit execution | One preparation, circuit run, and measurement producing one Fourier vector. This README uses `m` for the number of samples given to recovery. |
-| Relation `z` | An integer vector whose modular product of circuit bases equals one. |
+| Root of unity | A complex phase such as $\exp\left(\frac{2\pi i j}{M}\right)$ whose integer power returns to one. QFT amplitudes are sums of these phases. |
+| Shot / sample / circuit execution | One preparation, circuit run, and measurement producing one Fourier vector. This README uses $m$ for the number of samples given to recovery. |
+| Relation $z$ | An integer vector whose modular product of circuit bases equals one. |
 | Lattice | A discrete additive subgroup generated by integer or rational basis vectors. Here lattices encode relations and approximate dual samples. |
-| `L` | All exact multiplicative relations among the squared circuit bases. |
-| `L0` | Relations in `L` whose stored-root product is `+1` or `-1`; valid but useless for splitting `N`. |
-| `L\L0` | Factor-yielding relation classes: their stored-root product is a nontrivial square root of one. |
-| Dual lattice `L*` | Vectors having integer inner product with every vector in `L`. Regev's ideal samples lie near dual-lattice cosets. |
+| $L$ | All exact multiplicative relations among the squared circuit bases. |
+| $L0$ | Relations in $L$ whose stored-root product is $+1$ or $-1$; valid but useless for splitting $N$. |
+| $L\\L0$ | Factor-yielding relation classes: their stored-root product is a nontrivial square root of one. |
+| Dual lattice $L^*$ | Vectors having integer inner product with every vector in $L$. Regev's ideal samples lie near dual-lattice cosets. |
 | LLL | Lenstra–Lenstra–Lovász lattice-basis reduction: a polynomial-time algorithm that finds a shorter, better-conditioned basis, not necessarily the exact shortest vector. See the [original LLL paper](https://doi.org/10.1007/BF01457454). |
 | BKZ | Block Korkine–Zolotarev reduction, a stronger and usually more expensive family of lattice-reduction methods. |
 | HNF / SNF | Hermite and Smith normal forms, exact integer tools used to represent sublattices and quotient groups. |
-| Quotient `L/L0` | Treats two relations as equivalent when their difference is in `L0`; the goal is to expose nontrivial factor-bearing classes. |
-| Deflation | Suppressing or removing already verified `L0` directions so reduction/search may spend effort elsewhere. |
+| Quotient $L/L0$ | Treats two relations as equivalent when their difference is in $L0$; the goal is to expose nontrivial factor-bearing classes. |
+| Deflation | Suppressing or removing already verified $L0$ directions so reduction/search may spend effort elsewhere. |
 | LDAR | The studied loop: Lattice reduction, Deflation, and Adaptive Resampling. Its positive hypothesis was falsified at the frozen budget. |
 | RV comparator | This repository's finite structural implementation inspired by Ragavan–Vaikuntanathan's corrupted-run filter; not a claim that their theorem applies. |
 | Oracle | A component treated as a mapping; here modular exponentiation maps exponent vectors to residues. Model C also has generator-side oracle information that recovery is forbidden to see. |
 | Hard-box state | Uniform amplitudes over a finite Cartesian exponent box. This is what the audited notebook prepares. |
 | Discrete-Gaussian state | Amplitudes tapered according to a discrete Gaussian, as required by the Regev formulation being modeled. |
-| Total variation distance | A number in `[0,1]` measuring how distinguishable two classical probability distributions are. |
-| QFT cutoff `t` | Keeps controlled phases between qubits separated by at most `t`; larger-separation, smaller-angle rotations are omitted. |
-| Factor-blind | The method may use `N`, bases, roots, samples, and declared parameters, but not the known factorization of `N`. |
+| Total variation distance | A number in $[0,1]$ measuring how distinguishable two classical probability distributions are. |
+| QFT cutoff $t$ | Keeps controlled phases between qubits separated by at most $t$; larger-separation, smaller-angle rotations are omitted. |
+| Factor-blind | The method may use $N$, bases, roots, samples, and declared parameters, but not the known factorization of $N$. |
 | Development input | An input used while designing or debugging a method. |
 | Held-out input | An input frozen before final evaluation and not used to tune the method. |
 | Ablation | A controlled version of a method with one component removed. |
@@ -174,14 +176,14 @@ instead of the useless roots `+1` or `-1`.
 
 ### Step 1: choose roots and squared bases
 
-Choose coprime values `b_1,...,b_d`, then compute
+Choose coprime values $b_1,\dots,b_d$, then compute
 
-```text
-a_i = b_i^2 mod N.
-```
+$$
+a_i = b_i^2 \pmod N
+$$
 
-The code rejects a root that is not coprime to `N`. If a candidate already
-shares a factor with `N`, that gcd has classically factored `N` during setup;
+The code rejects a root that is not coprime to $N$. If a candidate already
+shares a factor with $N$, that gcd has classically factored $N$ during setup;
 the event is labeled as a setup leak instead of being credited to the quantum
 algorithm.
 
@@ -189,15 +191,15 @@ The repository does not call any selector “independence preserving.” In a
 finite multiplicative group, generators necessarily satisfy relations, and
 Regev's post-processing is specifically trying to recover short relations.
 The meaningful questions are which relations exist, how short they are, and
-whether their stored-root classes lie inside or outside `L0`.
+whether their stored-root classes lie inside or outside $L0$.
 
 ### Step 2: define the modular-product map
 
-For an integer exponent vector `x=(x_1,...,x_d)`, define
+For an integer exponent vector $x=(x_1,\dots,x_d)4, define
 
-```text
-h_A(x) = product_i a_i^(x_i) mod N.
-```
+$$
+h_A(x) = \prod_i a_i^{x_i} \pmod N
+$$
 
 Different exponent vectors can produce the same residue. Those collisions are
 the arithmetic structure that produces interference after the QFT.
@@ -205,39 +207,39 @@ the arithmetic structure that produces interference after the QFT.
 ### Step 3: prepare the exponent state
 
 The audited notebook applies Hadamard gates to every exponent qubit, producing
-uniform amplitudes over a box `{0,...,M-1}^d`. Regev's paper instead uses a
+uniform amplitudes over a box $\{0,\dots,M-1\}^d$. Regev's paper instead uses a
 discrete-Gaussian construction. The repository therefore treats the notebook
 hard box and the finite Gaussian as different models rather than pretending
 they are the same state.
 
 ### Step 4: compute modular exponentiation reversibly
 
-The circuit computes `h_A(x)` without erasing `x`. Reversible modular
+The circuit computes $h_A(x)$ without erasing $x$. Reversible modular
 multiplication needs a result register and work/ancilla registers. The tests
 check the arithmetic contract on its valid domain and check that ancillas are
 cleaned up.
 
 ### Step 5: apply the multidimensional QFT
 
-The transform is a tensor product of `d` one-register transforms:
+The transform is a tensor product of $d$ one-register transforms:
 
-```text
-F_M tensor F_M tensor ... tensor F_M.
-```
+$$
+F_M \otimes F_M \otimes \cdots \otimes F_M
+$$
 
-For inverse-QFT convention, the character at outcome `k` and input `x` is
+For inverse-QFT convention, the character at outcome $k$ and input $x$ is
 
-```text
-chi_k(x) = exp(-2*pi*i*<k,x>/M).
-```
+$$
+\chi_k(x) = \exp\left(\frac{-2\pi i\langle k,x\rangle}{M}\right)
+$$
 
-For one modular-exponentiation fiber `F_y={x:h_A(x)=y}`, all its character
+For one modular-exponentiation fiber $F_y=\{x:h_A(x)=y\}$, all its character
 phases add coherently. Different arithmetic outputs are orthogonal and their
 probabilities add instead. This gives the exact finite law
 
-```text
-P_A(k) = M^(-2d) * sum_y |sum_{x in F_y} chi_k(x)|^2.
-```
+$$
+P_A(k) = M^{-2d} \sum_y \lvert\sum_{x \in F_y} \chi_k(x)\rvert^2
+$$
 
 Constructive interference increases a measurement probability; destructive
 interference cancels phases. QFT truncation changes these character sums
@@ -246,20 +248,22 @@ to randomly corrupting a few completed shots.
 
 ### Step 6: measure and decode
 
-Each exponent register becomes an integer coordinate in `{0,...,M-1}`. Qiskit
+Each exponent register becomes an integer coordinate in ${0,\dots,M-1}$. Qiskit
 uses little-endian qubit conventions, so swaps, classical-bit order, register
 order, and forward/inverse signs must be audited together. The matrix tests
 are designed to fail if these conventions are reversed.
 
 ### Step 7: build the augmented lattice
 
-Write measured rows as `w_i=k_i/M`. For scale `S`, Regev's rational augmented
+Write measured rows as $w_i=\frac{k_i}{M}$. For scale $S$, Regev's rational augmented
 lattice has block form
 
-```text
-B = [[I_d, 0],
-     [S W, S I_m]].
-```
+$$
+B=\begin{bmatrix}
+\mathbb{I}_d & 0 \\
+S_W & \mathbb{I}_m
+\end{bmatrix}
+$$
 
 `lattice.py` clears denominators exactly, producing an integer row basis. It
 does not silently round floats into a different lattice.
@@ -274,17 +278,17 @@ Claim-5.1 Gram–Schmidt cutoff is evaluated with exact rational arithmetic.
 
 Every proposed vector is checked by modular multiplication:
 
-```text
-z in L  iff  product_i a_i^(z_i) = 1 mod N.
-```
+$$
+z \in L  \text{ iff }  \prod_i a_i^{z_i} = 1 \pmod N
+$$
 
 If valid, the stored roots compute
 
-```text
-beta = product_i b_i^(z_i) mod N.
-```
+$$
+\beta = \prod_i b_i^{z_i} \pmod N
+$$
 
-`beta=+1` or `-1` means `z in L0` and gives no factor. Otherwise the code
+$\beta=+1$ or $-1$ means $z \in L0$ and gives no factor. Otherwise the code
 attempts the two gcds. Known factors are used only after the method returns a
 pair, to validate the result.
 
@@ -295,11 +299,11 @@ pair, to validate the result.
 | Explanation | Eighteen code cells and no markdown cells | Reports, derivations, tests, protocols, and this guide |
 | Exponent state | Uniform hard box | Reproduced exactly and kept separate from finite Gaussian/model-C sampling |
 | Base generation | Scans small primes; can reveal factors | Preserved for audit, with every leak explicitly labeled; adds factor-blind alternatives |
-| Root provenance | Could be lost or misused in post-processing | Immutable `(b_i,a_i)` pairs throughout |
+| Root provenance | Could be lost or misused in post-processing | Immutable $(b_i,a_i)$ pairs throughout |
 | Modular arithmetic | Imported external reversible gates | Gate contracts, domain, ancilla cleanup, and compiled resources tested |
 | QFT | Mixed conventions in notebook cells | Direct roots-of-unity definition, Qiskit matrix validation, cutoff/noise models |
 | Measurement | One cell measured too few qubits | Register ordering and decoding tested |
-| Classical recovery | No complete Regev augmented-lattice endpoint | Exact cleared lattice, LLL transform, Claim-5.1 prefix, `L/L0`, gcd factors |
+| Classical recovery | No complete Regev augmented-lattice endpoint | Exact cleared lattice, LLL transform, Claim-5.1 prefix, $L/L0$, gcd factors |
 | Claims | Toy demonstrations could mix setup factoring and circuit evidence | Setup leaks, empirical endpoints, synthetic models, and theorem statements separated |
 
 ## Research timeline: what happened in each stage
@@ -322,7 +326,7 @@ evidence.
 
 ### Stage 3: mandatory red-team revision
 
-The revision permanently paired roots and bases, proved the chi-squared
+The revision permanently paired roots and bases, proved the $\chi$-squared
 identity as ordinary Parseval, implemented the real augmented-lattice
 endpoint, separated hard-box/Gaussian/noisy-dual models, and evaluated six
 base-selection ablations on frozen semiprimes. It found a negative
@@ -331,7 +335,7 @@ was not generalized to Regev's theorem regime.
 
 ### Stage 4: quotient-aware LDAR
 
-The next hypothesis was that LLL wasted effort on short `L0` relations. Exact
+The next hypothesis was that LLL wasted effort on short $L0$ relations. Exact
 integer quotienting, deflation, bounded enumeration, adaptive resampling, BKZ,
 and RV-structured comparators were implemented under matched budgets. The
 frozen 20-modulus study falsified the positive claim: complete LDAR was worse
@@ -339,7 +343,7 @@ than the reference under A/B/D and tied in saturated C.
 
 ### Stage 5: finite QFT/noise study
 
-The first QFT study at `d=3,M=8,m=12` found that the five-percent certificate
+The first QFT study at $d=3,M=8,m=12$ found that the five-percent certificate
 selected exact QFT and that aggressive truncation reduced small-instance
 factor recovery. Because a three-qubit QFT has only coarse cutoff choices,
 this result was explicitly demoted to background.
@@ -347,7 +351,7 @@ this result was explicitly demoted to background.
 ### Stage 6: QFT precision scaling
 
 The current study derived a scaling limit for the certificate and evaluated
-all cutoffs across `d=2..5`, `M=8..128`, multiple sample counts, and three
+all cutoffs across $d=2..5$, $M=8..128$, multiple sample counts, and three
 loss budgets. The positive resource-saving claim was falsified for the primary
 budget. The surviving result is the narrow no-certificate law described next.
 
@@ -359,7 +363,7 @@ them. Three factor-blind state/distribution certificates and a new eight-
 semiprime holdout then measured the gap between theorem rejection and actual
 recovery. One omitted phase layer met the frozen non-inferiority rule in every
 tested hard-box/Gaussian cell; the Gaussian met it with two layers at
-`M=16,32`.
+$M=16,32$.
 The final result is Outcome C: the old exact-QFT requirement was mainly a
 proof-technique limitation in this finite regime.
 
@@ -372,7 +376,7 @@ only to this repository.
 | Source | What it contributes | How this repository uses it |
 |---|---|---|
 | [Shor, *Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer*](https://doi.org/10.1137/S0097539795293172) | The foundational polynomial-time quantum factoring algorithm based on period finding. | Background and comparison only; this repository implements a Regev-style circuit, not Shor's algorithm. |
-| [Regev, *An Efficient Quantum Factoring Algorithm*](https://arxiv.org/abs/2308.06572) | High-dimensional Gaussian sampling, the relation lattice, noisy-dual interpretation, augmented lattice, and classical lattice reduction. The paper describes roughly `sqrt(n)+4` independent circuit runs and a lower asymptotic gate count under a number-theoretic heuristic. | Supplies the mathematical target used to judge the notebook and build the classical endpoint. The repository does not claim to prove Regev's heuristic or reproduce the full asymptotic regime. |
+| [Regev, *An Efficient Quantum Factoring Algorithm*](https://arxiv.org/abs/2308.06572) | High-dimensional Gaussian sampling, the relation lattice, noisy-dual interpretation, augmented lattice, and classical lattice reduction. The paper describes roughly $\sqrt{n}+4$ independent circuit runs and a lower asymptotic gate count under a number-theoretic heuristic. | Supplies the mathematical target used to judge the notebook and build the classical endpoint. The repository does not claim to prove Regev's heuristic or reproduce the full asymptotic regime. |
 | [Ragavan and Vaikuntanathan, *Space-Efficient and Noise-Robust Quantum Factoring*](https://eprint.iacr.org/2023/1501) | Space-efficient reversible arithmetic and a classical filter tolerating a constant fraction of corrupted quantum runs under stated hypotheses. | `rv_filter.py` implements a finite structural comparator. It explicitly does not claim the paper's theorem when the finite alpha/gamma, scale, well-spread-error, and recovery hypotheses are unmet. |
 | [Coppersmith, *An Approximate Fourier Transform Useful in Quantum Factoring*](https://arxiv.org/abs/quant-ph/0201067) | Prior approximate-QFT truncation ideas for quantum factoring. | Establishes that approximate QFT is not novel here. This repository studies a particular distance cutoff and a conservative Regev-endpoint certificate. |
 | [Barenco, Ekert, Suominen, and Törmä, *Approximate Quantum Fourier Transform and Decoherence*](https://arxiv.org/abs/quant-ph/9601018) | Shows that task-level periodicity estimation can tolerate substantial QFT approximation and studies decoherence tradeoffs. | Important prior warning that all-state/worst-case QFT error need not equal algorithmic failure; the final holdout measures this issue at the Regev-style lattice endpoint. |
@@ -392,18 +396,18 @@ general faster factoring algorithm.
 
 The earlier theorem remains correct as a statement about its own certificate:
 
-```text
-M < 4*pi*d*m/Delta
-  => the implemented worst-case finite-shot certificate cannot certify
-     any non-exact distance-truncated product QFT.
-```
+$$
+M < \frac{4\pi d m}{\Delta}
+  \implies\text{ the implemented worst-case finite-shot certificate cannot certify\\
+     any non-exact distance-truncated product QFT.}
+$$
 
-Here `d` is the number of exponent registers, `M=2^q` their Fourier modulus,
-`m` is the number of quantum samples, and `Delta` is the allowed change in a
+Here $d$ is the number of exponent registers, $M=2^q$ their Fourier modulus,
+$m$ is the number of quantum samples, and $\Delta$ is the allowed change in a
 downstream recovery-event probability. For the frozen primary budget
-`Delta=0.05`, the factor-blind selector chooses the exact QFT for every
-`d in {2,3,4,5}`, `M in {8,16,32,64,128}`, and
-`m in {4,8,12,24}` configuration.
+$\Delta=0.05$, the factor-blind selector chooses the exact QFT for every
+$d \in \{2,3,4,5\}$, $M \in \{8,16,32,64,128\}, and
+$m \in \{4,8,12,24\}$ configuration.
 
 The new result shows why that implication is not a lower bound on actual
 recovery. The first omitted-layer operator step can be almost tight, yet the
@@ -411,8 +415,8 @@ bound loses state/fiber/measurement structure. In eight new held-out
 semiprimes:
 
 - the original certificate approved zero omitted layers;
-- one layer was empirically non-inferior for A and B at `M=8,16,32`;
-- B was empirically non-inferior with two omitted layers at `M=16,32`;
+- one layer was empirically non-inferior for A and B at $M=8,16,32$;
+- B was empirically non-inferior with two omitted layers at $M=16,32$;
 - cells meeting the frozen rule saved up to six logical controlled phases and 12 QFT-only
   transpiled CX gates;
 - an explicit finite example has identical exact/approximate measurement laws
@@ -424,10 +428,10 @@ Regev's asymptotic Gaussian state, or a hardware speedup.
 
 Beginner interpretation: the first possible approximation removes only the
 smallest-angle layer. Even that layer cannot pass this five-percent guarantee
-unless `M` is at least `4*pi*d*m/Delta`. For `d=3`, `m=12`, and
-`Delta=0.05`, the threshold is about `9,048`; because `M` is a power of two,
-the first available value above it is `16,384`. The frozen experiment stops at
-`M=128`, far below that threshold, so the selector is forced to keep the exact
+unless $M$ is at least $\frac{4 \pi d m}{\Delta}$. For $d=3$, $m=12$, and
+$\Delta=0.05$, the threshold is about $9,048$; because $M$ is a power of two,
+the first available value above it is $16,384$. The frozen experiment stops at
+$M=128$, far below that threshold, so the selector is forced to keep the exact
 QFT. This says the **bound is too conservative to authorize savings here**. It
 does not say an unknown sharper, state-specific analysis could never do so.
 
@@ -471,7 +475,7 @@ The documents have a deliberate hierarchy:
    Its early novelty and improvement language was withdrawn after red-teaming.
 
 [`QFT_NOISE_CONTRIBUTION_REPORT.md`](QFT_NOISE_CONTRIBUTION_REPORT.md) records
-the initial `d=3, M=8, m=12` QFT study. It is useful background but is
+the initial $d=3, M=8, m=12$ QFT study. It is useful background but is
 explicitly superseded as the central contribution by the certificate-gap
 report.
 
@@ -484,16 +488,16 @@ report.
 - Its prime-root scan can reveal classical factors during setup; those events
   are now recorded as `setup_factor_leaks` and never counted as sample-based
   factoring success.
-- Every selected circuit base `a_i=b_i^2 mod N` must retain the particular
-  selected root `b_i`. Factor extraction now uses that stored root only.
-- The earlier `N=437` “root-provenance obstruction” disappears when the chosen
+- Every selected circuit base $a_i=b_i^2 \pmod N$ must retain the particular
+  selected root $b_i$. Factor extraction now uses that stored root only.
+- The earlier $N=437$ “root-provenance obstruction” disappears when the chosen
   roots are retained; it is an implementation metadata requirement, not a new
   mathematical obstruction.
 - The real endpoint constructs Regev's cleared augmented integer lattice,
-  runs LLL, verifies candidates in `L`, distinguishes `L0` from `L\L0`, and
-  extracts factors only from `L\L0`.
+  runs LLL, verifies candidates in $L$, distinguishes $L0$ from $L\L0$, and
+  extracts factors only from $L\\L0$.
 - Direct roots-of-unity QFT matrices agree with Qiskit's exact inverse-QFT
-  matrices for `M<=16` to numerical precision. Tests detect reversed signs,
+  matrices for $M\leq 16$ to numerical precision. Tests detect reversed signs,
   missing swaps, wrong cutoffs, and coordinate-order mistakes.
 - The certificate-gap audit found and corrected a reversed layer order in the
   custom approximate-QFT decomposition. All approximate-QFT tables were
@@ -501,7 +505,7 @@ report.
 - Exact finite distribution-TV, product-Hellinger, and prepared-fiber-state
   trace certificates are implemented without factors and can approve some
   cutoffs rejected by the original all-state certificate.
-- The hard-box chi-squared formula is an immediate finite-group
+- The hard-box $\chi$-squared formula is an immediate finite-group
   autocorrelation/Parseval identity. No novelty is claimed for it.
 
 ### Falsified or negative experimental hypotheses
@@ -513,7 +517,7 @@ report.
   enumeration on the frozen 20-modulus holdout. It was worse under sample
   models A, B, and D and tied in saturated model C.
 - The five-percent QFT selector does not save controlled-phase gates anywhere
-  in the frozen `d=2..5`, `M=8..128`, `m=4,8,12,24` grid.
+  in the frozen $d=2..5$, $M=8..128$, $m=4,8,12,24$ grid.
 - That selector result does not reflect a fundamental exact-QFT requirement:
   the final held-out endpoint met its frozen non-inferiority rule with one or
   two omitted layers in the stated finite cells. The original positive
@@ -539,77 +543,77 @@ report.
 
 ## Mathematical objects
 
-For stored roots `b_1,...,b_d` and squared circuit bases
-`a_i=b_i^2 mod N`, define
+For stored roots $b_1,\dots,b_d$ and squared circuit bases
+$a_i=b_i^2 \pmod N$, define
 
-```text
-h_A(z) = product_i a_i^(z_i) mod N
+$$
+h_A(z) = \prod_i a_i^{z_i\} \pmod N
+$$$$
+L  = \{z \in \mathbb{Z}^d : \prod_i a_i^{z_i} = 1 \pmod N\}$$$$
+L0 = \{z \in L:\prod_i b_i^{z_i} \text{ is } +1 \text{ or } -1 \pmod N\}
+$$
 
-L  = {z in Z^d : product_i a_i^(z_i) = 1 mod N}
-L0 = {z in L   : product_i b_i^(z_i) is +1 or -1 mod N}
-```
+If $z \in L\L0$, then $\beta=\prod_i b_i^{z_i}$ is a nontrivial square root
+of unity modulo $N$; $\gcd(\beta-1,N)$ or $\gcd(\beta+1,N)$ yields a proper factor.
 
-If `z in L\L0`, then `beta=product_i b_i^(z_i)` is a nontrivial square root
-of unity modulo `N`; `gcd(beta-1,N)` or `gcd(beta+1,N)` yields a proper factor.
+For $M=2^q$, the inverse product-QFT character is
 
-For `M=2^q`, the inverse product-QFT character is
+$$
+\chi_k(x) = \exp\left(\frac{-2\pi i \langle k,x\rangle}{M}\right)
+$$
 
-```text
-chi_k(x) = exp(-2*pi*i*<k,x>/M).
-```
-
-On a modular-exponentiation fiber `F_y={x:h_A(x)=y}`, the exact finite
+On a modular-exponentiation fiber $F_y={x:h_A(x)=y}$, the exact finite
 measurement law is
 
-```text
-P_A(k) = M^(-2d) * sum_y |sum_{x in F_y} chi_k(x)|^2.
-```
+$$
+P_A(k) = M^{-2d} * \sum_y |\sum_{x \in F_y} \chi_k(x)|^2
+$$
 
-The distance cutoff `t` retains controlled phases with qubit separation
-`r<=t`. Its one-register omitted-angle sum is
+The distance cutoff $t$ retains controlled phases with qubit separation
+$r\leq t$. Its one-register omitted-angle sum is
 
-```text
-eta(q,t) = pi * sum_{r=t+1}^{q-1} (q-r)/2^r.
-```
+$$
+\text{eta}(q,t) = \pi \sum_{r=t+1}^{q-1} \frac{q-r}{2^r}
+$$
 
 The scaling study uses the dimensionless certificate variable
 
-```text
-B(d,M,m,t;Delta) = m * min(1, 2*d*eta(q,t)) / Delta.
-```
+$$
+B(d,M,m,t;\Delta) = \frac{m \min(1, 2d\text{eta}(q,t))}{\Delta}
+$
 
-The implemented theorem certifies a cutoff only when `B<=1`.
+The implemented theorem certifies a cutoff only when $B\leq 1$.
 
-An exact `q`-qubit QFT has `q(q-1)/2` controlled-phase gates per register and
-`d*q(q-1)/2` across all exponent registers, before transpilation. A cutoff `t`
+An exact $q$-qubit QFT has $q(q-1)/2$ controlled-phase gates per register and
+$d * q(q-1)/2$ across all exponent registers, before transpilation. A cutoff $t$
 retains
 
-```text
-d * sum_{r=1}^{min(t,q-1)} (q-r)
-```
+$$
+d * \sum_{r=1}^{\min(t,q-1)} (q-r)
+$$
 
-controlled phases. `t=q-1` is exact. Removing only the smallest-angle layer
-uses `t=q-2` and saves exactly `d` logical controlled phases. Hardware or
+controlled phases. $t=q-1$ is exact. Removing only the smallest-angle layer
+uses $t=q-2$ and saves exactly $d$ logical controlled phases. Hardware or
 transpiled savings can differ because the arithmetic circuit dominates and a
 backend may decompose or optimize gates differently.
 
 ### The hard-box Parseval identity
 
-For the notebook's uniform box, let `G=(Z/MZ)^d` be the finite Fourier outcome
+For the notebook's uniform box, let $G=(Z/MZ)^d$ be the finite Fourier outcome
 group. Then:
 
-- `P_A(k)` is the exact probability of measuring outcome `k`;
-- `U(k)=M^(-d)` is the uniform probability;
-- `r=x-x' mod M` is a difference between two exponent vectors;
-- `K_A(r)` counts pairs with the same arithmetic output and difference `r`,
+- $P_A(k)$ is the exact probability of measuring outcome $k$;
+- $U(k)=M^{-d}$ is the uniform probability;
+- $r=x-x' \pmod M$ is a difference between two exponent vectors;
+- $K_A(r)$ counts pairs with the same arithmetic output and difference $r$,
   including the finite triangular overlap weights.
 
-Expanding the squared fiber amplitudes, grouping terms by `r`, and applying
+Expanding the squared fiber amplitudes, grouping terms by $r$, and applying
 finite-group character orthogonality gives
 
-```text
-chi^2(P_A || U) = M^(-2d) * sum_{r != 0} K_A(r)^2.
-```
+$$
+\chi^2(P_A || U) = M^{-2d} * \sum_{r \neq 0} K_A(r)^2
+$$
 
 This says that deviation from a uniform Fourier law equals the energy in the
 nonzero relation-collision kernel. It is a direct Parseval/collision-probability
@@ -636,7 +640,7 @@ are not treated as interchangeable noise parameters.
 | Controlled-phase truncation | Inside the QFT circuit | Removes a structured set of small rotations and changes all affected character sums coherently | Bounded by an operator/TV certificate; not assumed to be sparse bad shots |
 | Coherent phase error | Before or during QFT | Systematic over/under-rotation produces correlated spectral bias | Bounded in state/TV distance; not automatically a geometric sample displacement |
 | Readout bit flip | After the quantum state has been converted to measurement bits | Classical channel changes some recorded bits | Potentially calibratable/filterable, but distinct from lost pre-measurement interference |
-| Fourier-grid quantization | Finite `M` resolution | Rounds a continuous/torus location to the nearest grid point | Has direct displacement bound `sqrt(d)/(2M)` and enters augmented-lattice noise geometrically |
+| Fourier-grid quantization | Finite $M$ resolution | Rounds a continuous/torus location to the nearest grid point | Has direct displacement bound $\sqrt{\frac{d}{2M}}$ and enters augmented-lattice noise geometrically |
 
 ## Repository layout
 
@@ -659,15 +663,15 @@ external/         audited arithmetic dependency at a fixed commit
 | `circuits.py` | Qiskit circuit builder using the audited modular-exponentiation gates; supports exact or distance-truncated product QFTs and compiled resource reporting. |
 | `qft_noise.py` | Direct roots-of-unity matrices, Qiskit matrix checks, exact/approximate fiber laws, four noise mappings, gate counts, omitted-angle formulas, dimensionless precision ratio, and factor-blind cutoff selectors. |
 | `qft_certificate.py` | Original theorem decision, strict boundary audit, exact distribution-TV and product-Hellinger certificates, prepared-fiber trace certificate, feasible matrix distances, and proof-slack utilities. |
-| `dual.py` | Factor-blind Cayley/HNF construction of `L` for oracle-side validation and theorem-consistent noisy-dual sample generation. The oracle is not passed to reconstruction. |
-| `lattice.py` | Exact denominator clearing, integer augmented lattice, verified LLL transform, Claim 5.1 prefix, `L`/`L0` classification, and primary factor endpoint. |
+| `dual.py` | Factor-blind Cayley/HNF construction of $L$ for oracle-side validation and theorem-consistent noisy-dual sample generation. The oracle is not passed to reconstruction. |
+| `lattice.py` | Exact denominator clearing, integer augmented lattice, verified LLL transform, Claim 5.1 prefix, $L$/$L0$ classification, and primary factor endpoint. |
 | `redteam.py` | Exact hard-box and finite-Gaussian laws plus the six frozen rooted-base ablations. |
-| `redteam_experiments.py` | Frozen 24-`N`, six-method, three-model study with within-`N` permutation and cluster-bootstrap inference. |
+| `redteam_experiments.py` | Frozen 24-$N$, six-method, three-model study with within-$N$ permutation and cluster-bootstrap inference. |
 | `experiments.py` | Superseded first-stage experiments retained for audit reproduction. |
-| `quotient.py` | Exact integer quotient `Z^d/U` by verified `L0` directions using HNF/SNF without unsafe floating projection or silent saturation. |
-| `quotient_metrics.py` | Factor-blind oracle-side `L`, `L0`, quotient-gap, and bounded minimum diagnostics; never used as the recovery selector. |
+| `quotient.py` | Exact integer quotient $\mathbb{Z}^d/U$ by verified $L0$ directions using HNF/SNF without unsafe floating projection or silent saturation. |
+| `quotient_metrics.py` | Factor-blind oracle-side $L$, $L0$, quotient-gap, and bounded minimum diagnostics; never used as the recovery selector. |
 | `quotient_predictors.py` | Joins frozen study rows and evaluates clustered predictor comparisons without rerunning recovery. |
-| `quotient_recovery.py` | Cost-audited bounded enumeration, exact quotient deduplication, verified-`L0` suppression/deflation, LDAR, BKZ-or-labeled-surrogate, and matched baselines. |
+| `quotient_recovery.py` | Cost-audited bounded enumeration, exact quotient deduplication, verified-$L0$ suppression/deflation, LDAR, BKZ-or-labeled-surrogate, and matched baselines. |
 | `quotient_experiments.py` | Frozen quotient-study parameters and four sample-model definitions. |
 | `quotient_study.py` | Atomic/checkpointed 20-modulus held-out execution and aggregation. |
 | `rv_filter.py` | Finite comparator with the lattice structure of Ragavan–Vaikuntanathan Algorithm 6.1; explicitly reports unmet theorem hypotheses. |
@@ -691,13 +695,13 @@ external/         audited arithmetic dependency at a fixed commit
 
 ### 1. QFT certification gap — current result
 
-The final frozen holdout uses eight new semiprimes, roots `(2,3)`, `d=2`,
-`M={8,16,32}`, `m=7`, hard-box and finite-Gaussian laws, every cutoff, and 64
-replicates per cell. It contains 12,288 raw endpoint trials and whole-`N`
+The final frozen holdout uses eight new semiprimes, roots $(2,3)$, $d=2$,
+$M=\{8,16,32\}$, $m=7$, hard-box and finite-Gaussian laws, every cutoff, and 64
+replicates per cell. It contains 12,288 raw endpoint trials and whole-$N$
 cluster intervals.
 
 The original theorem certified zero omitted layers. The largest omissions
-meeting the frozen absolute `0.10` non-inferiority rule were:
+meeting the frozen absolute $0.10$ non-inferiority rule were:
 
 | M | Hard box A | Finite Gaussian B |
 |---:|---:|---:|
@@ -705,18 +709,18 @@ meeting the frozen absolute `0.10` non-inferiority rule were:
 | 16 | 1 | 2 |
 | 32 | 1 | 2 |
 
-Passing means both factor and verified-`L\L0` approximate-minus-exact lower
-confidence bounds exceeded the frozen `-0.10` non-inferiority margin. The
+Passing means both factor and verified-$L\L0$ approximate-minus-exact lower
+confidence bounds exceeded the frozen $-0.10$ non-inferiority margin. The
 largest passing cells saved six logical controlled phases and 12 QFT-only
 transpiled CX gates. These are not full-device savings.
 
 Post-hoc robustness checks preserve but qualify that result. Every selected
-cutoff still passed after removing each held-out `N` in turn. Exact paired
-sign-flip tests at the `-0.10` boundary returned one-sided sensitivity
-`p<=0.015625` for the selected cells, under the test's symmetry assumption.
-At a stricter absolute `0.05` margin, at least one omitted layer still passed
-in all six cells, but the Gaussian `M=16` result fell from two layers to one;
-at `0.02`, hard-box `M=8` permitted no omission. These analyses were not
+cutoff still passed after removing each held-out $N$ in turn. Exact paired
+sign-flip tests at the $-0.10$ boundary returned one-sided sensitivity
+$p\leq 0.015625$ for the selected cells, under the test's symmetry assumption.
+At a stricter absolute $0.05$ margin, at least one omitted layer still passed
+in all six cells, but the Gaussian $M=16$ result fell from two layers to one;
+at $0.02$, hard-box $M=8$ permitted no omission. These analyses were not
 preregistered and do not increase the number of independent moduli.
 
 The proof audit shows the omitted-gate operator step is nearly tight, but the
@@ -728,17 +732,17 @@ information-theoretic exact-QFT barrier.
 
 Frozen analytic grid:
 
-- `d={2,3,4,5}`;
-- `M={8,16,32,64,128}`;
-- `m={4,8,12,24}`;
-- `Delta={0.05,0.10,0.20}`;
-- every valid cutoff `t`.
+- $d=\{2,3,4,5\}$;
+- $M=\{8,16,32,64,128\}$;
+- $m=\{4,8,12,24\}$;
+- $\Delta=\{0.05,0.10,0.20\}$;
+- every valid cutoff $t$.
 
 There are 1,200 analytic cutoff rows, ten matrix-validation rows, 72 feasible
-exact-fiber endpoint rows, 32 RV-comparator rows, 72 paired-`N` rows, and 24
-whole-`N` cluster-bootstrap rows. Exact matrix overlap covers `M<=16`; exact
-fiber/lattice endpoints cover `d=2`, `M<=32`, and `N={35,77,143}`. The
-analytic certificate itself is independent of `N` and therefore is not a
+exact-fiber endpoint rows, 32 RV-comparator rows, 72 paired-$N$ rows, and 24
+whole-$N$ cluster-bootstrap rows. Exact matrix overlap covers $M\leq 16$; exact
+fiber/lattice endpoints cover $d=2$, $M\leq 32$, and $N=\{35,77,143\}$. The
+analytic certificate itself is independent of $N$ and therefore is not a
 24-semiprime empirical holdout.
 
 The positive adaptive-QFT hypothesis is falsified at the primary five-percent
@@ -755,7 +759,7 @@ five sample-count budgets (`7..11`), 32 replicates per cell, 117,760 trial
 rows, and 200 paired method comparisons. Every returned pair passed post-hoc
 factor-manifest validation.
 
-At 11 samples, mean factor-success rates across the 20 `N` values were:
+At 11 samples, mean factor-success rates across the 20 $N$ values were:
 
 | Method | A: hard box | B: finite Gaussian | C: noisy dual | D: corruption surrogate |
 |---|---:|---:|---:|---:|
@@ -780,13 +784,13 @@ methods must fail.
 Across 24 frozen semiprimes, six root-selection methods, three sampling models,
 and 32 trials per cell, bounded-product diversity was negatively associated
 with lattice factor success in the hard-box and finite-Gaussian models
-(Spearman approximately `-0.62` and `-0.68`) but not in the theorem-consistent
-noisy-dual model (approximately `-0.06`). This model disagreement prevents a
+(Spearman approximately $-0.62$ and $-0.68$) but not in the theorem-consistent
+noisy-dual model (approximately $-0.06$). This model disagreement prevents a
 general claim about Regev's algorithm and is now background evidence only.
 
 ### 5. Initial QFT/noise study — superseded background
 
-For `d=3`, `M=8`, and `m=12`, the five-percent rule selected exact QFT and
+For $d=3$, $M=8$, and $m=12$, the five-percent rule selected exact QFT and
 aggressive truncation reduced small-instance factor recovery in both A and B.
 That result motivated the scaling theorem; it is not the final contribution.
 
@@ -794,11 +798,11 @@ That result motivated the scaling theorem; it is not the final contribution.
 
 | Directory | Contents |
 |---|---|
-| `results/qft_certificate_gap/` | Final frozen configuration, hashed completion manifest, 192 certificate rows, 12,288 raw trials, 192 per-`N` rows, 24 paired cluster rows, six gap summaries, 912 proof-slack rows, raw bootstrap draws, exact paired tests, leave-one-`N`-out and margin-sensitivity tables, controlled examples, and certification/recovery figure. |
+| `results/qft_certificate_gap/` | Final frozen configuration, hashed completion manifest, 192 certificate rows, 12,288 raw trials, 192 per-$N$ rows, 24 paired cluster rows, six gap summaries, 912 proof-slack rows, raw bootstrap draws, exact paired tests, leave-one-$N$-out and margin-sensitivity tables, controlled examples, and certification/recovery figure. |
 | `results/qft_precision_scaling/` | Earlier certificate-scaling configuration, 1,200 analytic rows, matrix rows, exact endpoints, paired and cluster-bootstrap comparisons, resource rows, RV rows, and two figures. |
 | `results/qft_noise/` | First finite QFT/noise experiment: analytic/fiber/model-C/Qiskit/endpoint rows and two figures. |
-| `results/quotient_study/` | Completed 20-`N` quotient run: 20 checkpoints, 117,760 trials/resources, per-`N` aggregates, 200 paired comparisons, manifest, hashes, and completion record. Approximately 1.1 GB. |
-| `results/redteam/` | Frozen base families, exact A/B laws, 13,824 trial rows, per-`N` summaries, clustered statistics, configuration, and hashes. |
+| `results/quotient_study/` | Completed 20-$N$ quotient run: 20 checkpoints, 117,760 trials/resources, per-$N$ aggregates, 200 paired comparisons, manifest, hashes, and completion record. Approximately 1.1 GB. |
+| `results/redteam/` | Frozen base families, exact A/B laws, 13,824 trial rows, per-$N$ summaries, clustered statistics, configuration, and hashes. |
 | `results/raw/`, `results/summary/` | Superseded first-stage distributions and analyses retained for reproducibility. |
 | `figures/` | First-stage and base-selection red-team figures. New QFT figures live beside their result tables. |
 
@@ -828,7 +832,7 @@ presented as cells in that notebook.
 | Reproduce the base-selection red team | Run `scripts/run_redteam.py`. |
 | Inspect quotient-deflation results | Read `FROZEN_QUOTIENT_PROTOCOL.md` and `results/quotient_study/completion.json`. |
 | Recompute quotient predictor summaries without the expensive holdout | Run `scripts/analyze_quotient_study.py`. |
-| Work on QFT matrices/noise functions | Start with `qft_noise.py`, `qft_certificate.py`, and their matching tests. |
+| Work on QFT matrices/noise functions | Start with `qft_noise.py`, `qft_certificate.py`, and their mat\ching tests. |
 | Work on classical factor recovery | Start with `regev_research/lattice.py`, then `quotient_recovery.py`. |
 
 ## How to read an experiment row
@@ -838,20 +842,20 @@ Important columns include:
 
 | Column idea | Interpretation |
 |---|---|
-| `N` | Composite input. Comparisons should normally be paired within the same `N`. |
+| $N$ | Composite input. Comparisons should normally be paired within the same $N$. |
 | `model` | A/B/C/D sampling law. Never compare labels without checking their definitions. |
 | `seed` / `replicate` | Makes the random draw reproducible. A replicate is not a new independent modulus. |
 | `factor_pair` / success indicator | Whether the factor-blind endpoint returned a verified proper factorization. |
-| `relation_class` | `L0`, `L_minus_L0`, or invalid/not in `L`. Only `L_minus_L0` can yield a factor. |
-| `sample_count` / `m` | Number of quantum executions supplied to classical recovery. |
-| `cutoff` | Maximum retained QFT qubit separation. `q-1` is exact for a `q`-qubit register. |
+| `relation_class` | $L0$, `L_minus_L0`, or invalid/not in $L$. Only `L_minus_L0` can yield a factor. |
+| `sample_count` / $m$ | Number of quantum executions supplied to classical recovery. |
+| `cutoff` | Maximum retained QFT qubit separation. $q-1$ is exact for a $q$-qubit register. |
 | `controlled_phase_gates` | Logical QFT controlled-phase count, not necessarily final hardware two-qubit count. |
-| `runtime_seconds` | Measured local runtime for the recorded step. It is machine-dependent. |
-| confidence interval | Sampling uncertainty for the stated unit. Cluster intervals resample whole `N` values. |
+| `runtime_seconds` | Measured local runtime for the recorded step. It is ma\chine-dependent. |
+| confidence interval | Sampling uncertainty for the stated unit. Cluster intervals resample whole $N$ values. |
 
-Success percentages from repeated shots at one `N` do not prove generalization
+Success percentages from repeated shots at one $N$ do not prove generalization
 to other integers. That is why the reports aggregate at the modulus level and
-why held-out `N`, not millions of pooled shots, is the relevant scientific
+why held-out $N$, not millions of pooled shots, is the relevant scientific
 unit.
 
 ## Setup
@@ -949,7 +953,7 @@ Reproduce the current QFT certification-gap contribution:
 MPLCONFIGDIR=/tmp/mpl PYTHONPATH=. .venv/bin/python scripts/run_qft_certificate_gap.py
 ```
 
-This rewrites `results/qft_certificate_gap/`, including raw trials, per-`N`
+This rewrites `results/qft_certificate_gap/`, including raw trials, per-$N$
 and cluster comparisons, raw bootstrap draws, post-hoc exact/leave-one-out/
 margin sensitivity checks, proof-step slack, controlled examples, resources, and
 the certification-versus-recovery figure. `completion.json` records row counts
@@ -1060,7 +1064,7 @@ That study is intentionally large and already has complete checked-in output.
 Use `scripts/analyze_quotient_study.py` to analyze the existing CSV instead of
 rerunning 117,760 recovery trials.
 
-### A toy circuit factors `N`, so is the algorithm proven?
+### A toy circuit factors $N$, so is the algorithm proven?
 
 No. A toy success can result from easy group structure, setup gcd leakage, a
 particularly favorable root relation, or repeated tuning on the same input.
@@ -1079,10 +1083,10 @@ When adding a new method or experiment:
    actually computes.
 4. Freeze moduli, seeds, parameter grids, budgets, and falsification rules
    before the final holdout.
-5. Use `N` as the primary generalization unit; do not inflate significance by
+5. Use $N$ as the primary generalization unit; do not inflate significance by
    pooling shots from one modulus.
 6. Compare at matched quantum samples and matched classical search budgets.
-7. Verify `z in L` before classifying `L0` or attempting gcd extraction.
+7. Verify $z \in L$ before classifying $L0$ or attempting gcd extraction.
 8. Separate hard-box, finite-Gaussian, theorem-consistent noisy-dual, and
    corruption-surrogate conclusions.
 9. Label measured resources, analytic bounds, deterministic estimates, and
@@ -1111,8 +1115,8 @@ When adding a new method or experiment:
 
 ## Reproducibility and factor firewall
 
-- Root/base families are immutable and validate `a_i=b_i^2 mod N`.
-- Trial paths receive `N`, selected roots/bases, samples, and frozen budgets;
+- Root/base families are immutable and validate $a_i=b_i^2 \pmod N$.
+- Trial paths receive $N$, selected roots/bases, samples, and frozen budgets;
   known factors are kept in separate manifests and used only after a returned
   pair for validation.
 - Model-C HNF data is generator-side oracle state and is never passed to
