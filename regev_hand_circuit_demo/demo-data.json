@@ -1,0 +1,265 @@
+{
+  "demoInstance": {
+    "N": 55,
+    "factors": [5, 11],
+    "roots": [2, 3],
+    "circuitBases": [4, 9],
+    "M": 32,
+    "dimension": 2,
+    "exponentQubitsPerRegister": 5,
+    "resultQubits": 6,
+    "auxiliaryQubits": 7,
+    "totalLogicalQubits": 23,
+    "samplesPerRecoveryAttempt": 7,
+    "sampleModel": "A — notebook uniform hard-box circuit",
+    "sampleSeed": 2026091301,
+    "replayPreset": "omit1",
+    "scope": "The factor animation is a fixed, reproducible successful replay for N=55 under model A with one QFT separation layer omitted. Aggregate recovery statements refer separately to the frozen eight-semiprime holdout."
+  },
+  "buildOrder": [
+    "x1",
+    "x2",
+    "h1",
+    "h2",
+    "result",
+    "aux",
+    "modexp1",
+    "modexp2",
+    "qft1",
+    "qft2",
+    "measure1",
+    "measure2"
+  ],
+  "components": [
+    {
+      "id": "x1",
+      "label": "Exponent x₁",
+      "shortLabel": "|x₁⟩",
+      "kind": "register",
+      "stage": "Exponent state",
+      "what": "A five-qubit exponent register representing integers x₁ from 0 through M−1, with M=32 in this demo.",
+      "role": "It controls the exponent of circuit base a₁=4. The arithmetic map depends on 4ˣ¹ modulo 55.",
+      "built": "build_arbitrary_base_circuit() creates one M-sized quantum register for each modular base.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "build_arbitrary_base_circuit()",
+      "formula": "x₁ ∈ {0,…,31}"
+    },
+    {
+      "id": "x2",
+      "label": "Exponent x₂",
+      "shortLabel": "|x₂⟩",
+      "kind": "register",
+      "stage": "Exponent state",
+      "what": "A second independent five-qubit exponent register representing x₂ from 0 through 31.",
+      "role": "It controls the exponent of circuit base a₂=9, so the full arithmetic label depends on both exponent coordinates.",
+      "built": "The same circuit builder creates x₂ separately; the two registers are transformed and measured independently.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "x_registers",
+      "formula": "x₂ ∈ {0,…,31}"
+    },
+    {
+      "id": "h1",
+      "label": "Hadamards x₁",
+      "shortLabel": "H⊗⁵",
+      "kind": "hadamard",
+      "stage": "Exponent state",
+      "what": "One Hadamard on every qubit of x₁.",
+      "role": "It creates a uniform hard-box superposition in the notebook circuit, allowing many exponents to be evaluated coherently.",
+      "built": "The implementation calls circuit.h(x) independently for every exponent register before modular arithmetic.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "circuit.h(x)",
+      "formula": "|0⟩⊗⁵ → 2⁻⁵ᐟ² Σₓ₁|x₁⟩"
+    },
+    {
+      "id": "h2",
+      "label": "Hadamards x₂",
+      "shortLabel": "H⊗⁵",
+      "kind": "hadamard",
+      "stage": "Exponent state",
+      "what": "One Hadamard on every qubit of x₂.",
+      "role": "Together with x₁, it spans a two-dimensional box of exponent combinations.",
+      "built": "The builder applies the same verified preparation to x₂, preserving register separation and measurement order.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "circuit.h(x)",
+      "formula": "Σₓ₁,ₓ₂ |x₁,x₂⟩"
+    },
+    {
+      "id": "result",
+      "label": "Result register y",
+      "shortLabel": "|y⟩",
+      "kind": "workspace",
+      "stage": "Arithmetic",
+      "what": "A six-qubit register large enough to encode residues modulo N=55.",
+      "role": "It is initialized to |1⟩ and accumulates the modular product controlled by x₁ and x₂.",
+      "built": "The builder allocates N.bit_length() qubits and applies X to y[0], producing the multiplicative identity.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "y; circuit.x(y[0])",
+      "formula": "|1⟩ → |4ˣ¹9ˣ² mod 55⟩"
+    },
+    {
+      "id": "aux",
+      "label": "Auxiliary workspace",
+      "shortLabel": "|aux⟩",
+      "kind": "workspace",
+      "stage": "Arithmetic",
+      "what": "Seven temporary qubits used by reversible modular arithmetic.",
+      "role": "Intermediate carries and reversible arithmetic need workspace that must be returned to a clean state before Fourier sampling.",
+      "built": "The circuit allocates n+1 auxiliary qubits and passes them to each audited external modular-exponentiation gate.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "aux = QuantumRegister(n + 1)",
+      "formula": "|aux⟩: temporary, then uncomputed"
+    },
+    {
+      "id": "modexp1",
+      "label": "Mod exp a₁",
+      "shortLabel": "×4ˣ¹",
+      "kind": "arithmetic",
+      "stage": "Arithmetic",
+      "what": "A reversible controlled modular-exponentiation block for circuit base a₁=4.",
+      "role": "It multiplies the shared result register by 4ˣ¹ modulo 55 without measuring x₁.",
+      "built": "The implementation imports and audits modular_exponentiation_gate(), then wires x₁, y, and aux in a fixed order.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "modular_exponentiation_gate(a, N, n, nd)",
+      "formula": "|x₁⟩|y⟩ → |x₁⟩|y·4ˣ¹ mod 55⟩"
+    },
+    {
+      "id": "modexp2",
+      "label": "Mod exp a₂",
+      "shortLabel": "×9ˣ²",
+      "kind": "arithmetic",
+      "stage": "Arithmetic",
+      "what": "The second reversible modular-exponentiation block, now controlled by x₂.",
+      "role": "Sequential action on the shared result register completes the product 4ˣ¹9ˣ² modulo 55.",
+      "built": "The builder loops over the stored base list, preserving which exponent register controls which arithmetic block.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "for x, a in zip(x_registers, bases)",
+      "formula": "4ˣ¹ · 9ˣ² mod 55"
+    },
+    {
+      "id": "qft1",
+      "label": "Inverse QFT x₁",
+      "shortLabel": "QFT⁻¹",
+      "kind": "qft",
+      "stage": "Fourier sampling",
+      "what": "A five-qubit inverse quantum Fourier transform on x₁.",
+      "role": "It converts phase structure created by modular-product fibers into a measurable Fourier coordinate.",
+      "built": "The exact circuit uses QFTGate.inverse(); the audited approximation deletes only declared small-angle controlled phases.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "qft_cutoff / QFTGate(nd).inverse()",
+      "formula": "F₃₂⁻¹ on x₁"
+    },
+    {
+      "id": "qft2",
+      "label": "Inverse QFT x₂",
+      "shortLabel": "QFT⁻¹",
+      "kind": "qft",
+      "stage": "Fourier sampling",
+      "what": "A separate five-qubit inverse QFT on x₂.",
+      "role": "Regev-style sampling is multidimensional: each exponent coordinate receives its own Fourier transform.",
+      "built": "Tests check sign, swaps, endian ordering, unitarity, every cutoff, and exact full-cutoff equivalence.",
+      "codeFile": "../regev_research/qft_noise.py",
+      "codeSymbol": "qft_matrix()",
+      "formula": "F₃₂⁻¹ ⊗ F₃₂⁻¹"
+    },
+    {
+      "id": "measure1",
+      "label": "Measure x₁",
+      "shortLabel": "M",
+      "kind": "measure",
+      "stage": "Measurement",
+      "what": "Computational-basis measurement of the first Fourier register.",
+      "role": "It produces the first coordinate of a classical sample; it does not directly reveal a factor.",
+      "built": "Both exponent registers are mapped into one classical register with tested coordinate and bitstring decoding.",
+      "codeFile": "../regev_research/circuits.py",
+      "codeSymbol": "circuit.measure(...) ",
+      "formula": "x₁ → w₁ ∈ {0,…,31}"
+    },
+    {
+      "id": "measure2",
+      "label": "Measure x₂",
+      "shortLabel": "M",
+      "kind": "measure",
+      "stage": "Measurement",
+      "what": "Computational-basis measurement of the second Fourier register.",
+      "role": "Together the two coordinates form one structured Fourier sample consumed by the lattice stage.",
+      "built": "The post-processing receives ordered integer pairs, builds the exact cleared augmented lattice, and verifies recovered relations.",
+      "codeFile": "../regev_research/lattice.py",
+      "codeSymbol": "regev_lattice_postprocess()",
+      "formula": "sample w=(w₁,w₂)"
+    }
+  ],
+  "qftPresets": {
+    "exact": {
+      "label": "Exact QFT",
+      "cutoff": 4,
+      "omittedLayers": 0,
+      "controlledPhasesRemaining": 20,
+      "controlledPhasesRemoved": 0,
+      "qftOnlyCxRemoved": 0,
+      "qftOnlyDepthRemoved": 0,
+      "certificate": "Certified reference — exact baseline",
+      "observed": "Exact-QFT reference endpoint",
+      "scope": "For two five-qubit IQFTs: 20 controlled phases, 52 transpiled CX, depth 36 in the frozen QFT-only accounting."
+    },
+    "omit1": {
+      "label": "Truncated QFT — omit 1 layer",
+      "cutoff": 3,
+      "omittedLayers": 1,
+      "controlledPhasesRemaining": 18,
+      "controlledPhasesRemoved": 2,
+      "qftOnlyCxRemoved": 4,
+      "qftOnlyDepthRemoved": 0,
+      "certificate": "Not certified by the original worst-case bound",
+      "observed": "Met the frozen 0.10 non-inferiority rule in all six model-by-M cells",
+      "scope": "Eight held-out semiprimes; at M=32 this includes both models A and B, with N—not repeat batches—as the generalization unit. This does not prove universal safety."
+    },
+    "omit2": {
+      "label": "Truncated QFT — omit 2 layers",
+      "cutoff": 2,
+      "omittedLayers": 2,
+      "controlledPhasesRemaining": 14,
+      "controlledPhasesRemoved": 6,
+      "qftOnlyCxRemoved": 12,
+      "qftOnlyDepthRemoved": 0,
+      "certificate": "Not certified by the original worst-case bound",
+      "observed": "At M=32, met the frozen rule for finite discrete-Gaussian model B but failed it for uniform hard-box model A",
+      "scope": "The model-B difference was −0.01758 (CI lower bound −0.03516); the model-A CI crossed the −0.10 margin. Not a universal safety claim."
+    }
+  },
+  "successfulReplay": {
+    "label": "Fixed successful replay — not a live-success guarantee",
+    "model": "A — notebook uniform hard-box circuit",
+    "preset": "omit1",
+    "seed": 2026091301,
+    "samples": [[6, 19], [3, 10], [16, 16], [6, 19], [0, 0], [16, 16], [10, 29]],
+    "augmentedLatticeShape": "9 × 9",
+    "recoveredRelation": [3, -1],
+    "relationCheck": "4³ · 9⁻¹ ≡ 1 (mod 55)",
+    "beta": 21,
+    "storedRootCheck": "β = 2³ · 3⁻¹ ≡ 21 (mod 55), β² ≡ 1, β ≠ ±1",
+    "factorChecks": ["gcd(21−1,55)=5", "gcd(21+1,55)=11"],
+    "factors": [5, 11]
+  },
+  "latticePipeline": [
+    {
+      "label": "Build augmented lattice",
+      "detail": "Clear sample denominators and embed all seven Fourier samples into the exact 9×9 integer basis used by this d=2, m=7 replay."
+    },
+    {
+      "label": "Run LLL",
+      "detail": "Run SymPy LLL with δ=3/4 and inspect the implemented Claim-5.1 candidate prefix."
+    },
+    {
+      "label": "Recover relation z",
+      "detail": "Lift z=(3,−1) and check 4³·9⁻¹≡1 (mod 55) exactly; shortness alone is not enough."
+    },
+    {
+      "label": "Classify L₀ or L\\L₀",
+      "detail": "Use the permanently stored roots b₁=2 and b₂=3: β=21, β²=1, and β≠±1, so z lies in L\\L₀."
+    },
+    {
+      "label": "Extract factors",
+      "detail": "Compute gcd(20,55)=5 and gcd(22,55)=11, then verify 5·11=55."
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <title>Build Regev’s Circuit With Your Hands</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="hero">
+    <div class="hero-mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64" role="img">
+        <circle cx="32" cy="32" r="24"></circle>
+        <path d="M13 32h38M32 13v38M18 18l28 28M46 18 18 46"></path>
+        <circle cx="32" cy="32" r="5"></circle>
+      </svg>
+    </div>
+    <div class="hero-copy">
+      <div class="eyebrow">Audited Regev-style notebook circuit · interactive exhibit</div>
+      <h1>Build Regev’s Circuit <span>With Your Hands</span></h1>
+      <p>This circuit took substantial time to reconstruct, integrate, and validate. Instead of only showing the finished diagram, assemble it yourself and see how the notebook’s quantum sampler connects to exact lattice post-processing.</p>
+    </div>
+    <div class="hero-facts" aria-label="Demonstration parameters">
+      <div><strong>N = 55</strong><span>demo integer</span></div>
+      <div><strong>d = 2</strong><span>Fourier dimensions</span></div>
+      <div><strong>23</strong><span>logical qubits</span></div>
+    </div>
+  </header>
+
+  <nav class="control-bar" aria-label="Demo controls">
+    <div class="mode-switch" role="group" aria-label="Build mode">
+      <button class="mode-button active" id="guidedMode" type="button" aria-pressed="true">
+        <span class="button-icon">◎</span> Guided build
+      </button>
+      <button class="mode-button" id="challengeMode" type="button" aria-pressed="false">
+        <span class="button-icon">◇</span> Circuit challenge
+      </button>
+    </div>
+    <div class="control-actions">
+      <button class="action-button camera-button" id="cameraButton" type="button">
+        <span class="status-dot"></span><span id="cameraButtonLabel">Start hand tracking</span>
+      </button>
+      <button class="action-button" id="autoplayButton" type="button">▶ Presentation autoplay</button>
+      <button class="icon-button" id="fullscreenButton" type="button" aria-label="Enter fullscreen" title="Enter fullscreen">⛶</button>
+      <button class="icon-button" id="resetButton" type="button" aria-label="Reset circuit" title="Reset circuit">↻</button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="demo-shell" aria-label="Gesture circuit builder">
+      <aside class="panel component-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="panel-kicker">Piece library</span>
+            <h2>Components</h2>
+          </div>
+          <span class="count-badge" id="pieceCount">0 / 12</span>
+        </div>
+        <p class="panel-help" id="modeHelp">Guided mode unlocks one verified component at a time.</p>
+        <div class="component-list" id="componentPalette" aria-live="polite"></div>
+        <div class="gesture-legend">
+          <h3>Hand controls</h3>
+          <div class="gesture-row"><span class="gesture-icon open-hand">✋</span><span><strong>Open hand</strong>Move the cursor</span></div>
+          <div class="gesture-row"><span class="gesture-icon pinch-hand">🤏</span><span><strong>Pinch</strong>Pick up a component</span></div>
+          <div class="gesture-row"><span class="gesture-icon release-hand">◌</span><span><strong>Release</strong>Drop over a glowing slot</span></div>
+          <p>Mouse, touch, and click-then-place always work as a fallback.</p>
+        </div>
+      </aside>
+
+      <section class="camera-stage" id="cameraStage">
+        <div class="camera-chrome">
+          <div class="camera-label"><span class="live-dot"></span><span id="cameraStatus">Camera optional · mouse ready</span></div>
+          <div class="tracking-stats">
+            <span id="trackingFps">— fps</span>
+            <span id="pinchState">open hand</span>
+          </div>
+        </div>
+        <div class="camera-layer" aria-hidden="true">
+          <video id="webcam" autoplay playsinline muted></video>
+          <canvas id="handCanvas"></canvas>
+          <div class="camera-placeholder" id="cameraPlaceholder">
+            <div class="placeholder-orbit"><span></span><span></span><span></span></div>
+            <strong>Camera overlay</strong>
+            <p>Start hand tracking, or build immediately with a mouse.</p>
+          </div>
+        </div>
+
+        <div class="circuit-workspace" id="circuitWorkspace">
+          <div class="workspace-topline">
+            <div>
+              <span class="workspace-kicker">Live architecture · N=55 · M=32</span>
+              <h2 id="workspacePrompt">Place the exponent register x₁</h2>
+            </div>
+            <div class="mode-pill" id="modePill">Guided 01</div>
+          </div>
+
+          <div class="arithmetic-formula" id="arithmeticFormula" aria-live="polite">
+            <span class="formula-root">b₁=2</span><span class="formula-arrow">→ square →</span><span>a₁=4</span>
+            <span class="formula-plus">+</span>
+            <span class="formula-root">b₂=3</span><span class="formula-arrow">→ square →</span><span>a₂=9</span>
+          </div>
+
+          <div class="circuit-board" id="circuitBoard">
+            <div class="lane-label"><strong>x₁</strong><small>5 qubits</small></div>
+            <div class="wire" aria-hidden="true"></div>
+            <button class="circuit-slot" data-accepts="x1" aria-label="Slot for exponent register x1"><span>register</span></button>
+            <button class="circuit-slot" data-accepts="h1" aria-label="Slot for Hadamards on x1"><span>prepare</span></button>
+            <button class="circuit-slot wide-slot" data-accepts="modexp1" aria-label="Slot for modular exponentiation a1"><span>arithmetic a₁</span></button>
+            <button class="circuit-slot" data-accepts="qft1" aria-label="Slot for inverse QFT on x1"><span>Fourier</span></button>
+            <button class="circuit-slot compact-slot" data-accepts="measure1" aria-label="Slot for measurement of x1"><span>read</span></button>
+
+            <div class="lane-label"><strong>x₂</strong><small>5 qubits</small></div>
+            <div class="wire second-wire" aria-hidden="true"></div>
+            <button class="circuit-slot" data-accepts="x2" aria-label="Slot for exponent register x2"><span>register</span></button>
+            <button class="circuit-slot" data-accepts="h2" aria-label="Slot for Hadamards on x2"><span>prepare</span></button>
+            <button class="circuit-slot wide-slot" data-accepts="modexp2" aria-label="Slot for modular exponentiation a2"><span>arithmetic a₂</span></button>
+            <button class="circuit-slot" data-accepts="qft2" aria-label="Slot for inverse QFT on x2"><span>Fourier</span></button>
+            <button class="circuit-slot compact-slot" data-accepts="measure2" aria-label="Slot for measurement of x2"><span>read</span></button>
+
+            <div class="workspace-rail" aria-hidden="true"></div>
+            <div class="workspace-label"><strong>Shared arithmetic</strong><small>result + clean workspace</small></div>
+            <button class="circuit-slot workspace-slot" data-accepts="result" aria-label="Slot for result register"><span>|y⟩ result</span></button>
+            <button class="circuit-slot workspace-slot" data-accepts="aux" aria-label="Slot for auxiliary register"><span>|aux⟩ work</span></button>
+          </div>
+
+          <div class="superposition-visual" id="superpositionVisual" aria-hidden="true">
+            <span>|0⟩</span><span>|7⟩</span><span>|15⟩</span><span>|23⟩</span><span>|31⟩</span>
+          </div>
+
+          <div class="qft-lab" id="qftLab">
+            <div class="qft-lab-copy">
+              <span class="workspace-kicker">Research control</span>
+              <strong>Choose Fourier precision</strong>
+            </div>
+            <div class="qft-options" role="group" aria-label="QFT precision">
+              <button type="button" class="qft-option active" data-preset="exact">Exact</button>
+              <button type="button" class="qft-option" data-preset="omit1">Omit 1 layer</button>
+              <button type="button" class="qft-option" data-preset="omit2">Omit 2 layers</button>
+            </div>
+            <div class="phase-gates" id="phaseGates" aria-label="Controlled phase layer visualization"></div>
+          </div>
+
+          <div class="sample-stream" id="sampleStream" aria-live="polite"></div>
+          <p class="replay-note" id="replayNote">Completion uses a labeled, fixed successful replay; it does not promise that every seven-sample batch factors N.</p>
+        </div>
+
+        <div class="stage-progress">
+          <div class="progress-track"><span id="progressFill"></span></div>
+          <div class="stage-labels">
+            <span class="active" data-stage="Exponent state">Exponent state</span>
+            <span data-stage="Arithmetic">Arithmetic</span>
+            <span data-stage="Fourier sampling">QFT</span>
+            <span data-stage="Measurement">Measurement</span>
+            <span data-stage="Lattice recovery">Lattice</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel explanation-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="panel-kicker">Component intelligence</span>
+            <h2>Explanation</h2>
+          </div>
+          <span class="component-kind" id="componentKind">Start here</span>
+        </div>
+
+        <div class="explanation-hero" id="explanationHero">
+          <div class="explanation-glyph" id="explanationGlyph">x₁</div>
+          <div><span id="explanationStage">Exponent state</span><h3 id="explanationTitle">Exponent register x₁</h3></div>
+        </div>
+
+        <div class="formula-card" id="formulaCard">x₁ ∈ {0,…,31}</div>
+
+        <article class="explanation-section">
+          <h4><span>01</span> What this piece is</h4>
+          <p id="whatText">A five-qubit exponent register representing values from 0 through M−1.</p>
+        </article>
+        <article class="explanation-section">
+          <h4><span>02</span> What it does in Regev’s algorithm</h4>
+          <p id="roleText">It supplies one coordinate of the multidimensional modular-product map.</p>
+        </article>
+        <article class="explanation-section">
+          <h4><span>03</span> What we implemented</h4>
+          <p id="builtText">The circuit builder creates one register for each selected circuit base.</p>
+        </article>
+
+        <a class="code-link" id="codeLink" href="../regev_research/circuits.py" target="_blank" rel="noopener">
+          <span class="code-icon">&lt;/&gt;</span>
+          <span><small>View implementation</small><strong id="codeSymbol">build_arbitrary_base_circuit()</strong></span>
+          <span>↗</span>
+        </a>
+
+        <div class="research-readout" id="researchReadout">
+          <div class="readout-title"><span>QFT evidence card</span><span class="evidence-dot"></span></div>
+          <div class="metric-grid">
+            <div><span>Controlled phases removed</span><strong id="cpRemoved">0</strong></div>
+            <div><span>QFT-only CX removed</span><strong id="cxRemoved">0</strong></div>
+          </div>
+          <div class="evidence-row"><span>Worst-case certificate</span><strong id="certificateText">Approved — exact baseline</strong></div>
+          <div class="evidence-row"><span>Observed endpoint</span><strong id="observedText">Exact-QFT reference endpoint</strong></div>
+          <p id="evidenceScope">Baseline configuration.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="post-processing" id="postProcessing" aria-labelledby="postTitle">
+      <div class="post-heading">
+        <div><span class="panel-kicker">Classical endpoint</span><h2 id="postTitle">Samples do not equal factors</h2></div>
+        <p>The completed quantum circuit produces structured Fourier samples. Exact integer lattice post-processing must still recover and verify a useful relation.</p>
+      </div>
+      <div class="pipeline" id="latticePipeline"></div>
+      <div class="factor-reveal" id="factorReveal">
+        <small>Fixed successful replay · model A · omit 1 layer · seed 2026091301</small>
+        <span class="factor-n">55</span><span class="factor-arrow">→</span><span class="factor-pair">5 × 11</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Presentation demo.</strong> Camera frames remain in this browser tab and are not uploaded by this application.</p>
+    <p>Concrete instance: N=55, roots (2,3), circuit bases (4,9), M=32. The H-gate preparation is the notebook’s uniform hard-box surrogate; the project’s model B is an exact classical finite-Gaussian simulation, not a Gaussian state-preparation circuit.</p>
+  </footer>
+
+  <div class="hand-cursor" id="handCursor" aria-hidden="true">
+    <svg class="pinch-ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18"></circle><circle class="pinch-progress" cx="22" cy="22" r="18"></circle></svg>
+    <span></span>
+  </div>
+  <div class="drag-ghost" id="dragGhost" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog class="completion-dialog" id="completionDialog">
+    <div class="completion-burst" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <span class="completion-kicker">Architecture verified</span>
+    <h2>Circuit complete</h2>
+    <p>You built the quantum sampling stage. Now watch a fixed, reproducible successful seven-sample replay pass through the exact augmented-lattice and stored-root recovery pipeline.</p>
+    <button type="button" id="runLatticeButton">Run lattice recovery <span>→</span></button>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
