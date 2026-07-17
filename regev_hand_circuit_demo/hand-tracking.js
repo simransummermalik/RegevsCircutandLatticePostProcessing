@@ -202,9 +202,17 @@ export class GestureHandTracker {
   pointerPayload(point, pinchProgress, isPinching) {
     const rect = this.interactionElement.getBoundingClientRect();
     const safePoint = point || { x: 0.5, y: 0.5 };
+    const sourceWidth = this.video.videoWidth || rect.width;
+    const sourceHeight = this.video.videoHeight || rect.height;
+    const coverScale = Math.max(rect.width / sourceWidth, rect.height / sourceHeight);
+    const displayedWidth = sourceWidth * coverScale;
+    const displayedHeight = sourceHeight * coverScale;
+    const cropX = (rect.width - displayedWidth) / 2;
+    const cropY = (rect.height - displayedHeight) / 2;
+    const unmirroredX = cropX + safePoint.x * displayedWidth;
     return {
-      x: rect.left + (1 - safePoint.x) * rect.width,
-      y: rect.top + safePoint.y * rect.height,
+      x: rect.left + rect.width - unmirroredX,
+      y: rect.top + cropY + safePoint.y * displayedHeight,
       pinchProgress,
       isPinching
     };

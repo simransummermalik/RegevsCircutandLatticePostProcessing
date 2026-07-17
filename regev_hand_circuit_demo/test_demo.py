@@ -195,30 +195,32 @@ class DemoHTMLTests(unittest.TestCase):
 
     def test_required_interface_regions_exist(self) -> None:
         required = {
-            "guidedMode",
-            "challengeMode",
             "cameraButton",
-            "autoplayButton",
-            "fullscreenButton",
             "resetButton",
-            "componentPalette",
+            "componentDock",
             "webcam",
             "handCanvas",
-            "circuitWorkspace",
-            "qftLab",
-            "sampleStream",
+            "circuitBoard",
             "handCursor",
-            "researchReadout",
-            "latticePipeline",
-            "factorReveal",
             "completionDialog",
-            "runLatticeButton",
+            "buildAgainButton",
+            "workspacePrompt",
+            "pieceCount",
         }
         self.assertEqual(required - self.parser.ids, set())
 
     def test_slot_targets_match_data_build_order(self) -> None:
         self.assertEqual(len(self.parser.slot_targets), 12)
         self.assertEqual(set(self.parser.slot_targets), set(EXPECTED_BUILD_ORDER))
+
+    def test_ultra_minimal_camera_and_blocks_skin_is_enabled(self) -> None:
+        self.assertIn('href="minimal.css"', self.html)
+        skin = (DEMO_DIR / "minimal.css").read_text(encoding="utf-8")
+        self.assertIn("#webcam", skin)
+        self.assertIn(".current-block", skin)
+        self.assertNotIn("gradient", skin)
+        self.assertNotIn("box-shadow", skin)
+        self.assertNotIn("explanation", self.html.lower())
 
     def test_all_local_html_references_resolve(self) -> None:
         for reference in self.parser.local_refs:
@@ -237,11 +239,10 @@ class DemoInteractionTests(unittest.TestCase):
             "pointerdown",
             "pointermove",
             "pointerup",
-            "autoplayButton",
-            "guidedMode",
-            "challengeMode",
+            "cameraButton",
+            "componentDock",
             "completionDialog",
-            "latticePipeline",
+            "buildAgainButton",
         ):
             with self.subTest(marker=marker):
                 self.assertIn(marker, app)
@@ -262,7 +263,7 @@ class DemoInteractionTests(unittest.TestCase):
         self.assertIsNotNone(index_tip, "pinch logic must use index-tip landmark 8")
 
     def test_camera_is_mirrored_and_reduced_motion_is_supported(self) -> None:
-        css = (DEMO_DIR / "styles.css").read_text(encoding="utf-8")
+        css = (DEMO_DIR / "minimal.css").read_text(encoding="utf-8")
         self.assertRegex(css, r"(?:scaleX\s*\(\s*-1\s*\)|rotateY\s*\(\s*180deg\s*\))")
         self.assertIn("prefers-reduced-motion", css)
 
@@ -273,7 +274,7 @@ class DocumentationScopeTests(unittest.TestCase):
         normalized = " ".join(readme.split())
         self.assertIn("fixed successful replay", readme)
         self.assertIn("not a new experimental endpoint", readme)
-        self.assertIn("not a universal", readme)
+        self.assertIn("not a universal", normalized)
         self.assertIn("not a demonstrated end-to-end hardware speedup", normalized)
         self.assertIn("2026091301", readme)
         self.assertIn("z=(3,-1)", readme.replace(" ", ""))
