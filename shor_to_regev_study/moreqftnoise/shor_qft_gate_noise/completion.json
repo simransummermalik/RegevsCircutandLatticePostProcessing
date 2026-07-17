@@ -1,0 +1,28 @@
+{
+  "freeze_identifier": "shor-qft-gate-noise-v1",
+  "heldout_instances_executed": [
+    "35:2",
+    "35:11",
+    "39:2",
+    "51:2",
+    "55:2",
+    "65:3",
+    "77:8",
+    "91:9"
+  ],
+  "primary_generalization_unit": "(N,base)",
+  "row_counts": {
+    "configuration_rows": 512,
+    "paired_rows": 60,
+    "per_instance_rows": 512,
+    "trial_rows": 24576
+  },
+  "sha256": {
+    "configuration.json": "f8b9552310303c59ecb7b0031d350a38701bf774a5e67cd8a124ebd1a358ee1b",
+    "configuration_rows.csv": "50d6570d45c4e1b5c02506f43cd98950ba98ec7e55417014a6651c0b82e0280e",
+    "paired_rows.csv": "8ffefd057214903219e587227b0b4e2fa1ca0c858281a9c5aac8cd6f575d499a",
+    "per_instance_rows.csv": "e981248ce7c979c92926a3140f486240ecae59b2f5665cef5066c814b54073ec",
+    "trial_rows.csv": "0a22204daf2d38f296c6e35bdbf774ab6acd815ee611fd583c74b5d72d316493"
+  },
+  "status": "complete"
+}

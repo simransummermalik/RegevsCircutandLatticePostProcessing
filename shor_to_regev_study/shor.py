@@ -272,6 +272,124 @@ def apply_inverse_qft_batch(states: np.ndarray, cutoff: int) -> np.ndarray:
     return output
 
 
+def noisy_inverse_qft_batch(
+    states: np.ndarray,
+    cutoff: int,
+    *,
+    cphase_gain: float = 0.0,
+    cphase_sigma: float = 0.0,
+    rz_bias: float = 0.0,
+    rz_sigma: float = 0.0,
+    rng: np.random.Generator | None = None,
+) -> np.ndarray:
+    """Apply the declared inverse QFT with coherent gate-calibration errors.
+
+    Two physically distinct coherent axes are modeled on the logical
+    controlled-phase / Hadamard inverse QFT, so a single realization stays a
+    pure-state batch (no density matrix required):
+
+    * Controlled-phase miscalibration.  Each retained controlled-phase gate of
+        ideal angle ``theta = -pi / 2**separation`` is replaced by
+      ``theta * (1 + cphase_gain) + N(0, cphase_sigma)``.  ``cphase_gain`` is a
+        systematic multiplicative over/under-rotation shared by every two-qubit
+        phase gate; ``cphase_sigma`` is independent per-gate Gaussian scatter.
+    * Single-qubit RZ over/under-rotation.  The basis-gate ``rz`` rotations that
+        compile each Hadamard carry a calibration error, modeled as an extra
+        z-rotation ``rz_bias + N(0, rz_sigma)`` applied to the target qubit at
+        every Hadamard layer.  ``rz_bias`` is a systematic over/under-rotation;
+        ``rz_sigma`` is independent per-Hadamard scatter.
+
+    Setting every parameter to zero reproduces ``apply_inverse_qft_batch``
+    exactly.  Any nonzero ``*_sigma`` requires an explicit ``rng`` so that
+    realizations are reproducible under paired seeds.
+    """
+
+    values = np.asarray(states, dtype=complex)
+    if values.ndim == 1:
+        values = values[None, :]
+    if values.ndim != 2 or values.shape[1] <= 1:
+        raise ValueError("states must contain nontrivial row statevectors")
+    Q = values.shape[1]
+    q = int(log2(Q))
+    if 1 << q != Q or not 0 <= int(cutoff) < q:
+        raise ValueError("state length must be a power of two and cutoff valid")
+    if (cphase_sigma or rz_sigma) and rng is None:
+        raise ValueError("stochastic gate scatter requires an explicit rng")
+    if float(cphase_sigma) < 0 or float(rz_sigma) < 0:
+        raise ValueError("gate-scatter standard deviations must be nonnegative")
+
+    output = values.copy()
+    for first in range(q // 2):
+        output = output[:, _swap_permutation(Q, first, q - 1 - first)]
+    indices = np.arange(Q)
+    for target in range(q):
+        for control in range(target):
+            separation = target - control
+            if separation <= int(cutoff):
+                ideal = -pi / (2**separation)
+                angle = ideal * (1.0 + float(cphase_gain))
+                if cphase_sigma:
+                    angle += float(rng.normal(0.0, float(cphase_sigma)))
+                mask = (((indices >> target) & 1) & ((indices >> control) & 1)).astype(bool)
+                output[:, mask] *= np.exp(1j * angle)
+        zero = indices[(indices & (1 << target)) == 0]
+        one = zero | (1 << target)
+        if rz_bias or rz_sigma:
+            rz_angle = float(rz_bias)
+            if rz_sigma:
+                rz_angle += float(rng.normal(0.0, float(rz_sigma)))
+            output[:, one] *= np.exp(1j * rz_angle)
+        lower = output[:, zero].copy()
+        upper = output[:, one].copy()
+        output[:, zero] = (lower + upper) / sqrt(2.0)
+        output[:, one] = (lower - upper) / sqrt(2.0)
+    return output
+
+
+def cx_depolarizing_mixing(cx_count: int, depolarizing_probability: float) -> float:
+    """Surviving coherence of a global-depolarizing surrogate for CX noise.
+
+    Each two-qubit gate is treated as a depolarizing channel that retains a
+    fraction ``(1 - depolarizing_probability)`` of the coherent state and
+    replaces the rest with the maximally mixed state.  Composing ``cx_count``
+    independent such gates gives a surviving-coherence factor
+    ``(1 - p) ** cx_count``.  This is the standard global-depolarizing surrogate
+    for a local per-gate error rate: it is exact for a genuinely global
+    depolarizing channel and a conservative (mixing-upper-bounding) proxy for
+    the local two-qubit channels an actual device applies.
+    """
+
+    p = float(depolarizing_probability)
+    if not 0 <= p <= 1:
+        raise ValueError("depolarizing_probability must lie in [0,1]")
+    if int(cx_count) < 0:
+        raise ValueError("cx_count must be nonnegative")
+    return (1.0 - p) ** int(cx_count)
+
+
+def apply_global_depolarizing(probabilities: np.ndarray, mixing: float) -> np.ndarray:
+    """Mix a phase law with the uniform law at surviving-coherence ``mixing``.
+
+    Returns ``mixing * P + (1 - mixing) * uniform``, the exact readout law of a
+    global depolarizing channel that preserves the state with probability
+    ``mixing``.  Use :func:`cx_depolarizing_mixing` to derive ``mixing`` from a
+    per-CX error rate and a transpiled two-qubit gate count.
+    """
+
+    lam = float(mixing)
+    if not 0 <= lam <= 1:
+        raise ValueError("mixing must lie in [0,1]")
+    values = np.asarray(probabilities, dtype=float)
+    if values.ndim != 1 or np.any(values < 0) or not np.isfinite(values).all():
+        raise ValueError("probabilities must be a finite nonnegative law")
+    total = values.sum()
+    if total <= 0:
+        raise ValueError("probability law must have positive mass")
+    normalized = values / total
+    uniform = np.full(values.shape, 1.0 / values.shape[0])
+    return lam * normalized + (1.0 - lam) * uniform
+
+
 def apply_readout_bitflips(probabilities: np.ndarray, probability: float) -> np.ndarray:
     """Apply independent classical readout flips to every phase qubit."""
 

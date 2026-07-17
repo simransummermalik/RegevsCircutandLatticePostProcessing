@@ -1,0 +1,74 @@
+{
+  "cutoff_policy": "exact (q-1); gate noise isolated from truncation",
+  "freeze_identifier": "shor-qft-gate-noise-v1",
+  "heldout_instances": [
+    [
+      35,
+      2
+    ],
+    [
+      35,
+      11
+    ],
+    [
+      39,
+      2
+    ],
+    [
+      51,
+      2
+    ],
+    [
+      55,
+      2
+    ],
+    [
+      65,
+      3
+    ],
+    [
+      77,
+      8
+    ],
+    [
+      91,
+      9
+    ]
+  ],
+  "known_factors_used_only_posthoc": true,
+  "known_order_used_by_decoder": false,
+  "loss_budget": 0.05,
+  "master_seed": 2026071501,
+  "noise_settings": [
+    "baseline",
+    "cphase_gain_0p02",
+    "cphase_gain_0p05",
+    "cphase_gain_0p10",
+    "cphase_sigma_0p02",
+    "cphase_sigma_0p05",
+    "cphase_sigma_0p10",
+    "rz_bias_0p02",
+    "rz_bias_0p05",
+    "rz_bias_0p10",
+    "rz_sigma_0p02",
+    "rz_sigma_0p05",
+    "rz_sigma_0p10",
+    "cx_depol_0p001",
+    "cx_depol_0p005",
+    "cx_depol_0p010"
+  ],
+  "noninferiority_margin": 0.1,
+  "realizations": 48,
+  "row_counts": {
+    "configuration_rows": 512,
+    "paired_rows": 60,
+    "per_instance_rows": 512,
+    "trial_rows": 24576
+  },
+  "shot_counts": [
+    1,
+    2,
+    8,
+    16
+  ]
+}
