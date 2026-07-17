@@ -1,4 +1,4 @@
-# Beginner's guide to this Regev-style quantum factoring research repository
+# A Beginner's guide to this Regev-style quantum factoring research repository
 
 ## TL;DR
 
