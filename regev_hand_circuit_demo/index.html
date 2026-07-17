@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111111">
+  <title>Build the Circuit</title>
+  <link rel="stylesheet" href="minimal.css">
+</head>
+<body>
+  <video id="webcam" autoplay playsinline muted aria-hidden="true"></video>
+  <canvas id="handCanvas" aria-hidden="true"></canvas>
+  <div class="camera-shade" aria-hidden="true"></div>
+
+  <main class="app">
+    <header class="topbar">
+      <div class="title">
+        <h1>Build the circuit</h1>
+        <span id="pieceCount">0 / 12</span>
+      </div>
+      <div class="controls">
+        <button class="camera-button" id="cameraButton" type="button">
+          <span class="camera-dot"></span>
+          <span id="cameraButtonLabel">Start camera</span>
+        </button>
+        <button class="reset-button" id="resetButton" type="button">Reset</button>
+      </div>
+    </header>
+
+    <p class="camera-message" id="cameraStatus">Camera off · mouse works too</p>
+    <h2 class="prompt" id="workspacePrompt">Place exponent x₁</h2>
+
+    <section class="circuit" id="circuitBoard" aria-label="Circuit building area">
+      <div class="circuit-row">
+        <span class="row-label">x₁</span>
+        <span class="wire" aria-hidden="true"></span>
+        <button class="slot" data-accepts="x1" type="button"><span>x₁</span></button>
+        <button class="slot" data-accepts="h1" type="button"><span>H</span></button>
+        <button class="slot wide" data-accepts="modexp1" type="button"><span>4ˣ¹ mod 55</span></button>
+        <button class="slot" data-accepts="qft1" type="button"><span>QFT⁻¹</span></button>
+        <button class="slot small" data-accepts="measure1" type="button"><span>M</span></button>
+      </div>
+
+      <div class="circuit-row">
+        <span class="row-label">x₂</span>
+        <span class="wire" aria-hidden="true"></span>
+        <button class="slot" data-accepts="x2" type="button"><span>x₂</span></button>
+        <button class="slot" data-accepts="h2" type="button"><span>H</span></button>
+        <button class="slot wide" data-accepts="modexp2" type="button"><span>9ˣ² mod 55</span></button>
+        <button class="slot" data-accepts="qft2" type="button"><span>QFT⁻¹</span></button>
+        <button class="slot small" data-accepts="measure2" type="button"><span>M</span></button>
+      </div>
+
+      <div class="circuit-row shared-row">
+        <span class="row-label">work</span>
+        <span class="wire" aria-hidden="true"></span>
+        <button class="slot shared" data-accepts="result" type="button"><span>|y⟩ result</span></button>
+        <button class="slot shared" data-accepts="aux" type="button"><span>|aux⟩</span></button>
+      </div>
+    </section>
+
+    <section class="dock" aria-label="Current circuit block">
+      <div id="componentDock"></div>
+      <small>pinch or drag</small>
+    </section>
+  </main>
+
+  <div class="hand-cursor" id="handCursor" aria-hidden="true">
+    <svg class="pinch-ring" viewBox="0 0 44 44">
+      <circle cx="22" cy="22" r="18"></circle>
+      <circle class="pinch-progress" cx="22" cy="22" r="18"></circle>
+    </svg>
+    <span></span>
+  </div>
+
+  <div class="drag-ghost" id="dragGhost" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="completionDialog">
+    <p class="dialog-label">Circuit complete</p>
+    <h2>55 = 5 × 11</h2>
+    <p>quantum samples → LLL → factors</p>
+    <small>fixed successful replay</small>
+    <button id="buildAgainButton" type="button">Build again</button>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

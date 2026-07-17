@@ -1,0 +1,576 @@
+:root {
+  color-scheme: dark;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  --black: #000;
+  --white: #fff;
+  --muted: rgba(255, 255, 255, 0.68);
+  --faint: rgba(255, 255, 255, 0.28);
+  --line: rgba(255, 255, 255, 0.7);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--black);
+  color: var(--white);
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible,
+.slot:focus-visible,
+.current-block:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+
+.app {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  background: transparent;
+}
+
+/* The camera is the page. */
+#webcam,
+#handCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+#webcam {
+  z-index: 0;
+  background: #111;
+}
+
+#handCanvas {
+  z-index: 3;
+  pointer-events: none;
+}
+
+.camera-shade {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+}
+
+.topbar {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px;
+  pointer-events: none;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.title #pieceCount {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.prompt {
+  position: absolute;
+  z-index: 5;
+  top: 70px;
+  left: 50%;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 500;
+  transform: translateX(-50%);
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.camera-button,
+.reset-button,
+.fullscreen-button {
+  min-height: 36px;
+  padding: 0 13px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.camera-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.camera-button.active .camera-dot {
+  background: #fff;
+}
+
+.camera-button:hover,
+.reset-button:hover,
+.fullscreen-button:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+.camera-message {
+  position: absolute;
+  z-index: 2;
+  top: 54px;
+  left: 24px;
+  max-width: 280px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.camera-message[hidden],
+[hidden] {
+  display: none !important;
+}
+
+/* A circuit diagram, not a dashboard. */
+.circuit {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: min(860px, calc(100vw - 64px));
+  transform: translate(-50%, -54%);
+}
+
+.circuit-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px repeat(5, minmax(70px, 1fr));
+  align-items: center;
+  min-height: 76px;
+  column-gap: 14px;
+}
+
+.circuit-row.shared-row {
+  grid-template-columns: 42px repeat(2, minmax(120px, 1fr));
+  width: 52%;
+  margin: 18px auto 0;
+}
+
+.row-label {
+  position: relative;
+  z-index: 2;
+  color: var(--white);
+  font: 600 14px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-shadow: 0 1px 3px #000;
+}
+
+.wire {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  left: 42px;
+  height: 1px;
+  background: var(--line);
+}
+
+.slot {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--muted);
+  cursor: default;
+  font-size: 11px;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: none;
+}
+
+.slot.current {
+  border-color: var(--white);
+  border-width: 2px;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.slot.near {
+  border-color: var(--white);
+  border-width: 2px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.slot.filled {
+  border-color: var(--white);
+  background: var(--white);
+  color: var(--black);
+}
+
+.placed-block {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.placed-block small {
+  display: none;
+}
+
+.dock {
+  position: absolute;
+  z-index: 12;
+  bottom: max(26px, env(safe-area-inset-bottom));
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.current-block {
+  display: flex;
+  min-width: 150px;
+  min-height: 54px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--black);
+  cursor: grab;
+  font-size: 14px;
+  font-weight: 650;
+  text-align: center;
+  touch-action: none;
+  user-select: none;
+}
+
+.current-block strong {
+  font-size: 18px;
+}
+
+.current-block span {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.current-block:active {
+  cursor: grabbing;
+}
+
+.current-block.selected {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+
+.complete .dock {
+  display: none;
+}
+
+.dock small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  text-shadow: 0 1px 3px #000;
+}
+
+.drag-ghost {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  display: none;
+  min-width: 138px;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border: 1px solid var(--black);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 650;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.drag-ghost.visible {
+  display: flex;
+}
+
+.drag-ghost span {
+  margin-left: 9px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.hand-cursor {
+  position: fixed;
+  z-index: 101;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.hand-cursor.visible {
+  display: block;
+}
+
+.pinch-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.45);
+  stroke-width: 2;
+  transform: translate(-50%, -50%);
+}
+
+.pinch-progress {
+  stroke: var(--white);
+  stroke-dasharray: 113.1;
+  stroke-dashoffset: calc(113.1 - (113.1 * var(--pinch-progress, 0)));
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 22px 22px;
+}
+
+.hand-cursor > span {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+.hand-cursor.pinching {
+  background: var(--white);
+}
+
+.toast {
+  position: fixed;
+  z-index: 110;
+  top: 24px;
+  left: 50%;
+  max-width: min(380px, calc(100vw - 32px));
+  padding: 9px 13px;
+  border-radius: 5px;
+  background: var(--white);
+  color: var(--black);
+  font-size: 12px;
+  text-align: center;
+  transform: translate(-50%, -140%);
+  transition: transform 160ms ease;
+}
+
+.toast.visible {
+  transform: translate(-50%, 0);
+}
+
+dialog {
+  width: min(390px, calc(100vw - 40px));
+  padding: 28px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--black);
+  text-align: left;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+dialog h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  letter-spacing: -0.025em;
+}
+
+dialog .dialog-label {
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 12px;
+}
+
+dialog small {
+  display: block;
+  margin: -12px 0 22px;
+  color: #666;
+  font-size: 11px;
+}
+
+dialog p {
+  margin: 0 0 22px;
+  color: #444;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+dialog button {
+  min-height: 38px;
+  padding: 0 15px;
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  background: var(--black);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+dialog button + button {
+  margin-left: 6px;
+  background: transparent;
+  color: var(--black);
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    padding: 16px;
+  }
+
+  .camera-button,
+  .reset-button,
+  .fullscreen-button {
+    min-width: 38px;
+    padding: 0 9px;
+  }
+
+  .circuit {
+    width: calc(100vw - 24px);
+    transform: translate(-50%, -56%);
+  }
+
+  .circuit-row {
+    grid-template-columns: 26px repeat(5, minmax(46px, 1fr));
+    min-height: 64px;
+    column-gap: 5px;
+  }
+
+  .circuit-row.shared {
+    grid-template-columns: 26px repeat(2, minmax(80px, 1fr));
+    width: 70%;
+    margin-top: 10px;
+  }
+
+  .wire {
+    left: 26px;
+  }
+
+  .slot {
+    height: 42px;
+    padding: 3px;
+    font-size: 9px;
+  }
+
+  .row-label {
+    font-size: 11px;
+  }
+
+  .current-block {
+    min-width: 130px;
+    min-height: 48px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-height: 540px) {
+  .topbar {
+    padding-top: 12px;
+  }
+
+  .circuit {
+    transform: translate(-50%, -51%);
+  }
+
+  .circuit-row {
+    min-height: 58px;
+  }
+
+  .dock {
+    bottom: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
