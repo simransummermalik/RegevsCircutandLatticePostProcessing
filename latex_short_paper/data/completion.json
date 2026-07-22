@@ -1,0 +1,45 @@
+{
+  "freeze_version": "qft-certificate-gap-v1",
+  "heldout_moduli_executed": [
+    55,
+    65,
+    85,
+    95,
+    115,
+    119,
+    133,
+    161
+  ],
+  "known_factors_used_only_posthoc": true,
+  "primary_unit_of_generalization": "N",
+  "row_counts": {
+    "bootstrap_draw_rows": 120000,
+    "configuration_rows": 192,
+    "gap_rows": 6,
+    "leave_one_N_out_rows": 144,
+    "margin_sensitivity_rows": 96,
+    "margin_summary_rows": 24,
+    "paired_cluster_rows": 24,
+    "paired_exact_test_rows": 36,
+    "per_N_rows": 192,
+    "slack_rows": 912,
+    "trial_rows": 12288
+  },
+  "sha256": {
+    "bootstrap_draw_rows.csv": "0426e96006f1c65d01edc07ea337affc87a6cee24df4b7c335871cce089b7be7",
+    "certificate_gap_rows.csv": "e44144c7dd85e3f982175a5393d9192a799e760f45cfd271ee3c48993ad97557",
+    "certification_vs_recovery.png": "11fc97c8debd4626600d9d649f92cf24f3d42104ef8858b14a60015629aec3c5",
+    "configuration.json": "e08c4501b6b857b1330d194c88d71db080259e2856f75539e04e5dccdb5157be",
+    "configuration_rows.csv": "7a9f2617c8226ccb6ab9a07f98533ee1af08fa4bf44d76d0761ad71c1b56d853",
+    "controlled_examples.json": "bf7219b224102e00cd3fe4e19fd477fe8313bf6e2355107f68b6058df3ca509c",
+    "leave_one_N_out_rows.csv": "7288ab24697cc2a024c5fd90e6fbb685c0a3d738ec65d6d8f822be10dab6c35b",
+    "margin_sensitivity_rows.csv": "4e27f07e58f0fc1acbf0d1203390bb409f2b7038b48dd959ca441f7676f8ba5b",
+    "margin_summary_rows.csv": "3c7825ea583c65e69295874d1b43affd5fc62fcd47cf0f0a0676ef61958095ee",
+    "paired_cluster_rows.csv": "c87c908ed56bd2f8b1289df0b5c4825693c3b1ab5c53f232909e50e73604b647",
+    "paired_exact_test_rows.csv": "b9d627c16287e5dc287671beaf372683c22904832fddac4f8c2bc6f1020554b6",
+    "per_N_rows.csv": "74a3c4210bcf11a4619a03d539fcaca3d897272442ff8e287929714f364703bb",
+    "proof_slack_rows.csv": "cd8838d6d49cbc81c1a109eb462f404e5a23cafa9dc52ec07fc236794c2e5772",
+    "trial_rows.csv": "dbb452e63d6e79acbc40939fc52f1a715dc568d0aea31d0cf1b4098f67798df0"
+  },
+  "status": "complete"
+}
