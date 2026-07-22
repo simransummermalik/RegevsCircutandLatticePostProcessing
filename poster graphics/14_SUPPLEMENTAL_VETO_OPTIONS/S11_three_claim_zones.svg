@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="902.4pt" height="362.401797pt" viewBox="0 0 902.4 362.401797" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:25:21.733125</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 362.401797 
+L 902.4 362.401797 
+L 902.4 0 
+L 0 0 
+z
+" style="fill: #f7f8fa"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 53.376 304.248684 
+L 271.824 304.248684 
+Q 307.344 304.248684 307.344 291.667668 
+L 307.344 110.501043 
+Q 307.344 97.920027 271.824 97.920027 
+L 53.376 97.920027 
+Q 17.856 97.920027 17.856 110.501043 
+L 17.856 291.667668 
+Q 17.856 304.248684 53.376 304.248684 
+z
+" clip-path="url(#p99959208f0)" style="fill: #ffffff; stroke: #6f4a8e; stroke-width: 4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 341.976 304.248684 
+L 560.424 304.248684 
+Q 595.944 304.248684 595.944 291.667668 
+L 595.944 110.501043 
+Q 595.944 97.920027 560.424 97.920027 
+L 341.976 97.920027 
+Q 306.456 97.920027 306.456 110.501043 
+L 306.456 291.667668 
+Q 306.456 304.248684 341.976 304.248684 
+z
+" clip-path="url(#p99959208f0)" style="fill: #ffffff; stroke: #009e73; stroke-width: 4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 630.576 304.248684 
+L 849.024 304.248684 
+Q 884.544 304.248684 884.544 291.667668 
+L 884.544 110.501043 
+Q 884.544 97.920027 849.024 97.920027 
+L 630.576 97.920027 
+Q 595.056 97.920027 595.056 110.501043 
+L 595.056 291.667668 
+Q 595.056 304.248684 630.576 304.248684 
+z
+" clip-path="url(#p99959208f0)" style="fill: #ffffff; stroke: #d55e00; stroke-width: 4; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #6f4a8e" x="162.6" y="153.905547" transform="rotate(-0 162.6 153.905547)">PROVED</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 13.5px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(87.831094 216.199609)">The stated worst-case</text>
+    <text style="font-size: 13.5px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(84.713437 233.116797)">certificate approves no</text>
+    <text style="font-size: 13.5px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(83.847539 252.649609)">non-exact tested cutoff</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #009e73" x="451.2" y="153.905547" transform="rotate(-0 451.2 153.905547)">OBSERVED</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 13.5px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(373.609805 216.199609)">Limited truncation met</text>
+    <text style="font-size: 13.5px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(378.885352 234.424609)">the frozen rule in this</text>
+    <text style="font-size: 13.5px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(379.359961 251.341797)">eight-N finite holdout</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #d55e00" x="739.8" y="153.905547" transform="rotate(-0 739.8 153.905547)">NOT ESTABLISHED</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 13.5px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(638.881172 214.891797)">Full Regev-regime sufficiency,</text>
+    <text style="font-size: 13.5px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(659.915859 233.116797)">hardware speedup, and</text>
+    <text style="font-size: 13.5px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(685.948711 251.341797)">universal safety</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="451.2" y="24.676406" transform="rotate(-0 451.2 24.676406)">Keep the three claim levels separate</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p99959208f0">
+   <rect x="7.2" y="40.676406" width="888" height="314.525391"/>
+  </clipPath>
+ </defs>
+</svg>

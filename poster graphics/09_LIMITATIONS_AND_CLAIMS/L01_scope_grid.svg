@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="686.88pt" height="405.36pt" viewBox="0 0 686.88 405.36" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:22:54.619018</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 405.36 
+L 686.88 405.36 
+L 686.88 0 
+L 0 0 
+z
+" style="fill: #fffdf7"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 50.8248 347.04576 
+L 321.3432 347.04576 
+Q 338.0832 347.04576 338.0832 337.34376 
+L 338.0832 95.18184 
+Q 338.0832 85.47984 321.3432 85.47984 
+L 50.8248 85.47984 
+Q 34.0848 85.47984 34.0848 95.18184 
+L 34.0848 337.34376 
+Q 34.0848 347.04576 50.8248 347.04576 
+z
+" clip-path="url(#p2d702a5938)" style="fill: #ffffff; stroke: #009e73; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 365.5368 347.04576 
+L 636.0552 347.04576 
+Q 652.7952 347.04576 652.7952 337.34376 
+L 652.7952 95.18184 
+Q 652.7952 85.47984 636.0552 85.47984 
+L 365.5368 85.47984 
+Q 348.7968 85.47984 348.7968 95.18184 
+L 348.7968 337.34376 
+Q 348.7968 347.04576 365.5368 347.04576 
+z
+" clip-path="url(#p2d702a5938)" style="fill: #ffffff; stroke: #c23b3b; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #13294b" x="35.424" y="64.006712" transform="rotate(-0 35.424 64.006712)">What was tested — and what was not</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #009e73" x="68.904" y="123.12615" transform="rotate(-0 68.904 123.12615)">TESTED</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="82.296" y="159.145712" transform="rotate(-0 82.296 159.145712)">✓ 8 small held-out semiprimes</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="82.296" y="189.317337" transform="rotate(-0 82.296 189.317337)">✓ d=2 and m=7</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="82.296" y="217.623259" transform="rotate(-0 82.296 217.623259)">✓ M=8,16,32</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="82.296" y="247.529337" transform="rotate(-0 82.296 247.529337)">✓ hard-box exact finite law</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="82.296" y="276.635337" transform="rotate(-0 82.296 276.635337)">✓ finite-Gaussian exact law</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="82.296" y="304.632744" transform="rotate(-0 82.296 304.632744)">✓ current integer-LLL endpoint</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #c23b3b" x="383.616" y="123.12615" transform="rotate(-0 383.616 123.12615)">NOT ESTABLISHED</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="397.008" y="159.102744" transform="rotate(-0 397.008 159.102744)">— cryptographic-size N</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="397.008" y="188.208744" transform="rotate(-0 397.008 188.208744)">— asymptotic Regev regime</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="397.008" y="217.991072" transform="rotate(-0 397.008 217.991072)">— hardware noise / full devices</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="397.008" y="246.463712" transform="rotate(-0 397.008 246.463712)">— total circuit runtime speedup</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="397.008" y="276.635337" transform="rotate(-0 397.008 276.635337)">— all base families or decoders</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="397.008" y="304.675713" transform="rotate(-0 397.008 304.675713)">— universal approximate-QFT theorem</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="22.032" y="385.011867" transform="rotate(-0 22.032 385.011867)">VERIFIED SCOPE STATEMENT</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2d702a5938">
+   <rect x="8.64" y="8.64" width="669.6" height="388.08"/>
+  </clipPath>
+ </defs>
+</svg>

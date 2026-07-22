@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="974.4pt" height="398.4pt" viewBox="0 0 974.4 398.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:25:21.896594</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 398.4 
+L 974.4 398.4 
+L 974.4 0 
+L 0 0 
+z
+" style="fill: #f7f8fa"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 57.12 336.672 
+L 427.68 336.672 
+Q 466.08 336.672 466.08 321.312 
+L 466.08 77.088 
+Q 466.08 61.728 427.68 61.728 
+L 57.12 61.728 
+Q 18.72 61.728 18.72 77.088 
+L 18.72 321.312 
+Q 18.72 336.672 57.12 336.672 
+z
+" clip-path="url(#p9ede32ffbc)" style="fill: #eaf4fb; stroke: #0072b2; stroke-width: 4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 546.72 336.672 
+L 917.28 336.672 
+Q 955.68 336.672 955.68 321.312 
+L 955.68 77.088 
+Q 955.68 61.728 917.28 61.728 
+L 546.72 61.728 
+Q 508.32 61.728 508.32 77.088 
+L 508.32 321.312 
+Q 508.32 336.672 546.72 336.672 
+z
+" clip-path="url(#p9ede32ffbc)" style="fill: #f0eaf8; stroke: #7e57c2; stroke-width: 4; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 487.2 302.88 
+L 487.2 99.36 
+" clip-path="url(#p9ede32ffbc)" style="fill: none; stroke: #ff5f05; stroke-opacity: 0.8; stroke-width: 3; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 29px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #0072b2" x="242.4" y="110.88" transform="rotate(-0 242.4 110.88)">SHOR</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 29px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7e57c2" x="732" y="110.88" transform="rotate(-0 732 110.88)">REGEV</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="242.4" y="183.84" transform="rotate(-0 242.4 183.84)">one-dimensional phase / period</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="242.4" y="229.92" transform="rotate(-0 242.4 229.92)">continued fractions → verify order → gcd</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526273" x="242.4" y="279.84" transform="rotate(-0 242.4 279.84)">standard order-finding architecture</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="732" y="183.84" transform="rotate(-0 732 183.84)">multidimensional Fourier samples</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="732" y="229.92" transform="rotate(-0 732 229.92)">augmented lattice → LLL → relation → gcd</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526273" x="732" y="279.84" transform="rotate(-0 732 279.84)">tested endpoint uses classical lattice reduction</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="487.2" y="41.76" transform="rotate(-0 487.2 41.76)">Shor and this Regev-style implementation</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #d55e00" x="487.2" y="368.16" transform="rotate(-0 487.2 368.16)">Descriptive comparison only · not an end-to-end speed or hardware claim</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9ede32ffbc">
+   <rect x="7.2" y="7.2" width="960" height="384"/>
+  </clipPath>
+ </defs>
+</svg>

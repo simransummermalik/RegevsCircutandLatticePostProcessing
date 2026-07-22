@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="686.88pt" height="361.008pt" viewBox="0 0 686.88 361.008" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:22:52.609246</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 361.008 
+L 686.88 361.008 
+L 686.88 -0 
+L 0 -0 
+z
+" style="fill: #fffdf7"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 62.208 218.31408 
+L 243 218.31408 
+L 243 159.88032 
+L 62.208 159.88032 
+z
+" clip-path="url(#p7ae987f23e)" style="fill: #fff0e8; stroke: #fff0e8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 243 218.31408 
+L 624.672 218.31408 
+L 624.672 159.88032 
+L 243 159.88032 
+z
+" clip-path="url(#p7ae987f23e)" style="fill: #e7f5f0; stroke: #e7f5f0; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 62.208 190.81584 
+L 624.672 190.81584 
+" clip-path="url(#p7ae987f23e)" style="fill: none; stroke: #13294b; stroke-width: 3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 243 221.75136 
+L 243 153.00576 
+" clip-path="url(#p7ae987f23e)" style="fill: none; stroke: #c23b3b; stroke-width: 3; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #13294b" x="35.424" y="57.939021" transform="rotate(-0 35.424 57.939021)">How the non-inferiority decision works</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="35.424" y="73.709761" transform="rotate(-0 35.424 73.709761)">Primary margin: 10 percentage points, frozen before held-out evaluation.</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #c23b3b" x="243" y="137.477861" transform="rotate(-0 243 137.477861)">−0.10</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #009e73" x="437.184" y="168.536975" transform="rotate(-0 437.184 168.536975)">PASS if cluster CI lower bound ≥ −0.10</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ff5f05" x="135.864" y="226.22511" transform="rotate(-0 135.864 226.22511)">too much loss</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #13294b" x="624.672" y="225.852298" transform="rotate(-0 624.672 225.852298)">0 = exact tie</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="22.032" y="341.768667" transform="rotate(-0 22.032 341.768667)">VERIFIED PREREGISTERED DECISION RULE</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p7ae987f23e">
+   <rect x="8.64" y="8.64" width="669.6" height="343.728"/>
+  </clipPath>
+ </defs>
+</svg>

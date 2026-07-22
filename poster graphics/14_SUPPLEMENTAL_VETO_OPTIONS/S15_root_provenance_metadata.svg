@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="852.225pt" height="340.8pt" viewBox="0 0 852.225 340.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:25:22.406333</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 340.8 
+L 852.225 340.8 
+L 852.225 0 
+L 0 0 
+z
+" style="fill: #f7f8fa"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 59.14515 254.6112 
+L 189.84585 254.6112 
+Q 223.35885 254.6112 223.35885 241.5552 
+L 223.35885 99.2448 
+Q 223.35885 86.1888 189.84585 86.1888 
+L 59.14515 86.1888 
+Q 25.63215 86.1888 25.63215 99.2448 
+L 25.63215 241.5552 
+Q 25.63215 254.6112 59.14515 254.6112 
+z
+" clip-path="url(#p43be37581e)" style="fill: #ffffff; stroke: #7e57c2; stroke-width: 4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 264.412275 254.6112 
+L 395.112975 254.6112 
+Q 428.625975 254.6112 428.625975 241.5552 
+L 428.625975 99.2448 
+Q 428.625975 86.1888 395.112975 86.1888 
+L 264.412275 86.1888 
+Q 230.899275 86.1888 230.899275 99.2448 
+L 230.899275 241.5552 
+Q 230.899275 254.6112 264.412275 254.6112 
+z
+" clip-path="url(#p43be37581e)" style="fill: #ffffff; stroke: #ff5f05; stroke-width: 4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 469.6794 254.6112 
+L 600.3801 254.6112 
+Q 633.8931 254.6112 633.8931 241.5552 
+L 633.8931 99.2448 
+Q 633.8931 86.1888 600.3801 86.1888 
+L 469.6794 86.1888 
+Q 436.1664 86.1888 436.1664 99.2448 
+L 436.1664 241.5552 
+Q 436.1664 254.6112 469.6794 254.6112 
+z
+" clip-path="url(#p43be37581e)" style="fill: #ffffff; stroke: #28a9c7; stroke-width: 4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 674.946525 254.6112 
+L 805.647225 254.6112 
+Q 839.160225 254.6112 839.160225 241.5552 
+L 839.160225 99.2448 
+Q 839.160225 86.1888 805.647225 86.1888 
+L 674.946525 86.1888 
+Q 641.433525 86.1888 641.433525 99.2448 
+L 641.433525 241.5552 
+Q 641.433525 254.6112 674.946525 254.6112 
+z
+" clip-path="url(#p43be37581e)" style="fill: #ffffff; stroke: #009e73; stroke-width: 4; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7e57c2" x="124.4955" y="137.76" transform="rotate(-0 124.4955 137.76)">selected root</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="124.4955" y="196.512" transform="rotate(-0 124.4955 196.512)">bᵢ</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ff5f05" x="329.762625" y="137.76" transform="rotate(-0 329.762625 137.76)">square once</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="329.762625" y="196.512" transform="rotate(-0 329.762625 196.512)">aᵢ=bᵢ² mod N</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #28a9c7" x="535.02975" y="137.76" transform="rotate(-0 535.02975 137.76)">circuit uses</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="535.02975" y="196.512" transform="rotate(-0 535.02975 196.512)">aᵢ</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #009e73" x="740.296875" y="137.76" transform="rotate(-0 740.296875 137.76)">factor test retains</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="740.296875" y="196.512" transform="rotate(-0 740.296875 196.512)">the same bᵢ</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 26px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #13294b" x="426.1125" y="46.368" transform="rotate(-0 426.1125 46.368)">Root provenance is permanent metadata</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #d55e00" x="426.1125" y="300.96" transform="rotate(-0 426.1125 300.96)">Never guess a modular square root later; classification uses the root that generated each circuit base</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 212.792457 170.4 
+Q 225.454977 170.4 234.763395 170.4 
+" clip-path="url(#p43be37581e)" style="fill: none; stroke: #ff5f05; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 226.763395 166.4 
+L 234.763395 170.4 
+L 226.763395 174.4 
+z
+" clip-path="url(#p43be37581e)" style="fill: #ff5f05; stroke: #ff5f05; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 418.059582 170.4 
+Q 430.722102 170.4 440.03052 170.4 
+" clip-path="url(#p43be37581e)" style="fill: none; stroke: #ff5f05; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 432.03052 166.4 
+L 440.03052 170.4 
+L 432.03052 174.4 
+z
+" clip-path="url(#p43be37581e)" style="fill: #ff5f05; stroke: #ff5f05; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 623.326707 170.4 
+Q 635.989227 170.4 645.297645 170.4 
+" clip-path="url(#p43be37581e)" style="fill: none; stroke: #ff5f05; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 637.297645 166.4 
+L 645.297645 170.4 
+L 637.297645 174.4 
+z
+" clip-path="url(#p43be37581e)" style="fill: #ff5f05; stroke: #ff5f05; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p43be37581e">
+   <rect x="7.2" y="7.2" width="837.825" height="326.4"/>
+  </clipPath>
+ </defs>
+</svg>

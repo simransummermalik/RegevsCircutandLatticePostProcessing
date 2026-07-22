@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="774.014062pt" height="405.36pt" viewBox="0 0 774.014062 405.36" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:22:52.277789</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 405.36 
+L 774.014062 405.36 
+L 774.014062 0 
+L 0 0 
+z
+" style="fill: #fffdf7"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 49.374 195.69456 
+L 525.906 195.69456 
+Q 539.856 195.69456 539.856 185.99256 
+L 539.856 126.22824 
+Q 539.856 116.52624 525.906 116.52624 
+L 49.374 116.52624 
+Q 35.424 116.52624 35.424 126.22824 
+L 35.424 185.99256 
+Q 35.424 195.69456 49.374 195.69456 
+z
+" clip-path="url(#pfbe328a2ed)" style="fill: #ffffff; stroke: #c23b3b; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 49.374 281.07216 
+L 525.906 281.07216 
+Q 539.856 281.07216 539.856 271.37016 
+L 539.856 211.60584 
+Q 539.856 201.90384 525.906 201.90384 
+L 49.374 201.90384 
+Q 35.424 201.90384 35.424 211.60584 
+L 35.424 271.37016 
+Q 35.424 281.07216 49.374 281.07216 
+z
+" clip-path="url(#pfbe328a2ed)" style="fill: #ffffff; stroke: #28a9c7; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 49.374 366.44976 
+L 525.906 366.44976 
+Q 539.856 366.44976 539.856 356.74776 
+L 539.856 296.98344 
+Q 539.856 287.28144 525.906 287.28144 
+L 49.374 287.28144 
+Q 35.424 287.28144 35.424 296.98344 
+L 35.424 356.74776 
+Q 35.424 366.44976 49.374 366.44976 
+z
+" clip-path="url(#pfbe328a2ed)" style="fill: #ffffff; stroke: #009e73; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #13294b" x="30.96" y="61.584837" transform="rotate(-0 30.96 61.584837)">Three different questions — three different answers</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #c23b3b" x="58.86" y="140.346244" transform="rotate(-0 58.86 140.346244)">CERTIFICATE</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="148.14" y="139.970775" transform="rotate(-0 148.14 139.970775)">Is every downstream event protected?</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #c23b3b" x="148.14" y="170.788112" transform="rotate(-0 148.14 170.788112)">No non-exact cutoff approved</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #28a9c7" x="58.86" y="225.723844" transform="rotate(-0 58.86 225.723844)">FINITE DISTRIBUTION</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="148.14" y="225.348375" transform="rotate(-0 148.14 225.348375)">How much does this prepared measurement law change?</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #28a9c7" x="148.14" y="257.231337" transform="rotate(-0 148.14 257.231337)">Sometimes far less than the worst-case bound</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #009e73" x="58.86" y="311.101444" transform="rotate(-0 58.86 311.101444)">FACTOR ENDPOINT</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #15243a" x="148.14" y="311.93535" transform="rotate(-0 148.14 311.93535)">Does the tested decoder still recover factors?</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #009e73" x="148.14" y="341.500344" transform="rotate(-0 148.14 341.500344)">One layer passed all six held-out cells</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="19.8" y="384.468664" transform="rotate(-0 19.8 384.468664)">VERIFIED DISTINCTION BETWEEN GUARANTEE, DISTRIBUTION, AND ENDPOINT</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pfbe328a2ed">
+   <rect x="8.64" y="8.64" width="558" height="388.08"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="686.88pt" height="377.64pt" viewBox="0 0 686.88 377.64" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:22:50.773251</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 377.64 
+L 686.88 377.64 
+L 686.88 0 
+L 0 0 
+z
+" style="fill: #fffdf7"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 50.8248 196.74792 
+L 214.2072 196.74792 
+Q 230.9472 196.74792 230.9472 187.73892 
+L 230.9472 125.03628 
+Q 230.9472 116.02728 214.2072 116.02728 
+L 50.8248 116.02728 
+Q 34.0848 116.02728 34.0848 125.03628 
+L 34.0848 187.73892 
+Q 34.0848 196.74792 50.8248 196.74792 
+z
+" clip-path="url(#pdf3e38d4ed)" style="fill: #ffffff; stroke: #d9e3ea; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 258.4008 196.74792 
+L 421.7832 196.74792 
+Q 438.5232 196.74792 438.5232 187.73892 
+L 438.5232 125.03628 
+Q 438.5232 116.02728 421.7832 116.02728 
+L 258.4008 116.02728 
+Q 241.6608 116.02728 241.6608 125.03628 
+L 241.6608 187.73892 
+Q 241.6608 196.74792 258.4008 196.74792 
+z
+" clip-path="url(#pdf3e38d4ed)" style="fill: #ffffff; stroke: #d9e3ea; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 465.9768 196.74792 
+L 629.3592 196.74792 
+Q 646.0992 196.74792 646.0992 187.73892 
+L 646.0992 125.03628 
+Q 646.0992 116.02728 629.3592 116.02728 
+L 465.9768 116.02728 
+Q 449.2368 116.02728 449.2368 125.03628 
+L 449.2368 187.73892 
+Q 449.2368 196.74792 465.9768 196.74792 
+z
+" clip-path="url(#pdf3e38d4ed)" style="fill: #ffffff; stroke: #d9e3ea; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 50.8248 290.44152 
+L 214.2072 290.44152 
+Q 230.9472 290.44152 230.9472 281.43252 
+L 230.9472 218.72988 
+Q 230.9472 209.72088 214.2072 209.72088 
+L 50.8248 209.72088 
+Q 34.0848 209.72088 34.0848 218.72988 
+L 34.0848 281.43252 
+Q 34.0848 290.44152 50.8248 290.44152 
+z
+" clip-path="url(#pdf3e38d4ed)" style="fill: #ffffff; stroke: #d9e3ea; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 258.4008 290.44152 
+L 421.7832 290.44152 
+Q 438.5232 290.44152 438.5232 281.43252 
+L 438.5232 218.72988 
+Q 438.5232 209.72088 421.7832 209.72088 
+L 258.4008 209.72088 
+Q 241.6608 209.72088 241.6608 218.72988 
+L 241.6608 281.43252 
+Q 241.6608 290.44152 258.4008 290.44152 
+z
+" clip-path="url(#pdf3e38d4ed)" style="fill: #ffffff; stroke: #d9e3ea; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 465.9768 290.44152 
+L 629.3592 290.44152 
+Q 646.0992 290.44152 646.0992 281.43252 
+L 646.0992 218.72988 
+Q 646.0992 209.72088 629.3592 209.72088 
+L 465.9768 209.72088 
+Q 449.2368 209.72088 449.2368 218.72988 
+L 449.2368 281.43252 
+Q 449.2368 290.44152 465.9768 290.44152 
+z
+" clip-path="url(#pdf3e38d4ed)" style="fill: #ffffff; stroke: #d9e3ea; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #13294b" x="35.424" y="59.269581" transform="rotate(-0 35.424 59.269581)">Evidence at a glance</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="35.424" y="76.370881" transform="rotate(-0 35.424 76.370881)">Frozen before held-out evaluation; no modulus-specific tuning.</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 26.8px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #0072b2" x="132.516" y="158.214461" transform="rotate(-0 132.516 158.214461)">8</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; fill: #5d6b7e" transform="translate(108.812875 172.133725)">held-out</text>
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; fill: #5d6b7e" transform="translate(99.888656 183.164975)">semiprimes</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 26.8px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7e57c2" x="340.092" y="158.404992" transform="rotate(-0 340.092 158.404992)">2</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; fill: #5d6b7e" transform="translate(291.984187 172.133725)">exact finite state</text>
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; fill: #5d6b7e" transform="translate(319.786531 184.133725)">models</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 26.8px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #28a9c7" x="547.668" y="158.214461" transform="rotate(-0 547.668 158.214461)">3</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #5d6b7e" x="547.668" y="178.133725" transform="rotate(-0 547.668 178.133725)">Fourier moduli</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 26.8px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #009e73" x="132.516" y="251.895499" transform="rotate(-0 132.516 251.895499)">64</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; fill: #5d6b7e" transform="translate(80.594125 264.858575)">coupled replicates</text>
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; fill: #5d6b7e" transform="translate(111.555844 276.858575)">per cell</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 26.8px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ff5f05" x="340.092" y="250.195374" transform="rotate(-0 340.092 250.195374)">12,288</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #5d6b7e" x="340.092" y="270.858575" transform="rotate(-0 340.092 270.858575)">endpoint trials</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 26.8px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #e6a700" x="547.668" y="250.195374" transform="rotate(-0 547.668 250.195374)">5,000</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; fill: #5d6b7e" transform="translate(498.843781 264.858575)">cluster bootstrap</text>
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; fill: #5d6b7e" transform="translate(530.653937 277.827325)">draws</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="22.032" y="357.984867" transform="rotate(-0 22.032 357.984867)">VERIFIED FROZEN EXPERIMENT INVENTORY</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pdf3e38d4ed">
+   <rect x="8.64" y="8.64" width="669.6" height="360.36"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="686.88pt" height="372.096pt" viewBox="0 0 686.88 372.096" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:22:51.247989</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 372.096 
+L 686.88 372.096 
+L 686.88 0 
+L 0 0 
+z
+" style="fill: #fffdf7"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 44.1288 261.268992 
+L 160.6392 261.268992 
+Q 177.3792 261.268992 177.3792 252.398592 
+L 177.3792 148.082688 
+Q 177.3792 139.212288 160.6392 139.212288 
+L 44.1288 139.212288 
+Q 27.3888 139.212288 27.3888 148.082688 
+L 27.3888 252.398592 
+Q 27.3888 261.268992 44.1288 261.268992 
+z
+" clip-path="url(#p625bd91494)" style="fill: #ffffff; stroke: #0072b2; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 204.8328 261.268992 
+L 321.3432 261.268992 
+Q 338.0832 261.268992 338.0832 252.398592 
+L 338.0832 148.082688 
+Q 338.0832 139.212288 321.3432 139.212288 
+L 204.8328 139.212288 
+Q 188.0928 139.212288 188.0928 148.082688 
+L 188.0928 252.398592 
+Q 188.0928 261.268992 204.8328 261.268992 
+z
+" clip-path="url(#p625bd91494)" style="fill: #ffffff; stroke: #7e57c2; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 365.5368 261.268992 
+L 482.0472 261.268992 
+Q 498.7872 261.268992 498.7872 252.398592 
+L 498.7872 148.082688 
+Q 498.7872 139.212288 482.0472 139.212288 
+L 365.5368 139.212288 
+Q 348.7968 139.212288 348.7968 148.082688 
+L 348.7968 252.398592 
+Q 348.7968 261.268992 365.5368 261.268992 
+z
+" clip-path="url(#p625bd91494)" style="fill: #ffffff; stroke: #ff5f05; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 526.2408 261.268992 
+L 642.7512 261.268992 
+Q 659.4912 261.268992 659.4912 252.398592 
+L 659.4912 148.082688 
+Q 659.4912 139.212288 642.7512 139.212288 
+L 526.2408 139.212288 
+Q 509.5008 139.212288 509.5008 148.082688 
+L 509.5008 252.398592 
+Q 509.5008 261.268992 526.2408 261.268992 
+z
+" clip-path="url(#p625bd91494)" style="fill: #ffffff; stroke: #009e73; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 174.688049 200.24064 
+Q 182.733578 200.24064 188.54304 200.24064 
+" clip-path="url(#p625bd91494)" style="fill: none; stroke: #28a9c7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 181.74304 196.84064 
+L 188.54304 200.24064 
+L 181.74304 203.64064 
+z
+" clip-path="url(#p625bd91494)" style="fill: #28a9c7; stroke: #28a9c7; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 335.392049 200.24064 
+Q 343.437578 200.24064 349.24704 200.24064 
+" clip-path="url(#p625bd91494)" style="fill: none; stroke: #28a9c7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 342.44704 196.84064 
+L 349.24704 200.24064 
+L 342.44704 203.64064 
+z
+" clip-path="url(#p625bd91494)" style="fill: #28a9c7; stroke: #28a9c7; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 496.096049 200.24064 
+Q 504.141578 200.24064 509.95104 200.24064 
+" clip-path="url(#p625bd91494)" style="fill: none; stroke: #28a9c7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 503.15104 196.84064 
+L 509.95104 200.24064 
+L 503.15104 203.64064 
+z
+" clip-path="url(#p625bd91494)" style="fill: #28a9c7; stroke: #28a9c7; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #13294b" x="35.424" y="61.345592" transform="rotate(-0 35.424 61.345592)">How a recovered relation becomes a factor</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="35.424" y="75.483841" transform="rotate(-0 35.424 75.483841)">The final arithmetic check uses the stored roots bᵢ — never arbitrary square roots.</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #0072b2" x="102.384" y="176.701922" transform="rotate(-0 102.384 176.701922)">LLL candidate</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #15243a" x="102.384" y="223.227065" transform="rotate(-0 102.384 223.227065)">z ∈ ℤᵈ</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7e57c2" x="263.088" y="175.391766" transform="rotate(-0 263.088 175.391766)">Verify relation</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #15243a" x="263.088" y="221.957221" transform="rotate(-0 263.088 221.957221)">∏ aᵢᶻⁱ ≡ 1 (mod N)</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ff5f05" x="423.792" y="176.701922" transform="rotate(-0 423.792 176.701922)">Lift with roots</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #15243a" x="423.792" y="221.939721" transform="rotate(-0 423.792 221.939721)">β=∏ bᵢᶻⁱ (mod N)</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #009e73" x="584.496" y="175.530907" transform="rotate(-0 584.496 175.530907)">Useful if β≠±1</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #15243a" x="584.496" y="221.885034" transform="rotate(-0 584.496 221.885034)">gcd(β±1,N)</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="22.032" y="352.579467" transform="rotate(-0 22.032 352.579467)">IMPLEMENTED MATHEMATICAL ENDPOINT</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p625bd91494">
+   <rect x="8.64" y="8.64" width="669.6" height="354.816"/>
+  </clipPath>
+ </defs>
+</svg>

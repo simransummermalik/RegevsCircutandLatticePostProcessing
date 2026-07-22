@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="860.174906pt" height="377.64pt" viewBox="0 0 860.174906 377.64" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:22:51.462627</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 377.64 
+L 860.174906 377.64 
+L 860.174906 0 
+L 0 0 
+z
+" style="fill: #fffdf7"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 47.0862 286.83792 
+L 340.1478 286.83792 
+Q 358.2828 286.83792 358.2828 277.82892 
+L 358.2828 107.01828 
+Q 358.2828 98.00928 340.1478 98.00928 
+L 47.0862 98.00928 
+Q 28.9512 98.00928 28.9512 107.01828 
+L 28.9512 277.82892 
+Q 28.9512 286.83792 47.0862 286.83792 
+z
+" clip-path="url(#p3d2a734574)" style="fill: #e9f5fa; stroke: #28a9c7; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 402.5322 286.83792 
+L 695.5938 286.83792 
+Q 713.7288 286.83792 713.7288 277.82892 
+L 713.7288 107.01828 
+Q 713.7288 98.00928 695.5938 98.00928 
+L 402.5322 98.00928 
+Q 384.3972 98.00928 384.3972 107.01828 
+L 384.3972 277.82892 
+Q 384.3972 286.83792 402.5322 286.83792 
+z
+" clip-path="url(#p3d2a734574)" style="fill: #f0ecfa; stroke: #7e57c2; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 351.57834 192.4236 
+Q 371.340348 192.4236 386.63022 192.4236 
+" clip-path="url(#p3d2a734574)" style="fill: none; stroke: #ff5f05; stroke-width: 4; stroke-linecap: round"/>
+    <path d="M 379.83022 189.0236 
+L 386.63022 192.4236 
+L 379.83022 195.8236 
+z
+" clip-path="url(#p3d2a734574)" style="fill: #ff5f05; stroke: #ff5f05; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #13294b" x="37.656" y="59.269581" transform="rotate(-0 37.656 59.269581)">Where the quantum part ends — and the evidence begins</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #28a9c7" x="193.617" y="135.9324" transform="rotate(-0 193.617 135.9324)">QUANTUM / EXACT SIMULATOR</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(58.469344 183.959062)">prepare → modular arithmetic →</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(121.699031 202.291875)">QFT⁻¹ → measure</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7e57c2" x="549.063" y="136.98615" transform="rotate(-0 549.063 136.98615)">CLASSICAL DECODER</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(390.41925 183.900469)">samples → augmented lattice → LLL →</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; fill: #13294b" transform="translate(497.976281 201.900469)">verify → gcd</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ff5f05" x="371.34" y="239.120628" transform="rotate(-0 371.34 239.120628)">k ∈ [M]ᵈ</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="23.148" y="357.984867" transform="rotate(-0 23.148 357.984867)">CONCEPTUAL SCHEMATIC OF THE IMPLEMENTED PIPELINE</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p3d2a734574">
+   <rect x="8.64" y="8.64" width="725.4" height="360.36"/>
+  </clipPath>
+ </defs>
+</svg>

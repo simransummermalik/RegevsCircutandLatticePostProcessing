@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="895.771031pt" height="383.184pt" viewBox="0 0 895.771031 383.184" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-22T16:22:51.857743</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 383.184 
+L 895.771031 383.184 
+L 895.771031 0 
+L 0 0 
+z
+" style="fill: #fffdf7"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 243 301.3632 
+C 292.722399 301.3632 340.414991 290.568093 375.574036 271.355376 
+C 410.733082 252.142659 430.488 226.080965 430.488 198.91008 
+C 430.488 171.739195 410.733082 145.677501 375.574036 126.464784 
+C 340.414991 107.252067 292.722399 96.45696 243 96.45696 
+C 193.277601 96.45696 145.585009 107.252067 110.425964 126.464784 
+C 75.266918 145.677501 55.512 171.739195 55.512 198.91008 
+C 55.512 226.080965 75.266918 252.142659 110.425964 271.355376 
+C 145.585009 290.568093 193.277601 301.3632 243 301.3632 
+z
+" clip-path="url(#p2ab34de655)" style="fill: #fff0e8; stroke: #ff5f05; stroke-width: 3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 243 239.15952 
+C 262.5338 239.15952 281.270175 234.918585 295.082657 227.370732 
+C 308.895139 219.822879 316.656 209.584356 316.656 198.91008 
+C 316.656 188.235804 308.895139 177.997281 295.082657 170.449428 
+C 281.270175 162.901575 262.5338 158.66064 243 158.66064 
+C 223.4662 158.66064 204.729825 162.901575 190.917343 170.449428 
+C 177.104861 177.997281 169.344 188.235804 169.344 198.91008 
+C 169.344 209.584356 177.104861 219.822879 190.917343 227.370732 
+C 204.729825 234.918585 223.4662 239.15952 243 239.15952 
+z
+" clip-path="url(#p2ab34de655)" style="fill: #e7f5f0; stroke: #009e73; stroke-width: 3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 546.3288 261.845568 
+L 642.7512 261.845568 
+Q 659.4912 261.845568 659.4912 252.697968 
+L 659.4912 145.122192 
+Q 659.4912 135.974592 642.7512 135.974592 
+L 546.3288 135.974592 
+Q 529.5888 135.974592 529.5888 145.122192 
+L 529.5888 252.697968 
+Q 529.5888 261.845568 546.3288 261.845568 
+z
+" clip-path="url(#p2ab34de655)" style="fill: #ffffff; stroke: #7e57c2; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 432.489566 198.91008 
+Q 480.709919 198.91008 524.458136 198.91008 
+" clip-path="url(#p2ab34de655)" style="fill: none; stroke: #7e57c2; stroke-width: 4; stroke-linecap: round"/>
+    <path d="M 517.658136 195.51008 
+L 524.458136 198.91008 
+L 517.658136 202.31008 
+z
+" clip-path="url(#p2ab34de655)" style="fill: #7e57c2; stroke: #7e57c2; stroke-width: 4; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #13294b" x="35.424" y="59.713101" transform="rotate(-0 35.424 59.713101)">Worst-case unitary error is not prepared-state recovery loss</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ff5f05" x="243" y="122.274325" transform="rotate(-0 243 122.274325)">all possible input states</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #009e73" transform="translate(209.4275 194.697268)">prepared</text>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #009e73" transform="translate(204.774922 211.556643)">fiber state</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7e57c2" x="594.54" y="170.825283" transform="rotate(-0 594.54 170.825283)">decoder event</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #15243a" x="594.54" y="221.207468" transform="rotate(-0 594.54 221.207468)">success / failure</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #5d6b7e" x="423.792" y="280.22367" transform="rotate(-0 423.792 280.22367)">restriction + measurement can cancel error</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #5d6b7e" x="22.032" y="362.847064" transform="rotate(-0 22.032 362.847064)">MECHANISM ESTABLISHED ANALYTICALLY; NOT A UNIVERSAL PERFORMANCE GUARANTEE</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2ab34de655">
+   <rect x="8.64" y="8.64" width="669.6" height="365.904"/>
+  </clipPath>
+ </defs>
+</svg>

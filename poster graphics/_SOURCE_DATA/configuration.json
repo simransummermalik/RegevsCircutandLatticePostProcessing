@@ -1,0 +1,51 @@
+{
+  "M_values": [
+    8,
+    16,
+    32
+  ],
+  "bootstrap_draw_rows": 120000,
+  "bootstrap_replicates": 5000,
+  "configuration_rows": 192,
+  "freeze_version": "qft-certificate-gap-v1",
+  "gap_rows": 6,
+  "heldout_N": [
+    55,
+    65,
+    85,
+    95,
+    115,
+    119,
+    133,
+    161
+  ],
+  "known_factors_used_only_posthoc": true,
+  "leave_one_N_out_rows": 144,
+  "loss_budget": 0.05,
+  "margin_sensitivity_rows": 96,
+  "margin_summary_rows": 24,
+  "master_seed": 2026071301,
+  "models": [
+    "A_uniform_hard_box",
+    "B_exact_finite_discrete_gaussian"
+  ],
+  "noninferiority_margin": 0.1,
+  "paired_cluster_rows": 24,
+  "paired_exact_test_rows": 36,
+  "per_N_rows": 192,
+  "replicates": 64,
+  "roots": [
+    2,
+    3
+  ],
+  "sample_count": 7,
+  "sensitivity_analyses_posthoc": true,
+  "sensitivity_margins": [
+    0.02,
+    0.05,
+    0.1,
+    0.15
+  ],
+  "slack_rows": 912,
+  "trial_rows": 12288
+}

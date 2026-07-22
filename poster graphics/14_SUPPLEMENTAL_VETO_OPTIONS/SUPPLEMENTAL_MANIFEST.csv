@@ -1,0 +1,16 @@
+asset,evidence_level,source,caption
+S01_headline_four_number_tiles,primary,certificate_gap_rows.csv; configuration_rows.csv,Original certificate: zero omitted layers. One layer passed all six tested cells; two passed in two Gaussian cells; maximum saving was 12 QFT-only CX gates.
+S02_certificate_threshold_log_ruler,proved,QFT_CERTIFICATE_PROOF_AUDIT.md; configuration.json,"For d=2, m=7 and Delta=.05, the first non-exact certificate threshold is M≈3518.6; tested M values are far below it. This is a certificate limitation, not physical necessity."
+S03_main_six_cell_certificate_gap,primary,certificate_gap_rows.csv,Each cell shows original certified omitted layers (zero) and largest omission meeting the frozen held-out rule.
+S04_primary_cluster_forest_plot,primary,paired_cluster_rows.csv,Mean paired factor-recovery differences and 95% whole-N cluster-bootstrap intervals for the largest passing omission in each cell.
+S05_M32_qft_only_resources,primary resource accounting,configuration_rows.csv,"At M=32,d=2: exact/omit-one/omit-two use 20/18/14 controlled phases and 52/48/40 QFT-only CX gates; compiled depth remains 36."
+S06_proof_slack_lollipop,mechanism audit,proof_slack_rows.csv; QFT_CERTIFICATE_TIGHTNESS.md,Median finite slack by proof step. Large state-to-measurement slack motivates the fiber-cancellation analysis.
+S07_hardbox_vs_finite_gaussian,illustrative model definition,regev_research/redteam.py; configuration.json,The hard box uses constant amplitudes; the finite Gaussian uses exp(-pi z^2/R^2) with R=4.
+S08_N15_identical_measurement_law,controlled counterexample,controlled_examples.json; fiber_fourier_distribution,"For N=15,bases=(4,1),M=4,t=0, exact and truncated measured laws coincide numerically although the all-state certificate rejects."
+S09_eight_heldout_moduli,primary design,configuration.json; QFT_CERTIFICATE_GAP_PROTOCOL.md,"Held-out N values: 55,65,85,95,115,119,133,161. No modulus was excluded."
+S10_complete_sample_to_factor_pipeline,illustrative implementation map,regev_research/lattice.py; QFT_CERTIFICATE_GAP_PROTOCOL.md,"Stored roots remain paired to squared circuit bases through sampling, augmented-lattice LLL, L/L0 classification and gcd extraction."
+S11_three_claim_zones,claim boundary,QFT_CERTIFICATE_GAP_REPORT.md,"Separates the proved certificate limitation, the finite empirical result, and unverified general hypotheses."
+S12_beginner_shor_vs_regev,background,Shor 1994/1997; Regev 2025; shor_to_regev_study,Shor uses one-dimensional period recovery; the tested Regev-style route uses multidimensional samples and lattice reduction.
+S13_qft_phase_layer_cutaway,illustrative resource mechanism,qft_gate_counts; configuration_rows.csv,"For M=32,q=5,d=2, exact/omit-one/omit-two use 20/18/14 logical controlled phases."
+S14_scope_fence,claim boundary,QFT_CERTIFICATE_GAP_REPORT.md; configuration.json,"The finding is finite, model-specific, and decoder-specific; it does not establish hardware or asymptotic claims."
+S15_root_provenance_metadata,verified implementation correction,regev_research/core.py; ROOT_PROVENANCE_RED_TEAM.md,Each squared circuit base permanently retains its chosen generating root for L0 classification and factor extraction.
