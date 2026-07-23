@@ -5,7 +5,7 @@ The library is intentionally oversized so the team can veto options. A clear fin
 ## Recommended eight
 
 1. **Headline result card** — certificate approved zero omissions; one layer passed all six held-out settings.
-2. **Beginner Shor-versus-Regev comparison** — gives a new reader one piece of context.
+2. **Beginner Shor-versus-Regev comparison** — use the standalone figure in `16_SIMPLE_GENERAL_AUDIENCE`; it is the least cluttered option.
 3. **Complete sample-to-factor pipeline** — shows that the endpoint includes the lattice decoder and factor extraction.
 4. **Certificate threshold ruler** — shows how far the tested register sizes lie below the sufficient-bound threshold.
 5. **Modular-fiber cancellation diagram** — gives the proposed mechanism in one picture.
@@ -16,7 +16,7 @@ The library is intentionally oversized so the team can veto options. A clear fin
 Good current files for this set are:
 
 - `14_SUPPLEMENTAL_VETO_OPTIONS/S01_headline_four_number_tiles.*`
-- `14_SUPPLEMENTAL_VETO_OPTIONS/S12_beginner_shor_vs_regev.*`
+- `16_SIMPLE_GENERAL_AUDIENCE/Shor_vs_Regev_SIMPLE_GENERAL_AUDIENCE.*`
 - `14_SUPPLEMENTAL_VETO_OPTIONS/S10_complete_sample_to_factor_pipeline.*`
 - `14_SUPPLEMENTAL_VETO_OPTIONS/S02_certificate_threshold_log_ruler.*`
 - the fiber/cancellation option in `04_CERTIFICATE_AND_FIBERS/`
@@ -32,4 +32,3 @@ Good current files for this set are:
 - The Parseval/chi-squared identity: it is a standard identity, not a novelty claim.
 - The `N=15` example: it is a deliberately degenerate counterexample, not held-out performance evidence.
 - Any AI-generated artwork: it is decoration only.
-

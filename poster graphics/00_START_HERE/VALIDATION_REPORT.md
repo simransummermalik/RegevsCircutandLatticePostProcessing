@@ -2,12 +2,12 @@
 
 **Overall status: PASS**
 
-- Distinct catalogued choices: 90
-- Scientific/explanatory choices: 66
+- Distinct catalogued choices: 91
+- Scientific/explanatory choices: 67
 - Decorative choices: 11
-- Raster files opened successfully: 111
-- SVG files parsed successfully: 72
-- PDF files opened successfully: 19
+- Raster files opened successfully: 113
+- SVG files parsed successfully: 73
+- PDF files opened successfully: 20
 - Frozen source hashes checked: 9
 - Smallest raster dimensions encountered: 1080 × 350 pixels
 

@@ -78,6 +78,24 @@ def fraction_icon(ax, x0, y0):
     ax.text(x0 + 0.62, y0, "→  r", ha="center", va="center", fontsize=26, color=BLUE, weight="bold")
 
 
+def period_icon(ax, x0, y0):
+    """A nontechnical repeating-stripe icon for Shor's recovered period."""
+    for i in range(6):
+        x = x0 + i * 0.18
+        ax.plot([x, x], [y0 - 0.22, y0 + 0.22], color=BLUE, linewidth=4, solid_capstyle="round")
+    ax.add_patch(
+        FancyArrowPatch(
+            (x0, y0 - 0.36),
+            (x0 + 0.90, y0 - 0.36),
+            arrowstyle="<->",
+            mutation_scale=12,
+            linewidth=2,
+            color=BLUE,
+        )
+    )
+    ax.text(x0 + 0.45, y0 - 0.49, "period", ha="center", va="top", fontsize=10.5, color=BLUE, weight="bold")
+
+
 def lattice_icon(ax, x0, y0):
     for i in range(5):
         for j in range(4):
@@ -124,17 +142,18 @@ def build():
         weight="bold",
     )
     arrow(ax, (4.25, 3.48), (4.90, 3.48), BLUE, 2.8)
-    fraction_icon(ax, 5.45, 3.50)
+    period_icon(ax, 5.12, 3.59)
     ax.text(
         7.05,
-        3.49,
-        "continued fractions",
+        3.60,
+        "decode the repeat",
         ha="left",
         va="center",
         fontsize=15,
         color=NAVY,
         weight="bold",
     )
+    ax.text(7.05, 3.27, "continued fractions", ha="left", va="center", fontsize=11.5, color=SLATE)
     arrow(ax, (10.35, 3.48), (12.10, 3.48), BLUE, 2.8)
     rounded(ax, (12.34, 3.04), 1.75, 0.86, WHITE, BLUE, linewidth=2, radius=0.14)
     ax.text(13.215, 3.47, "p × q", ha="center", va="center", fontsize=22, color=BLUE, weight="bold")
@@ -145,7 +164,7 @@ def build():
     several_samples(ax, 2.58, 1.48)
     ax.text(
         3.275,
-        0.79,
+        0.86,
         "multidimensional\nFourier samples",
         ha="center",
         va="center",
@@ -157,14 +176,15 @@ def build():
     lattice_icon(ax, 5.12, 0.94)
     ax.text(
         7.05,
-        1.39,
-        "lattice reduction (LLL)",
+        1.55,
+        "combine the clues",
         ha="left",
         va="center",
         fontsize=15,
         color=NAVY,
         weight="bold",
     )
+    ax.text(7.05, 1.21, "lattice reduction (LLL)", ha="left", va="center", fontsize=11.5, color=SLATE)
     arrow(ax, (10.85, 1.38), (12.10, 1.38), PURPLE, 2.8)
     rounded(ax, (12.34, 0.94), 1.75, 0.86, WHITE, PURPLE, linewidth=2, radius=0.14)
     ax.text(13.215, 1.37, "p × q", ha="center", va="center", fontsize=22, color=PURPLE, weight="bold")

@@ -32,13 +32,14 @@ SCIENTIFIC_FOLDERS = [
     "08_ROBUSTNESS_AND_DIAGNOSTICS",
     "09_LIMITATIONS_AND_CLAIMS",
     "14_SUPPLEMENTAL_VETO_OPTIONS",
+    "16_SIMPLE_GENERAL_AUDIENCE",
 ]
 
 DECORATIVE_FOLDERS = ["10_DECORATIVE_VECTORS", "12_DECORATIVE_AI_CONCEPTS"]
 
 RECOMMENDED = [
     "01_HEADLINE_CARDS/H02_one_layer_result.png",
-    "02_BEGINNER_BACKGROUND/B01_shor_vs_regev.png",
+    "16_SIMPLE_GENERAL_AUDIENCE/Shor_vs_Regev_SIMPLE_GENERAL_AUDIENCE.png",
     "03_PIPELINE/P01_full_endpoint.png",
     "04_CERTIFICATE_AND_FIBERS/C03_fiber_cancellation.png",
     "04_CERTIFICATE_AND_FIBERS/C05_certificate_barrier.png",
@@ -204,6 +205,7 @@ def build_master_manifest() -> list[dict[str, str]]:
         ("15_POSTER_LAYOUT_OPTIONS", "L01_story_first_48x36_LAYOUT_MOCKUP", "Layout mockup; not data"),
         ("15_POSTER_LAYOUT_OPTIONS", "L02_result_first_48x36_LAYOUT_MOCKUP", "Layout mockup; not data"),
         ("15_POSTER_LAYOUT_OPTIONS", "L03_beginner_first_48x36_LAYOUT_MOCKUP", "Layout mockup; not data"),
+        ("16_SIMPLE_GENERAL_AUDIENCE", "Shor_vs_Regev_SIMPLE_GENERAL_AUDIENCE", "Primary-literature background comparison; not an empirical result"),
         ("13_POSTER_REFERENCE", "original_poster_page1_REFERENCE_ONLY", "Supplied poster reference; not a result"),
     ]
     for folder, stem, evidence in extras:

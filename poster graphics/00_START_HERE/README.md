@@ -35,6 +35,7 @@ The project tests how much of the quantum Fourier transform (QFT) can be removed
 | `13_POSTER_REFERENCE` | A preview and audit of the supplied poster PDF. |
 | `14_SUPPLEMENTAL_VETO_OPTIONS` | Fifteen extra code-generated alternatives in PNG, SVG, and PDF. |
 | `15_POSTER_LAYOUT_OPTIONS` | Simple 48-by-36-inch layout mockups. |
+| `16_SIMPLE_GENERAL_AUDIENCE` | Standalone, non-AI Shor-versus-Regev figure for dropping into a poster. |
 | `_SOURCE_DATA` | Frozen CSV/JSON inputs copied from the completed experiment. |
 | `_SCRIPTS` | Reproducible generators for the charts and package. |
 
