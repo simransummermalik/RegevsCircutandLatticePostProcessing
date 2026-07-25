@@ -11,11 +11,13 @@ const refs = {
   cameraStatus: $("#cameraStatus"),
   resetButton: $("#resetButton"),
   prompt: $("#workspacePrompt"),
+  help: $("#partHelp"),
   count: $("#pieceCount"),
   board: $("#circuitBoard"),
   dock: $("#componentDock"),
   handCursor: $("#handCursor"),
   dragGhost: $("#dragGhost"),
+  celebration: $("#celebration"),
   toast: $("#toast"),
   dialog: $("#completionDialog"),
   buildAgain: $("#buildAgainButton")
@@ -55,8 +57,12 @@ function escapeHtml(value) {
 
 function render() {
   const component = currentComponent();
-  refs.count.textContent = state.placed.size + " / " + state.data.buildOrder.length;
+  refs.count.textContent =
+    state.placed.size + " / " + state.data.buildOrder.length + " · teaching replay";
   refs.prompt.textContent = component ? "Place " + component.label : "Complete";
+  refs.help.textContent = component
+    ? component.simpleExplanation
+    : "The built circuit would send samples to verified lattice recovery.";
   document.body.classList.toggle("complete", !component);
 
   $$(".slot", refs.board).forEach((slot) => {
@@ -192,19 +198,41 @@ function placeBlock(id) {
 
   if (!currentId()) {
     window.setTimeout(showCompletion, 450);
+  } else {
+    showToast("Nice — " + state.placed.size + " of " + state.data.buildOrder.length);
   }
 }
 
 function showCompletion() {
   if (currentId()) return;
+  celebrate();
   if (typeof refs.dialog.showModal === "function") refs.dialog.showModal();
   else refs.dialog.setAttribute("open", "");
+}
+
+function celebrate() {
+  refs.celebration.innerHTML = "";
+  const colors = ["#ff5a1f", "#ffffff", "#2f6fab"];
+  for (let index = 0; index < 30; index += 1) {
+    const piece = document.createElement("span");
+    piece.className = "confetti-piece";
+    piece.style.setProperty("--x", ((index * 37) % 101) + "vw");
+    piece.style.setProperty("--delay", ((index % 6) * 45) + "ms");
+    piece.style.setProperty("--duration", (850 + (index % 7) * 90) + "ms");
+    piece.style.setProperty("--turn", (180 + (index % 5) * 90) + "deg");
+    piece.style.background = colors[index % colors.length];
+    refs.celebration.append(piece);
+  }
+  refs.celebration.classList.add("active");
+  window.setTimeout(() => refs.celebration.classList.remove("active"), 1900);
 }
 
 function reset() {
   state.placed.clear();
   state.selected = false;
   cancelDrag();
+  refs.celebration.classList.remove("active");
+  refs.celebration.innerHTML = "";
   if (refs.dialog.open) refs.dialog.close();
   $$(".slot", refs.board).forEach((slot) => {
     slot.classList.remove("filled", "current", "near");

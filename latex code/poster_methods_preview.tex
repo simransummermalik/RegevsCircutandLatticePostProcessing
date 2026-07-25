@@ -1,0 +1,63 @@
+\documentclass[12pt]{article}
+\usepackage[
+  paperwidth=16in,
+  paperheight=9in,
+  margin=0.45in
+]{geometry}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\renewcommand{\familydefault}{\sfdefault}
+
+\definecolor{MethodNavy}{HTML}{13294B}
+\definecolor{MethodBlue}{HTML}{0072B2}
+\definecolor{MethodPurple}{HTML}{7E57C2}
+\definecolor{MethodOrange}{HTML}{FF5F05}
+\definecolor{MethodTeal}{HTML}{009E73}
+
+\begin{document}
+\pagecolor{white}
+\color{MethodNavy}
+
+{\fontsize{32}{36}\selectfont\bfseries Methods}
+
+\vspace{0.25in}
+\begin{center}
+  \input{methods_flowchart.tex}
+\end{center}
+
+\vspace{0.18in}
+\begin{minipage}[t]{0.64\linewidth}
+  \input{methods_section.tex}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\linewidth}
+  \colorbox{MethodPurple!8}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \textbf{\large Frozen parameters}\\[1mm]
+      \(\displaystyle N\in
+      \{55,65,85,95,115,119,133,161\}\)\\[1mm]
+      Stored roots: \((2,3)\)\\
+      \(d=2,\ M\in\{8,16,32\},\ m=7\)\\
+      Gaussian radius: \(R=4\)\\
+      64 coupled replicates per cell\\
+      5,000 whole-\(N\) bootstrap draws\\
+      Primary margin: \(0.10\)
+    }%
+  }
+
+  \vspace{0.18in}
+  \colorbox{MethodOrange!8}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \textbf{\large What this is not}\\[1mm]
+      This is a finite exact simulation study of QFT phase truncation.
+      It is not calibrated hardware noise, cryptographic-scale factoring,
+      or an end-to-end speedup benchmark.
+    }%
+  }
+\end{minipage}
+
+\end{document}

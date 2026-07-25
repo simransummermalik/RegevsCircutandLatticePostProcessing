@@ -1,9 +1,10 @@
-# Build the Circuit
+# Build a Regev-Style Circuit
 
-This is an intentionally plain presentation demo. The browser shows a camera,
-the empty circuit, and one block at a time. Pinch or drag each block into the
-outlined slot. There is no dashboard, explanation panel, QFT menu, sample
-display, or lattice animation.
+This is an intentionally simple presentation demo of the notebook's finite
+Regev-style uniform hard-box circuit. The browser shows a camera, the empty
+circuit, and one block at a time. Pinch or drag each block into the outlined
+slot. One short sentence explains the current block; there is no dashboard,
+QFT menu, sample display, or lattice animation.
 
 After all 12 blocks are placed, the page shows `55 = 5 × 11`. That final screen
 is a fixed teaching endpoint—not the result of a new factoring run in the
@@ -55,7 +56,8 @@ The teaching instance uses:
 
 The 12 blocks are two exponent registers, two Hadamard preparations, a result
 register, an auxiliary register, two modular-exponentiation operations, two
-inverse QFTs, and two measurements. The modular arithmetic represents
+inverse-QFT approximations with one small controlled-phase layer omitted, and
+two measurements. The modular arithmetic represents
 
 $$
 4^{x_1}9^{x_2}\pmod {55}.
@@ -78,9 +80,10 @@ recover and verify a useful relation before extracting factors.
   perform a live gcd calculation.
 - The circuit drawing is schematic. It shows the main registers and operations,
   not a gate-level decomposition or hardware routing.
-- The inverse-QFT blocks do not provide a precision selector. Removing the old
-  QFT dashboard from this presentation does not strengthen or change the
-  repository's QFT research claims.
+- The visible inverse-QFT blocks are explicitly the fixed replay's `omit1`
+  approximation. The page does not provide a precision selector, and removing
+  the old QFT dashboard does not strengthen or change the repository's QFT
+  research claims.
 - The fixed successful replay recorded in the research data uses the notebook's
   uniform hard-box model, $N=55$, $M=32$, seven samples, one omitted separation
   layer, and seed `2026091301`. It is not a new experimental endpoint, and a

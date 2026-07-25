@@ -1,0 +1,95 @@
+% Simple poster infographic: Test -> Add controlled error -> Recover -> Measure
+% Required packages:
+% \usepackage{xcolor}
+% \usepackage{graphicx}
+% \usepackage{tikz}
+% \usetikzlibrary{arrows.meta,positioning}
+
+\definecolor{FlowBlue}{HTML}{1769AA}
+\definecolor{FlowPurple}{HTML}{7651B5}
+\definecolor{FlowOrange}{HTML}{E56B2F}
+\definecolor{FlowGreen}{HTML}{23856D}
+\definecolor{FlowInk}{HTML}{172033}
+
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+  font=\sffamily,
+  node distance=9mm,
+  step/.style={
+    rounded corners=4mm,
+    draw=#1,
+    fill=#1!7,
+    line width=1.6pt,
+    text width=5.1cm,
+    minimum height=6.1cm,
+    align=left,
+    inner sep=5mm,
+    text=FlowInk
+  },
+  flow/.style={
+    -{Stealth[length=4mm,width=3mm]},
+    draw=FlowInk!65,
+    line width=1.8pt
+  }
+]
+
+\node[step=FlowBlue] (test) {
+  \centering\textcolor{FlowBlue}{\bfseries\Large 1. TEST}\\[3mm]
+  \raggedright
+  \textbf{8 held-out semiprimes}\\[1.5mm]
+  Uniform and discrete-Gaussian Regev samples\\[1.5mm]
+  \(M=8,16,32\)\\[1.5mm]
+  64 repeats per setting
+};
+
+\node[step=FlowPurple,right=of test] (error) {
+  \centering\textcolor{FlowPurple}{\bfseries\Large 2. ADD CONTROLLED ERROR}\\[3mm]
+  \raggedright
+  \textbf{Regev primary test:}\\
+  omit 1--2 smallest QFT phase layers\\[1.5mm]
+  \textbf{Regev stress tests:}\\
+  1\% readout flips, 5\% corrupted shots, and bounded noisy-dual displacement\\[1.5mm]
+  \textbf{Shor companion tests:}\\
+  phase/RZ rotation error and 0.1--1\% CX depolarizing noise
+};
+
+\node[step=FlowOrange,right=of error] (recover) {
+  \centering\textcolor{FlowOrange}{\bfseries\Large 3. RECOVER}\\[3mm]
+  \raggedright
+  Samples\\
+  \(\downarrow\)\\
+  augmented integer lattice\\
+  \(\downarrow\)\\
+  LLL reduction\\
+  \(\downarrow\)\\
+  verify relation + GCD factor
+};
+
+\node[step=FlowGreen,right=of recover] (measure) {
+  \centering\textcolor{FlowGreen}{\bfseries\Large 4. MEASURE}\\[3mm]
+  \raggedright
+  Factor-recovery success\\[1.5mm]
+  Quantum samples required\\[1.5mm]
+  Controlled-phase gates\\[1.5mm]
+  CX gates and circuit depth\\[1.5mm]
+  LLL runtime
+};
+
+\draw[flow] (test) -- (error);
+\draw[flow] (error) -- (recover);
+\draw[flow] (recover) -- (measure);
+
+\node[
+  anchor=north,
+  text width=12.8cm,
+  align=center,
+  font=\sffamily\small,
+  text=FlowInk!80
+] at ($(error.south east)!0.5!(recover.south west)+(0,-7mm)$) {
+  \textbf{Important:} these are controlled simulations.
+  QFT truncation is an algorithmic approximation, and the other channels are
+  declared noise surrogates---not measurements from real quantum hardware.
+};
+
+\end{tikzpicture}%
+}

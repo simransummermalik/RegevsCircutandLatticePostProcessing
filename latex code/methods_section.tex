@@ -1,0 +1,68 @@
+% Paste this file inside the Methods block of your poster.
+% Required packages in the poster preamble:
+% \usepackage{amsmath}
+% \usepackage{xcolor}
+% \usepackage{enumitem}
+
+\definecolor{MethodNavy}{HTML}{13294B}
+\definecolor{MethodBlue}{HTML}{0072B2}
+\definecolor{MethodPurple}{HTML}{7E57C2}
+\definecolor{MethodOrange}{HTML}{FF5F05}
+\definecolor{MethodTeal}{HTML}{009E73}
+
+\begin{minipage}{\linewidth}
+\color{MethodNavy}
+\textbf{\large Research question.}
+Does removing the smallest controlled-phase rotations from the inverse
+quantum Fourier transform (QFT) preserve factor recovery at the complete
+finite Regev-style lattice endpoint?
+
+\vspace{0.45em}
+\begin{enumerate}[leftmargin=1.45em,itemsep=0.45em,topsep=0.2em]
+  \item[\textcolor{MethodBlue}{\textbf{1}}]
+  \textbf{Freeze the test.}
+  We fixed eight held-out semiprimes,
+  \(d=2\), stored roots \((b_1,b_2)=(2,3)\),
+  Fourier moduli \(M\in\{8,16,32\}\), \(m=7\) samples,
+  64 coupled replicates per cell, and master seed \(2026071301\).
+
+  \item[\textcolor{MethodPurple}{\textbf{2}}]
+  \textbf{Generate exact finite Fourier samples.}
+  We evaluated both the notebook's uniform hard-box state and an exact finite
+  discrete-Gaussian state with \(R=4\).
+  Each condition used either the exact inverse QFT or a distance-truncated
+  inverse QFT that removes the smallest-angle phase layers.
+
+  \item[\textcolor{MethodOrange}{\textbf{3}}]
+  \textbf{Run the complete classical endpoint.}
+  Measured samples were converted to an augmented integer lattice, reduced
+  with exact LLL, and lifted to candidate relations \(z\).
+  We verified
+  \[
+    \prod_i a_i^{z_i}\equiv 1\pmod N,
+    \qquad a_i=b_i^2\bmod N,
+  \]
+  then used the stored roots \(b_i\) to distinguish useful
+  \(L\setminus L_0\) relations and extract factors with a gcd.
+
+  \item[\textcolor{MethodTeal}{\textbf{4}}]
+  \textbf{Compare exact and truncated QFTs.}
+  Exact and truncated conditions used coupled random draws.
+  Factor-recovery differences were aggregated with \(N\), not repeated
+  trials, as the unit of generalization.
+  A 5,000-draw whole-\(N\) cluster bootstrap tested the frozen
+  \(-0.10\) non-inferiority margin.
+  We separately counted QFT-only controlled-phase gates, transpiled CX gates,
+  and depth.
+\end{enumerate}
+
+\vspace{0.35em}
+\colorbox{MethodNavy}{%
+  \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+    \centering\color{white}\small
+    Known factors were never used for sampling, tuning, or relation
+    classification; they were used only for post-hoc validation.
+  }%
+}
+\end{minipage}
+

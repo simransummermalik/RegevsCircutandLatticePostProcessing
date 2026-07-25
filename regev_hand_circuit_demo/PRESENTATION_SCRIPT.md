@@ -16,8 +16,9 @@ mouse nearby as a fallback.
 
 Say:
 
-> “This is a simple visual model of a Regev-style sampling circuit for the
-> teaching integer 55. I will assemble it one block at a time.”
+> “This is a simple visual model of the notebook's finite Regev-style sampling
+> circuit for the teaching integer 55. It uses the uniform hard-box state, not
+> Regev's full Gaussian state. I will assemble it one block at a time.”
 
 Place the two exponent-register and Hadamard blocks.
 
@@ -32,9 +33,10 @@ Place the result, auxiliary, and modular-exponentiation blocks.
 
 Place the two inverse-QFT and measurement blocks.
 
-> “The inverse Fourier transforms and measurements produce structured samples.
-> The quantum circuit does not directly output the factors; a complete research
-> run also needs verified classical lattice post-processing.”
+> “These inverse Fourier blocks use the tested one-layer shortcut from our
+> poster. The measurements produce structured samples. The quantum circuit
+> does not directly output factors; a full run still builds a lattice, runs
+> LLL, verifies the relation using the stored roots, and then applies GCD.”
 
 ## When the result appears
 
@@ -42,7 +44,8 @@ Say:
 
 > “The page now shows 55 equals 5 times 11. This is a fixed teaching endpoint,
 > not a live quantum run and not a new success-rate measurement. The demo is
-> only making the circuit architecture easy to see and build.”
+> only making the circuit architecture easy to see and build. It demonstrates
+> the Regev QFT experiment—not our separate Shor-noise or RV-filter studies.”
 
 That is the end of the demo. The page intentionally has no second dashboard,
 QFT control screen, sample animation, or recovery overlay.

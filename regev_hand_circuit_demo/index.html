@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111111">
-  <title>Build the Circuit</title>
+  <title>Build a Regev-Style Circuit</title>
   <link rel="stylesheet" href="minimal.css">
 </head>
 <body>
@@ -15,8 +15,8 @@
   <main class="app">
     <header class="topbar">
       <div class="title">
-        <h1>Build the circuit</h1>
-        <span id="pieceCount">0 / 12</span>
+        <h1>Build a Regev-style circuit</h1>
+        <span id="pieceCount">0 / 12 · teaching replay</span>
       </div>
       <div class="controls">
         <button class="camera-button" id="cameraButton" type="button">
@@ -29,6 +29,7 @@
 
     <p class="camera-message" id="cameraStatus">Camera off · mouse works too</p>
     <h2 class="prompt" id="workspacePrompt">Place exponent x₁</h2>
+    <p class="part-help" id="partHelp">Holds the first number used in the modular pattern.</p>
 
     <section class="circuit" id="circuitBoard" aria-label="Circuit building area">
       <div class="circuit-row">
@@ -37,7 +38,7 @@
         <button class="slot" data-accepts="x1" type="button"><span>x₁</span></button>
         <button class="slot" data-accepts="h1" type="button"><span>H</span></button>
         <button class="slot wide" data-accepts="modexp1" type="button"><span>4ˣ¹ mod 55</span></button>
-        <button class="slot" data-accepts="qft1" type="button"><span>QFT⁻¹</span></button>
+        <button class="slot" data-accepts="qft1" type="button"><span>QFT⁻¹ − 1 layer</span></button>
         <button class="slot small" data-accepts="measure1" type="button"><span>M</span></button>
       </div>
 
@@ -47,7 +48,7 @@
         <button class="slot" data-accepts="x2" type="button"><span>x₂</span></button>
         <button class="slot" data-accepts="h2" type="button"><span>H</span></button>
         <button class="slot wide" data-accepts="modexp2" type="button"><span>9ˣ² mod 55</span></button>
-        <button class="slot" data-accepts="qft2" type="button"><span>QFT⁻¹</span></button>
+        <button class="slot" data-accepts="qft2" type="button"><span>QFT⁻¹ − 1 layer</span></button>
         <button class="slot small" data-accepts="measure2" type="button"><span>M</span></button>
       </div>
 
@@ -74,13 +75,14 @@
   </div>
 
   <div class="drag-ghost" id="dragGhost" aria-hidden="true"></div>
+  <div class="celebration" id="celebration" aria-hidden="true"></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <dialog id="completionDialog">
     <p class="dialog-label">Circuit complete</p>
     <h2>55 = 5 × 11</h2>
-    <p>quantum samples → LLL → factors</p>
-    <small>fixed successful replay</small>
+    <p>samples → lattice → LLL → verify → GCD → factor</p>
+    <small>fixed hard-box replay · one QFT layer removed · not a live run</small>
     <button id="buildAgainButton" type="button">Build again</button>
   </dialog>
 

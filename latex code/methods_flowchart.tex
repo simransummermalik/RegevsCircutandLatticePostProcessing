@@ -1,0 +1,53 @@
+% Compact poster-ready methods figure.
+% Required packages/libraries:
+% \usepackage{tikz}
+% \usetikzlibrary{arrows.meta,positioning}
+
+\begin{tikzpicture}[
+  font=\sffamily,
+  node distance=7mm,
+  box/.style={
+    rounded corners=3mm,
+    draw=#1,
+    line width=1.4pt,
+    fill=#1!7,
+    minimum height=3.2cm,
+    text width=3.25cm,
+    align=center,
+    inner sep=3mm
+  },
+  arrow/.style={-{Stealth[length=3mm]},line width=1.4pt,draw=MethodNavy}
+]
+  \node[box=MethodBlue] (freeze) {
+    \textcolor{MethodBlue}{\textbf{\large 1. Freeze}}\\[1.5mm]
+    8 held-out \(N\) values\\
+    \(d=2,\ M=8,16,32\)\\
+    \(m=7,\ 64\) replicates
+  };
+
+  \node[box=MethodPurple,right=of freeze] (sample) {
+    \textcolor{MethodPurple}{\textbf{\large 2. Sample}}\\[1.5mm]
+    Hard-box and finite Gaussian\\
+    exact vs.\ truncated QFT\\
+    coupled random draws
+  };
+
+  \node[box=MethodOrange,right=of sample] (recover) {
+    \textcolor{MethodOrange}{\textbf{\large 3. Recover}}\\[1.5mm]
+    Samples \(\rightarrow\) integer lattice\\
+    exact LLL \(\rightarrow z\)\\
+    verify \(L\) vs.\ \(L_0\)
+  };
+
+  \node[box=MethodTeal,right=of recover] (test) {
+    \textcolor{MethodTeal}{\textbf{\large 4. Test}}\\[1.5mm]
+    gcd factor extraction\\
+    whole-\(N\) bootstrap\\
+    QFT-only resource counts
+  };
+
+  \draw[arrow] (freeze) -- (sample);
+  \draw[arrow] (sample) -- (recover);
+  \draw[arrow] (recover) -- (test);
+\end{tikzpicture}
+

@@ -179,6 +179,7 @@ class DemoDataTests(unittest.TestCase):
     def test_every_component_code_link_resolves(self) -> None:
         for component in self.data["components"]:
             with self.subTest(component=component["id"]):
+                self.assertTrue(component["simpleExplanation"].strip())
                 self.assertTrue(component["what"].strip())
                 self.assertTrue(component["role"].strip())
                 self.assertTrue(component["built"].strip())
@@ -196,6 +197,7 @@ class DemoHTMLTests(unittest.TestCase):
     def test_required_interface_regions_exist(self) -> None:
         required = {
             "cameraButton",
+            "celebration",
             "resetButton",
             "componentDock",
             "webcam",
@@ -205,6 +207,7 @@ class DemoHTMLTests(unittest.TestCase):
             "completionDialog",
             "buildAgainButton",
             "workspacePrompt",
+            "partHelp",
             "pieceCount",
         }
         self.assertEqual(required - self.parser.ids, set())
@@ -221,6 +224,13 @@ class DemoHTMLTests(unittest.TestCase):
         self.assertNotIn("gradient", skin)
         self.assertNotIn("box-shadow", skin)
         self.assertNotIn("explanation", self.html.lower())
+
+    def test_visible_replay_scope_matches_the_frozen_data(self) -> None:
+        self.assertEqual(self.html.count("QFT⁻¹ − 1 layer"), 2)
+        self.assertIn("fixed hard-box replay", self.html)
+        self.assertIn("one QFT layer removed", self.html)
+        self.assertIn("samples → lattice → LLL → verify → GCD → factor", self.html)
+        self.assertIn("not a live run", self.html)
 
     def test_all_local_html_references_resolve(self) -> None:
         for reference in self.parser.local_refs:
@@ -243,6 +253,7 @@ class DemoInteractionTests(unittest.TestCase):
             "componentDock",
             "completionDialog",
             "buildAgainButton",
+            "celebrate",
         ):
             with self.subTest(marker=marker):
                 self.assertIn(marker, app)
