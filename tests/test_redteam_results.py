@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / "results" / "redteam"
+RESULTS = ROOT / "all_graphics_and_results" / "results" / "redteam"
 
 
 def _csv(name):
