@@ -9,3 +9,6 @@ __pycache__/
 results/quotient_study/checkpoints/
 results/quotient_study/trial_rows.csv
 results/quotient_study/resource_rows.csv
+all_graphics_and_results/results/quotient_study/checkpoints/
+all_graphics_and_results/results/quotient_study/trial_rows.csv
+all_graphics_and_results/results/quotient_study/resource_rows.csv
