@@ -1,0 +1,26 @@
+{
+  "freeze_identifier": "complexity-fidelity-v1",
+  "output_sha256": {
+    "architecture_ablations.csv": "3ec2d2064ba948ac812663f2b450e20df0cdeca6bcab9c9af34c2fe2baf555cf",
+    "asymptotic_certificate_rows.csv": "4c2895ad04c79a1876b67f99aa68889909fcadac5ea7eb24928b73fe22f70523",
+    "complexity_fidelity_certificate.json": "6d6dd4947a57a2f3f10e40c88ba35ba14f7851abdd11951147c8bb2453cdea7d",
+    "matched_exact_resources.csv": "55fa9795deef0beea526a123f3bd7a1461b1da4f6aa4bc31c5928178131b17b2",
+    "matched_shor_regev_cost.png": "64cbe696b146e6a38b0bcb00ab3cdd318b31f655489a0fb7d334030744e31d7b",
+    "published_claim_audit.csv": "a8d307fcf76c9c51890d963621709cf881e148cbf6e9bcfe4800c7d95fcf7ff6",
+    "published_complexity_gap.png": "58b1c626879d3df49ad5b8ae901a898aefcf48c5ca81a19e51d280bac86ce62a",
+    "qft_vs_arithmetic_ratio.png": "a9e9778bab8df3b0d34734f9a7c25019bf1d500d416db921c62dba1aa17582bd",
+    "simulation_model_scope.png": "9f0025414d2bd7ecfccde0cc8ffc4e77d13392818955b1120fd38cb05e21662e"
+  },
+  "outputs": [
+    "architecture_ablations.csv",
+    "asymptotic_certificate_rows.csv",
+    "complexity_fidelity_certificate.json",
+    "matched_exact_resources.csv",
+    "matched_shor_regev_cost.png",
+    "published_claim_audit.csv",
+    "published_complexity_gap.png",
+    "qft_vs_arithmetic_ratio.png",
+    "simulation_model_scope.png"
+  ],
+  "status": "complete"
+}

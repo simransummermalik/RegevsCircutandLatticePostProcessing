@@ -1,0 +1,21 @@
+controlled_multiplier_invocations,executable_in_repository,interpretation,invocations_over_n,n,qft_canonical_cx,scenario
+32,True,implemented baseline,2.0,16,272,notebook_exact_QFT
+32,True,QFT-only intervention; arithmetic is unchanged,2.0,16,264,notebook_omit_one_QFT_layer
+32,False,removes every QFT gate; arithmetic barrier remains,2.0,16,0,notebook_no_QFT_counterfactual
+24,False,abstract call-count ablation; not an implemented replacement,1.5,16,272,sqrt_n_invocation_counterfactual
+32,True,matched binary arithmetic comparator,2.0,16,1040,supplied_ShOR
+128,True,implemented baseline,2.0,64,2112,notebook_exact_QFT
+128,True,QFT-only intervention; arithmetic is unchanged,2.0,64,2096,notebook_omit_one_QFT_layer
+128,False,removes every QFT gate; arithmetic barrier remains,2.0,64,0,notebook_no_QFT_counterfactual
+48,False,abstract call-count ablation; not an implemented replacement,0.75,64,2112,sqrt_n_invocation_counterfactual
+128,True,matched binary arithmetic comparator,2.0,64,16448,supplied_ShOR
+512,True,implemented baseline,2.0,256,16640,notebook_exact_QFT
+512,True,QFT-only intervention; arithmetic is unchanged,2.0,256,16608,notebook_omit_one_QFT_layer
+512,False,removes every QFT gate; arithmetic barrier remains,2.0,256,0,notebook_no_QFT_counterfactual
+96,False,abstract call-count ablation; not an implemented replacement,0.375,256,16640,sqrt_n_invocation_counterfactual
+512,True,matched binary arithmetic comparator,2.0,256,262400,supplied_ShOR
+2048,True,implemented baseline,2.0,1024,132096,notebook_exact_QFT
+2048,True,QFT-only intervention; arithmetic is unchanged,2.0,1024,132032,notebook_omit_one_QFT_layer
+2048,False,removes every QFT gate; arithmetic barrier remains,2.0,1024,0,notebook_no_QFT_counterfactual
+192,False,abstract call-count ablation; not an implemented replacement,0.1875,1024,132096,sqrt_n_invocation_counterfactual
+2048,True,matched binary arithmetic comparator,2.0,1024,4195328,supplied_ShOR

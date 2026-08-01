@@ -1,0 +1,60 @@
+{
+  "analysis_type": "static source audit plus deterministic synthetic scaling",
+  "claim_boundary": "This corrects and characterizes the supplied implementation. It is not a lower bound on Regev factoring and not a hardware estimate.",
+  "factorization_of_synthetic_inputs_computed": false,
+  "formula_range": [
+    4,
+    1024
+  ],
+  "freeze_identifier": "complexity-fidelity-v1",
+  "matched_comparison": {
+    "canonical_cx_boundary": "data-dependent source-CX terms give each circuit the same leading interval [552,568]; an exact canonical-CX ratio limit is not claimed",
+    "largest_exact_probe_n": 64,
+    "largest_exact_probe_per_run_cx_ratio": 1.0175432992955498,
+    "proved_per_run_limit": "source-CCX ratio Regev/Shor -> 1",
+    "regev_controlled_multiplier_invocations": "dq=2n+O(sqrt(n))",
+    "regev_qft_canonical_cx": "4n^(3/2)+O(n)",
+    "shor_controlled_multiplier_invocations": "2n",
+    "shor_qft_canonical_cx": "4n^2+n"
+  },
+  "simulation_comparison": {
+    "models": [
+      "A hard box",
+      "B finite Gaussian",
+      "C noisy dual",
+      "D readout surrogate"
+    ],
+    "warning": "model C is not a circuit simulation"
+  },
+  "simulation_table_sha256": "1796437fa193f3ebdc47e7bb35ad83b9cb9a9a6272f065948fc74089101d8960",
+  "source_hashes": {
+    "external/regev-quantum-algorithm/gates/haner/constant_adder.py": "b134920cf0b47983f3f2eb93600846c5f1517b651a4f7c3958afca3f5197a9c6",
+    "external/regev-quantum-algorithm/gates/haner/constant_modulo_adder.py": "40033679c099a1351b58856c1d550dedd764778d0558ab8e8cbcd4ad10c13173",
+    "external/regev-quantum-algorithm/gates/haner/constant_modulo_multiplier.py": "89517169938bf4692fd76d37a8e12d385c988911dbd97c861d8ccb3938941cd4",
+    "external/regev-quantum-algorithm/gates/haner/modular_exponentiation.py": "b36621d8f6eabf5d85703e4567ceb696b6d1dbf85ca18c9e3f1740579ff19725",
+    "external/regev-quantum-algorithm/gates/r_haner/constant_modulo_multiplier.py": "89517169938bf4692fd76d37a8e12d385c988911dbd97c861d8ccb3938941cd4",
+    "external/regev-quantum-algorithm/gates/r_haner/modular_exponentiation.py": "a7f9824ea457ee726cb6f42c40dea63e984887c3f044934058b2b964d2560699",
+    "external/regev-quantum-algorithm/implementations/shor.py": "85a8dca95fd9b83b8730f56360dc2d230c2348cd0a35ee0da5b1576369cd0f36"
+  },
+  "synthetic_bit_lengths": [
+    4,
+    6,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48,
+    64
+  ],
+  "verified_correction": {
+    "canonical_cx_leading_interval": [
+      552,
+      568
+    ],
+    "cause": "the published derivation substitutes q for the n result bits iterated by every constant modular multiplier",
+    "paper_reported_class": "O(n^(5/2) log n)",
+    "source_ccx_leading_constant": 80,
+    "source_verified_class": "Theta(n^3 log2(n))"
+  }
+}

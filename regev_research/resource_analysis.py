@@ -1,4 +1,4 @@
-"""Exact source-level resource accounting for the supplied Regev circuit.
+"""Exact source-level resource accounting for the supplied factoring circuits.
 
 The notebook builds a low-width circuit by giving all exponent registers one
 shared ``y`` register and one shared arithmetic workspace.  This module counts
@@ -67,6 +67,29 @@ def notebook_parameters(n: int, mode: str = "cover_2n") -> dict[str, int | str]:
         "M": 1 << q,
         "exponent_qubits": d * q,
         "total_qubits": d * q + 2 * n + 1,
+    }
+
+
+def shor_parameters(n: int) -> dict[str, int | str]:
+    """Return the register sizes of the supplied coherent Shor circuit.
+
+    This is the non-semiclassical implementation in
+    ``external/regev-quantum-algorithm/implementations/shor.py``.  It has a
+    ``2n``-qubit exponent register, an ``n``-qubit result register, and an
+    ``n+1``-qubit arithmetic workspace.
+    """
+
+    n = int(n)
+    if n <= 0:
+        raise ValueError("n must be positive")
+    return {
+        "n": n,
+        "algorithm": "supplied_coherent_shor",
+        "exponent_qubits": 2 * n,
+        "result_qubits": n,
+        "workspace_qubits": n + 1,
+        "total_qubits": 4 * n + 1,
+        "controlled_modular_multiplier_invocations": 2 * n,
     }
 
 
@@ -240,6 +263,93 @@ def full_circuit_source_counts(
     if measure:
         counts["measure"] += len(bases) * q
     return counts
+
+
+def shor_full_circuit_source_counts(
+    N: int,
+    base: int,
+    *,
+    qft_cutoff: int | None = None,
+    measure: bool = True,
+) -> GateCounts:
+    """Flatten the supplied coherent Shor circuit to declared primitives.
+
+    The arithmetic functions called by the supplied Shor and Regev builders
+    are structurally identical.  The only differences counted here are the
+    number of exponent bits and the QFT layout.
+    """
+
+    N, base = int(N), int(base)
+    n = N.bit_length()
+    base %= N
+    if N <= 2 or gcd(base, N) != 1:
+        raise ValueError("base must be a unit modulo N")
+    q = 2 * n
+    counts: GateCounts = Counter({"h": q, "x": 1})
+    counts.update(modular_exponentiation_counts(base, N, n, q))
+    counts.update(qft_source_counts(1, q, qft_cutoff))
+    if measure:
+        counts["measure"] += q
+    return counts
+
+
+def complexity_fidelity_certificate(
+    n: int,
+    mode: str = "cover_2n",
+    *,
+    regev_runs: int | None = None,
+) -> dict[str, int | float | str | bool]:
+    """Certify whether this binary architecture preserves Regev's scaling.
+
+    The certificate is static: it follows loop bounds and exact gate
+    contracts and does not fit a slope to timing data.  It applies to this
+    repository's repeated-squaring implementation, not to Regev's published
+    arithmetic circuit.
+    """
+
+    n = int(n)
+    regev = notebook_parameters(n, mode)
+    shor = shor_parameters(n)
+    d, q = int(regev["d"]), int(regev["q"])
+    regev_invocations = d * q
+    shor_invocations = 2 * n
+    runs = d + 4 if regev_runs is None else int(regev_runs)
+    if runs <= 0:
+        raise ValueError("regev_runs must be positive")
+    regev_qft = qft_closed_form(d, q)["canonical_cx"]
+    shor_qft = qft_closed_form(1, 2 * n)["canonical_cx"]
+    return {
+        "n": n,
+        "mode": mode,
+        "d": d,
+        "q": q,
+        "regev_total_qubits": int(regev["total_qubits"]),
+        "shor_total_qubits": int(shor["total_qubits"]),
+        "regev_controlled_multiplier_invocations_per_run": regev_invocations,
+        "shor_controlled_multiplier_invocations_per_run": shor_invocations,
+        "per_run_invocation_ratio_regev_over_shor": (
+            regev_invocations / shor_invocations
+        ),
+        "regev_runs_reference": runs,
+        "run_adjusted_invocation_ratio_vs_one_shor_run": (
+            runs * regev_invocations / shor_invocations
+        ),
+        "regev_qft_canonical_cx": regev_qft,
+        "shor_qft_canonical_cx": shor_qft,
+        "qft_ratio_regev_over_shor": regev_qft / shor_qft,
+        "controlled_additions_per_controlled_multiplier": 2 * n,
+        "regev_controlled_modular_additions_per_run": 2 * n * regev_invocations,
+        "shor_controlled_modular_additions_per_run": 4 * n * n,
+        "actual_arithmetic_source_ccx_class": "Theta(n^3 log2(n))",
+        "actual_arithmetic_source_ccx_leading_constant": 80.0,
+        "regev_target_gate_class": "soft-O(n^(3/2))",
+        "preserves_regev_target_gate_class": False,
+        "verdict": "FAILS_REGEV_COMPLEXITY_FIDELITY",
+        "scope": (
+            "static certificate for the supplied serial binary repeated-squaring "
+            "architecture; not a lower bound for Regev-style factoring"
+        ),
+    }
 
 
 def canonical_cx_count(counts: Mapping[str, int]) -> int:

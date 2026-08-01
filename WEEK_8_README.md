@@ -1,5 +1,171 @@
 # Week 8: Circuit Constants, Asymptotic Complexity, and Simulator Comparison
 
+## TL;DR
+
+This project implements and tests a finite Regev-style factoring pipeline,
+including quantum-sample models, modular arithmetic, Fourier transforms,
+lattice reduction, exact relation checks, and factor extraction.  The Week 8
+question was whether the supplied low-width circuit actually preserves the
+smaller per-run gate complexity that motivates Regev's algorithm.  A static
+audit found that the associated implementation paper counts the width `q` of
+an exponent register where the executable multiplier actually loops over all
+`n` result bits, changing the implemented bound from the reported
+`O(n^(5/2) log n)` to **`Theta(n^3 log n)`**.  Under the same arithmetic, the
+supplied Shor circuit uses exactly `2n` controlled modular multipliers and the
+Regev circuit uses `dq = 2n + O(sqrt(n))`, so their source-Toffoli costs per run
+have the same leading term even though Regev's product QFT is smaller.  Exact
+synthetic counts through 64 bits agree with the static certificate: at 64
+bits, Regev used **1.01x** Shor's source CCX and **1.02x** its canonical CX in
+this gate model.  Separately, held-out factor recovery was **9.69%** for the
+uniform hard box, **10.31%** for the finite Gaussian, **94.84%** for synthetic
+noisy-dual samples, and **8.91%** for the readout-corruption surrogate, showing
+that the theorem-input generator cannot be treated as a circuit simulation.
+This is a correction and diagnostic for the supplied binary
+architecture—not a lower bound on Regev's published algorithm, a hardware
+estimate, or evidence that Shor always beats Regev.  It matters because an
+implementation can reproduce the shape of a Regev circuit while silently
+losing the asymptotic advantage that makes the algorithm scientifically
+interesting.
+
+## Main Week 8 contribution: a complexity-fidelity certificate
+
+### Research question
+
+Does the repository's serial, binary repeated-squaring implementation retain
+Regev's advertised per-circuit asymptotic saving when it is expanded to the
+actual imported arithmetic gates and compared with Shor under the same gate
+conventions?
+
+### Falsifiable hypothesis
+
+If shortening every exponent register from `2n` bits to `q=Theta(sqrt(n))`
+also shortened the arithmetic work inside each controlled multiplier, the
+implemented Regev circuit would have asymptotically fewer arithmetic gates per
+run than the supplied Shor circuit.  The hypothesis is falsified if the code
+still executes `Theta(n)` controlled multipliers in total and each multiplier
+still traverses all `n` result bits.
+
+### Static certificate
+
+The certificate follows executable loop bounds rather than measuring Python
+runtime or fitting a slope to small circuits.  For this source tree it checks:
+
+```text
+Regev exponent dimensions                         d
+binary exponent bits per dimension                q
+controlled modular multipliers per Regev run      d q
+controlled modular multipliers per Shor run       2n
+constant modular multipliers per controlled one   2
+modular additions per constant multiplier         n
+CCX per modular addition                          20n log2(n) + O(n)
+```
+
+Therefore the Regev implementation executes
+
+```text
+2 d q n = 4n^2 + O(n^(3/2))
+```
+
+double-controlled modular additions per run.  Multiplying by the exact
+leading adder cost gives
+
+```text
+CCX_Regev(n)
+  = [2 d q n] [20n log2(n) + O(n)]
+  = 80n^3 log2(n) + O(n^3).
+```
+
+The supplied coherent Shor circuit has `2n` exponent bits.  It performs the
+same two `n`-step constant multipliers for each bit, so
+
+```text
+CCX_Shor(n)
+  = [2n] [2n] [20n log2(n) + O(n)]
+  = 80n^3 log2(n) + O(n^3).
+```
+
+Thus the **source-CCX ratio tends to one**.  At the declared canonical-CX
+level, data-dependent CNOT terms put both leading coefficients in the same
+`[552,568]` interval; the evidence does not prove that their exact
+canonical-CX ratio has a unique limit.
+
+The machine-readable verdict is
+`FAILS_REGEV_COMPLEXITY_FIDELITY`.  This means that this particular
+implementation does not realize Regev's soft-`O(n^(3/2))` gate target.  It does
+not mean the circuit computes the wrong modular function, and it is not a
+lower bound on other Regev or Ragavan–Vaikuntanathan architectures.
+
+### Correction to the published implementation bound
+
+The paper associated with this public implementation reports
+`O(n^(5/2) log n)` for its circuit.  Its displayed derivation counts
+
+```text
+2 d q^2
+```
+
+modular additions.  The source instead constructs `dq` controlled modular
+multipliers; each contains a forward and inverse constant multiplier, and
+each of those loops over the `n`-bit result register.  The executed count is
+
+```text
+2 d q n.
+```
+
+The ratio between the code and the displayed paper count is `n/q`, which
+grows as `sqrt(n)/2`.  This missing factor changes the exponent of the
+reported implementation complexity.  The recursive counter is checked
+directly against both the imported `gates.haner` Shor definitions and the
+imported `gates.r_haner` Regev definitions; source hashes are frozen in the
+certificate JSON.
+
+![Published complexity gap](all_graphics_and_results/results/complexity_fidelity/published_complexity_gap.png)
+
+### Matched Shor comparison
+
+The comparison holds the arithmetic and the canonical gate conversion fixed.
+The coherent Shor builder allocates `4n+1` qubits and performs exactly `2n`
+controlled modular multiplications.  The notebook Regev builder allocates
+`dq+2n+1 = 4n+O(sqrt(n))` qubits and performs `dq=2n+O(sqrt(n))` controlled
+modular multiplications.  Consequently, their dominant per-run source-CCX
+terms are identical, up to ceiling effects and lower-order terms.
+
+Their Fourier transforms are genuinely different:
+
+```text
+Shor QFT canonical CX    = 4n^2 + n
+Regev product-QFT CX     = 4n^(3/2) + O(n).
+```
+
+But the QFT is lower order beside `Theta(n^3 log n)` arithmetic in both
+implemented circuits.  The finite recursive sweep used deterministic `n`-bit
+resource probes for `n in {4,6,8,12,16,24,32,48,64}` and never computed their
+factors.  At `n=64`, the exact source count was 100,036,156 CCX for Regev and
+98,959,768 for Shor; the canonical-CX ratio was 1.0175.  These finite values
+are validation of the call-graph proof, not a regression fit.
+
+![Matched Shor and Regev cost](all_graphics_and_results/results/complexity_fidelity/matched_shor_regev_cost.png)
+
+### Adversarial architecture tests
+
+Three interventions isolate the mechanism:
+
+1. Omitting one QFT layer leaves every arithmetic count unchanged.
+2. Removing the entire QFT as a deliberately invalid counterfactual still
+   leaves `dq` controlled multipliers and the `Theta(n^3 log n)` barrier.
+3. Replacing the binary schedule by an abstract `6sqrt(n)` multiplication
+   schedule reduces the invocation exponent, but this is not executable code
+   in the repository and still would not by itself reproduce Regev's full
+   arithmetic construction.
+
+The result therefore cannot be repaired by QFT truncation, more shots, LLL
+tuning, or a different simulator.  Restoring complexity fidelity requires a
+different modular multi-product architecture, such as the quantum-quantum or
+Fibonacci-based organization used in the theoretical Regev/Ragavan–
+Vaikuntanathan line of work.
+
+![QFT versus arithmetic ratio](all_graphics_and_results/results/complexity_fidelity/qft_vs_arithmetic_ratio.png)
+
 ## The result in plain language
 
 This week turns the circuit diagrams into explicit formulas and counts every
@@ -313,6 +479,14 @@ uses polynomial-time lattice post-processing.  That asymptotic circuit relies
 on a different arithmetic organization than the serial shared-workspace code
 audited here.
 
+[Pawlitko, Moćko, Niemiec, and Chołda's implementation
+paper](https://arxiv.org/html/2502.09772v2) is the direct comparison point for
+the vendored source.  The paper explicitly reports `O(n^(5/2) log n)` for its
+implementation; the source-level loop audit above identifies the extra
+`n/q=Theta(sqrt(n))` factor and obtains `Theta(n^3 log n)`.  This is an
+implementation-specific complexity correction, not a criticism of the
+paper's useful finite experiments and not a revision of Regev's theorem.
+
 [Ragavan and Vaikuntanathan](https://arxiv.org/abs/2310.00899) reduce Regev's
 space using Fibonacci exponentiation while retaining `O(n^(3/2) log n)` gate
 size, and their corruption filter modifies classical post-processing.  The
@@ -333,10 +507,25 @@ Approximate QFTs have a long history, including
 finite one- and two-layer experiment here is narrower: it studies a particular
 gate deletion rule and a particular finite lattice endpoint.
 
+The literature audit also included recent experimental Regev studies,
+including [Yang et al.'s qubit-reuse
+implementation](https://arxiv.org/abs/2511.18198) and [Falcó et al.'s 2026
+Shor/Regev hardware comparison](https://arxiv.org/abs/2606.17647).  Those works
+study different circuits and do not inherit this certificate's verdict.  No
+claim of being the first result in the literature is made from keyword search
+alone; the defensible contribution here is the reproducible source correction,
+exact constants, and matched audit for the frozen implementation.
+
 ## What is established, and what is not
 
 ### Established for this repository
 
+- The associated paper's `O(n^(5/2) log n)` implementation count omits a
+  factor `n/q`; the executed architecture is `Theta(n^3 log n)`.
+- The supplied Shor and Regev circuits have the same `80n^3 log2(n)` leading
+  source-CCX term under matched arithmetic.
+- The Regev product QFT is asymptotically smaller than Shor's QFT, but it is
+  lower order in these complete implementations.
 - The source qubit constant is `4` under either supplied asymptotic parameter
   mode.
 - The exact-QFT controlled-phase and canonical-CX constants are `2` and `4`.
@@ -359,8 +548,13 @@ gate deletion rule and a particular finite lattice endpoint.
   theorem-quality samples.
 - Eight QFT holdouts and twenty sampler holdouts do not establish behavior for
   cryptographic-size semiprimes.
-- No end-to-end advantage over Shor's algorithm, Regev's theoretical circuit,
-  or the Ragavan–Vaikuntanathan circuit is claimed.
+- The `(d+4)`-run comparison uses one Shor circuit as a transparent reference;
+  it is not an expected-time-to-factor comparison because Shor can also
+  require retries.
+- The analysis does not show that Shor generally beats Regev.  It shows that
+  this shared binary architecture loses their theoretical per-run separation.
+- No advantage over Regev's theoretical circuit or the Ragavan–Vaikuntanathan
+  circuit is claimed.
 
 ## Reproduce everything
 
@@ -369,6 +563,7 @@ From the repository root:
 ```bash
 source .venv/bin/activate
 MPLBACKEND=Agg MPLCONFIGDIR=/tmp/mpl python scripts/run_week8_complexity.py
+MPLBACKEND=Agg MPLCONFIGDIR=/tmp/mpl python scripts/run_complexity_fidelity_study.py
 python -m pytest tests/test_resource_analysis.py -q
 ```
 
@@ -378,6 +573,7 @@ sweep, and writes all Week 8 outputs to:
 
 ```text
 all_graphics_and_results/results/week_8_complexity/
+all_graphics_and_results/results/complexity_fidelity/
 ```
 
 Important files:
@@ -396,6 +592,14 @@ Important files:
   — exact formulas and recursive arithmetic counter.
 - [`test_resource_analysis.py`](tests/test_resource_analysis.py)
   — direct checks against the imported Qiskit gate definitions.
+- [`complexity_fidelity_certificate.json`](all_graphics_and_results/results/complexity_fidelity/complexity_fidelity_certificate.json)
+  — frozen source hashes, correction, matched comparison, and claim boundary.
+- [`matched_exact_resources.csv`](all_graphics_and_results/results/complexity_fidelity/matched_exact_resources.csv)
+  — exact Shor/Regev recursive counts through 64 input bits.
+- [`published_claim_audit.csv`](all_graphics_and_results/results/complexity_fidelity/published_claim_audit.csv)
+  — the paper-counted and code-executed loop factors through 1,024 bits.
+- [`architecture_ablations.csv`](all_graphics_and_results/results/complexity_fidelity/architecture_ablations.csv)
+  — QFT and abstract invocation-schedule stress tests.
 
 The configuration seed is `2026080101`.  Bootstrap intervals use 5,000
 resamples at the `N` level.  The synthetic resource inputs follow
