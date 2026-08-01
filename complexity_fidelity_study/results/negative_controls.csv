@@ -1,0 +1,5 @@
+control,expected_if_discrepancy_is_real,expected_if_mechanism_is_correct,expected_if_paper_algebra_would_then_apply,expected_numeric,observed,paper_count,passed
+remove_all_controlled_QFT_phases,,source CCX unchanged,,,0,,True
+replace_inner_n_loop_by_hypothetical_q_loop,,,counts agree,,4096,4096,True
+compare_hypothetical_q_loop_with_executed_n_loop,ratio n/q,,,4.0,4.0,,True
+exact_binary_dimension_split,,4n^2 additions,,16384,16384,,True

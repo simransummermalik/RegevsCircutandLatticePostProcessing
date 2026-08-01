@@ -1,0 +1,60 @@
+{
+  "all_files_match_prepublication_revisions": true,
+  "files": [
+    {
+      "commit_date_utc": "2024-12-29T19:12:05Z",
+      "current_sha256": "a7f9824ea457ee726cb6f42c40dea63e984887c3f044934058b2b964d2560699",
+      "expected_sha256": "a7f9824ea457ee726cb6f42c40dea63e984887c3f044934058b2b964d2560699",
+      "matches_prepublication_revision": true,
+      "path": "external/regev-quantum-algorithm/gates/r_haner/modular_exponentiation.py",
+      "prepublication_commit": "e6cdfa4ba868e93ff6489d930e3621d2e9df41cb"
+    },
+    {
+      "commit_date_utc": "2024-10-04T15:04:07Z",
+      "current_sha256": "89517169938bf4692fd76d37a8e12d385c988911dbd97c861d8ccb3938941cd4",
+      "expected_sha256": "89517169938bf4692fd76d37a8e12d385c988911dbd97c861d8ccb3938941cd4",
+      "matches_prepublication_revision": true,
+      "path": "external/regev-quantum-algorithm/gates/r_haner/constant_modulo_multiplier.py",
+      "prepublication_commit": "e637a7c14be97b89bca317bcb8cd167a671588b4"
+    },
+    {
+      "commit_date_utc": "2024-10-04T15:04:07Z",
+      "current_sha256": "b36621d8f6eabf5d85703e4567ceb696b6d1dbf85ca18c9e3f1740579ff19725",
+      "expected_sha256": "b36621d8f6eabf5d85703e4567ceb696b6d1dbf85ca18c9e3f1740579ff19725",
+      "matches_prepublication_revision": true,
+      "path": "external/regev-quantum-algorithm/gates/haner/modular_exponentiation.py",
+      "prepublication_commit": "e637a7c14be97b89bca317bcb8cd167a671588b4"
+    },
+    {
+      "commit_date_utc": "2024-10-04T15:04:07Z",
+      "current_sha256": "89517169938bf4692fd76d37a8e12d385c988911dbd97c861d8ccb3938941cd4",
+      "expected_sha256": "89517169938bf4692fd76d37a8e12d385c988911dbd97c861d8ccb3938941cd4",
+      "matches_prepublication_revision": true,
+      "path": "external/regev-quantum-algorithm/gates/haner/constant_modulo_multiplier.py",
+      "prepublication_commit": "e637a7c14be97b89bca317bcb8cd167a671588b4"
+    },
+    {
+      "commit_date_utc": "2024-10-04T15:04:07Z",
+      "current_sha256": "40033679c099a1351b58856c1d550dedd764778d0558ab8e8cbcd4ad10c13173",
+      "expected_sha256": "40033679c099a1351b58856c1d550dedd764778d0558ab8e8cbcd4ad10c13173",
+      "matches_prepublication_revision": true,
+      "path": "external/regev-quantum-algorithm/gates/haner/constant_modulo_adder.py",
+      "prepublication_commit": "e637a7c14be97b89bca317bcb8cd167a671588b4"
+    },
+    {
+      "commit_date_utc": "2024-10-04T15:04:07Z",
+      "current_sha256": "b134920cf0b47983f3f2eb93600846c5f1517b651a4f7c3958afca3f5197a9c6",
+      "expected_sha256": "b134920cf0b47983f3f2eb93600846c5f1517b651a4f7c3958afca3f5197a9c6",
+      "matches_prepublication_revision": true,
+      "path": "external/regev-quantum-algorithm/gates/haner/constant_adder.py",
+      "prepublication_commit": "e637a7c14be97b89bca317bcb8cd167a671588b4"
+    }
+  ],
+  "history_audit_date": "2026-08-01",
+  "history_method": "GitHub path-specific commit API plus byte-for-byte raw-file comparison",
+  "paper": "arXiv:2502.09772v2",
+  "paper_code_availability_url": "https://github.com/Wlitkopa/regev-quantum-algorithm",
+  "paper_repository_access_date": "2025-07-09",
+  "paper_url": "https://arxiv.org/html/2502.09772v2",
+  "remaining_uncertainty": "only author clarification could establish that Section 2.2 intended a circuit other than the repository explicitly cited by the paper"
+}

@@ -1,0 +1,9 @@
+check,expected_iterator,file,function,observed_iterators,passed
+Shor exponent schedule,range(2 * n),external/regev-quantum-algorithm/gates/haner/modular_exponentiation.py,modular_exponentiation_gate,range(2 * n),True
+Regev exponent schedule,range(qd),external/regev-quantum-algorithm/gates/r_haner/modular_exponentiation.py,modular_exponentiation_gate,range(qd),True
+Shor result-register swap loop,range(n),external/regev-quantum-algorithm/gates/haner/modular_exponentiation.py,controlled_modular_multiplication_gate,range(n),True
+Regev result-register swap loop,range(n),external/regev-quantum-algorithm/gates/r_haner/modular_exponentiation.py,controlled_modular_multiplication_gate,range(n),True
+Shor constant-multiplier addition loop,reversed(range(n)),external/regev-quantum-algorithm/gates/haner/constant_modulo_multiplier.py,controlled_constant_modulo_multiplier,reversed(range(n)),True
+Regev constant-multiplier addition loop,reversed(range(n)),external/regev-quantum-algorithm/gates/r_haner/constant_modulo_multiplier.py,controlled_constant_modulo_multiplier,reversed(range(n)),True
+haner forward/inverse constant multipliers,two calls,external/regev-quantum-algorithm/gates/haner/modular_exponentiation.py,controlled_modular_multiplication_gate,2,True
+r_haner forward/inverse constant multipliers,two calls,external/regev-quantum-algorithm/gates/r_haner/modular_exponentiation.py,controlled_modular_multiplication_gate,2,True

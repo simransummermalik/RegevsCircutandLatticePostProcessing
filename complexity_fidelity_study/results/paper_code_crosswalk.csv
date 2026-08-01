@@ -1,0 +1,5 @@
+consequence,paper_location,paper_statement,source_observation
+paper and audited repository are directly linked,Code Availability,presented code is in Wlitkopa/regev-quantum-algorithm,the audited vendored dependency has that exact origin URL
+d*q controlled modular multipliers per Regev run,Section 3.1.2,each Exp gate decomposes into qd C-U gates,modular_exponentiation_gate loops over range(qd)
+"inner addition factor is n, not qd",Section 2.2,"2qd multipliers, each with qd additions",each C-U calls two constant multipliers and each constant multiplier loops over reversed(range(n))
+implemented source complexity Theta(n^3 log n),Section 2.2 consequence,implementation gate complexity O(n^(5/2) log n),"2*d*q*n additions, each Theta(n log n) source CCX"

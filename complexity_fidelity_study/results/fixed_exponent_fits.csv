@@ -1,0 +1,5 @@
+algorithm,fitted_prefactor,fixed_exponent,interpretation,log_rmse,max_absolute_log_error,model,n_max,n_min,points
+regev,290.44115502752163,2.5,descriptive finite check; not the proof,0.388486689397971,0.5606740696542012,paper_reported_n_2_5_log_n,64,8,7
+regev,60.29204818252308,3.0,descriptive finite check; not the proof,0.05212533961406786,0.09610486792806583,source_derived_n_3_log_n,64,8,7
+shor,278.90983466286895,2.5,descriptive finite check; not the proof,0.4063409052625214,0.6262954053372329,paper_reported_n_2_5_log_n,64,8,7
+shor,57.89828644800637,3.0,descriptive finite check; not the proof,0.05983962288904089,0.09381540895409124,source_derived_n_3_log_n,64,8,7

@@ -1,0 +1,36 @@
+{
+  "freeze_identifier": "complexity-fidelity-independent-validation-v1",
+  "outputs": [
+    "compiler_robustness.png",
+    "dimension_split_invariance.csv",
+    "dimension_split_invariance.png",
+    "exact_scaling.csv",
+    "fixed_exponent_fit.png",
+    "fixed_exponent_fits.csv",
+    "independent_validation_certificate.json",
+    "negative_controls.csv",
+    "paper_code_crosswalk.csv",
+    "paper_source_provenance.json",
+    "recurrence_constant_stress_test.png",
+    "recurrence_convergence.csv",
+    "source_structure_checks.csv",
+    "transpiler_robustness.csv"
+  ],
+  "sha256": {
+    "compiler_robustness.png": "d9a0dc2d4591114c7a12e7a187b160f9999a16526bbe3d3c6456eba46a752693",
+    "dimension_split_invariance.csv": "07da113f3047ec988e95463e0aeab333c5e4950a502808b9e8679399a061ae1d",
+    "dimension_split_invariance.png": "8b6fa5568a8d7f040f7bdf427d1616bc7f7d39fef864ae7ba7d14821c9cdfcbe",
+    "exact_scaling.csv": "327533d4b5b4b66a1a9a814397367a949d9427cc7aa35f3a9b600b77b33e9279",
+    "fixed_exponent_fit.png": "28fdafac2909688dcb44cfccd2227291c8ae41f368b51e50db972ea68c48891b",
+    "fixed_exponent_fits.csv": "609ec05cf1530291c12f40d52893f020265dc88a718ec14ca428709ed65d2dea",
+    "independent_validation_certificate.json": "6fb4c70446c56488bd7a7d103d50790cccfb232d9e72f13445623d897f2ae2c2",
+    "negative_controls.csv": "28b9059bece7a26c6de639ec224080d6f957c361402a5737b50876012f5c19fc",
+    "paper_code_crosswalk.csv": "d4dd317a57fc1939c2b558f2b39ee4f8e9f9dd03f6af1d164e5e399a5fdf4d1c",
+    "paper_source_provenance.json": "b377073ffeece63839fb71d897510b159068599c313f9e87936581c149e8b325",
+    "recurrence_constant_stress_test.png": "42dc0659c093e73acf482abacec0dd029fec4f3beb749a057b5c0269d9da6f0c",
+    "recurrence_convergence.csv": "db54bf5863ee33fcf32a0190df4d0ca9ec1541acab149b6f581aab7c58160d75",
+    "source_structure_checks.csv": "95158465e099ca16a88f8dee9df7d2aa895473dc87465bb2bf1901a9bedb0014",
+    "transpiler_robustness.csv": "10391c479ceeabdf63053969171e2abe62df85b9f5e2f0168c6753e4a381619b"
+  },
+  "status": "complete"
+}

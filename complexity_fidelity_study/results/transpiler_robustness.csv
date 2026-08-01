@@ -1,0 +1,5 @@
+N,basis,constant,cx,depth,n,optimization_level,qubits,rz,size,sx,x
+5,"rz,sx,x,cx; all-to-all; no hardware routing",2,2192,4101,3,0,8,3795,6897,690,220
+5,"rz,sx,x,cx; all-to-all; no hardware routing",2,2184,3744,3,1,8,3027,5773,408,154
+5,"rz,sx,x,cx; all-to-all; no hardware routing",2,2141,3686,3,2,8,2592,5371,480,158
+5,"rz,sx,x,cx; all-to-all; no hardware routing",2,2141,3686,3,3,8,2592,5371,480,158

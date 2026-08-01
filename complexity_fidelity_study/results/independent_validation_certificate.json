@@ -1,0 +1,72 @@
+{
+  "claim_boundary": "implementation-specific asymptotic correction; not a lower bound on Regev's algorithm and not a hardware-resource estimate",
+  "configuration": {
+    "exact_bit_lengths": [
+      4,
+      6,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48,
+      64
+    ],
+    "recurrence_bit_lengths": [
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048,
+      4096,
+      8192
+    ],
+    "seed_transpiler": 2026080102,
+    "synthetic_rule": "N=2^(n-1)+1; resource probe only; no factors computed"
+  },
+  "falsification_conditions": [
+    "the constant multiplier inner loop is changed from n to q",
+    "the d exponent schedules no longer contain dq binary controls",
+    "a compiler-level family is proved to cancel a growing fraction of the nested arithmetic",
+    "the associated paper intended a different circuit than the frozen public source"
+  ],
+  "finding": "the supplied binary Regev implementation executes Theta(n^3 log n) source arithmetic, not the paper-reported O(n^(5/2) log n)",
+  "freeze_identifier": "complexity-fidelity-independent-validation-v1",
+  "independent_checks": {
+    "ast_source_structure_all_passed": true,
+    "dimension_split_invariance_all_passed": true,
+    "fixed_exponent_fit": {
+      "regev": {
+        "paper_exponent_2_5_log_rmse": 0.388486689397971,
+        "source_exponent_3_log_rmse": 0.05212533961406786
+      },
+      "shor": {
+        "paper_exponent_2_5_log_rmse": 0.4063409052625214,
+        "source_exponent_3_log_rmse": 0.05983962288904089
+      }
+    },
+    "isolated_pytest_command": "python -m pytest complexity_fidelity_study/test_isolated_study.py -q",
+    "negative_controls_all_passed": true,
+    "paper_repository_identity_verified": true,
+    "prepublication_source_match_all_passed": true,
+    "transpiler_levels": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "paper_reference": "https://arxiv.org/html/2502.09772v2",
+  "paper_source_provenance": "paper_source_provenance.json",
+  "source_sha256": {
+    "external/regev-quantum-algorithm/gates/haner/constant_modulo_multiplier.py": "89517169938bf4692fd76d37a8e12d385c988911dbd97c861d8ccb3938941cd4",
+    "external/regev-quantum-algorithm/gates/haner/modular_exponentiation.py": "b36621d8f6eabf5d85703e4567ceb696b6d1dbf85ca18c9e3f1740579ff19725",
+    "external/regev-quantum-algorithm/gates/r_haner/constant_modulo_multiplier.py": "89517169938bf4692fd76d37a8e12d385c988911dbd97c861d8ccb3938941cd4",
+    "external/regev-quantum-algorithm/gates/r_haner/modular_exponentiation.py": "a7f9824ea457ee726cb6f42c40dea63e984887c3f044934058b2b964d2560699"
+  },
+  "status": "confirmed_for_frozen_source"
+}
