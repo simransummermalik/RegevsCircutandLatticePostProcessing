@@ -12,10 +12,13 @@ from regev_research.orbit_fusion import (
     build_orbit_fused_circuit,
     build_orbit_fused_oracle,
     classify_public_relation,
+    detect_all_pair_power_relations,
     factor_or_fuse,
+    factor_or_fuse_all_witnesses,
     factor_or_fuse_record,
     orbit_fusion_source_counts,
     plan_power_orbit_fusion,
+    positive_power_no_wrap_certificate,
 )
 from regev_research.resource_analysis import full_circuit_source_counts
 
@@ -197,3 +200,30 @@ def test_l0_fusion_preserves_relation_class_under_exact_integer_map():
             assert original.base_product == image.base_product
             assert original.category == image.category
             assert original.factor_pair == image.factor_pair
+
+
+def test_all_witness_policy_prevents_early_l0_hit_from_hiding_a_factor():
+    family = RootedBaseFamily.from_roots(3277, [2, 3, 5, 7])
+    least = factor_or_fuse(family, 6, max_power=64)
+    complete = factor_or_fuse_all_witnesses(family, 6, max_power=64)
+    assert least.verify() and complete.verify()
+    assert least.factor_pair is None
+    assert complete.outcome == "classical_factor"
+    assert complete.factor_pair == (29, 113)
+    witnesses = detect_all_pair_power_relations(family, max_power=64)
+    pair = [row for row in witnesses if (row.anchor_index, row.target_index) == (1, 3)]
+    assert [(row.power, row.classification.category) for row in pair] == [
+        (8, "L0"),
+        (64, "factor_yielding"),
+    ]
+
+
+def test_no_wrap_certificate_exactly_excludes_bounded_prime_power_relations():
+    family = RootedBaseFamily.from_roots((1 << 512) + 1, [2, 3, 5, 7])
+    certificate = positive_power_no_wrap_certificate(family, max_power=64)
+    assert certificate.verify()
+    assert certificate.certified
+    assert not detect_all_pair_power_relations(family, max_power=64)
+    assert not positive_power_no_wrap_certificate(
+        RootedBaseFamily.from_roots(15, [2, 7]), max_power=64
+    ).certified

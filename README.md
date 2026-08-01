@@ -8,6 +8,17 @@ The main research question was whether a theorem requiring the exact quantum Fou
 
 The largest observed saving was six logical controlled-phase gates and 12 QFT-only transpiled CX gates, not a demonstrated end-to-end hardware speedup. The result is limited to small semiprimes, $d=2$, $M\leq 32$, $m=7$, two finite exact state models, and the repository's current LLL decoder; it does not prove that truncation is safe for full-scale Regev factoring or every post-processing algorithm. The finding matters because it shows that failure of a worst-case QFT certificate is not evidence of information-theoretic or algorithmic failure, and that state-specific roots-of-unity cancellation can support sharper, less wasteful precision decisions.
 
+### Newest extension: Factor-or-Fuse
+
+The separate [Factor-or-Fuse study](factor_or_fuse_study/README.md) adds a
+stored-root-aware pre-circuit algorithm that turns a bounded public base
+dependency into either an immediate factor, an exact `L0` arithmetic fusion,
+or the unchanged baseline. It exposes rank-collapsed `N=15` and `N=21` toy
+inputs, but its frozen performance hypothesis failed: only 1 of 24 held-out
+semiprimes fused, none factored, and a descriptive 1,700-modulus census found
+no `K=64` pair-power relation from 24 bits onward. This is a benchmark-
+integrity and compiler result, not a claimed scalable Regev speedup.
+
 This repository reconstructs and red-teams our original research at UIUC's Qiskit notebook inspired by
 [Regev's factoring algorithm](https://arxiv.org/abs/2308.06572). It contains:
 - a verified audit of the original circuit and its external arithmetic gates;

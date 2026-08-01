@@ -43,7 +43,7 @@ from .resource_analysis import (
     modular_exponentiation_counts,
     qft_source_counts,
 )
-from .core import RootedBaseFamily, modular_product
+from .core import RootedBaseFamily, is_prime, modular_product
 
 
 _EXTERNAL = Path(__file__).resolve().parents[1] / "external" / "regev-quantum-algorithm"
@@ -81,12 +81,39 @@ class PowerOrbitRelation:
 
 
 @dataclass(frozen=True, slots=True)
+class PositivePowerNoWrapCertificate:
+    """Sufficient certificate excluding positive pair powers through ``K``."""
+
+    N: int
+    roots: tuple[int, ...]
+    max_power: int
+    distinct_prime_roots: bool
+    largest_integer_power_bit_length: int
+    modulus_bit_length: int
+    certified: bool
+
+    def verify(self) -> bool:
+        prime_roots = len(set(self.roots)) == len(self.roots) and all(
+            is_prime(root) for root in self.roots
+        )
+        largest = max(pow(root, 2 * self.max_power) for root in self.roots)
+        return (
+            self.max_power > 0
+            and self.distinct_prime_roots == prime_roots
+            and self.largest_integer_power_bit_length == largest.bit_length()
+            and self.modulus_bit_length == self.N.bit_length()
+            and self.certified == (prime_roots and largest < self.N)
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class FactorOrFuseResult:
     """Auditable result of the factor-or-fuse pre-circuit pass."""
 
     family: RootedBaseFamily
     exponent_width: int
     max_power: int
+    witness_policy: str
     relations: tuple[PowerOrbitRelation, ...]
     outcome: str
     factor_pair: tuple[int, int] | None
@@ -105,6 +132,8 @@ class FactorOrFuseResult:
 
     def verify(self) -> bool:
         if self.exponent_width <= 0 or self.max_power <= 0:
+            return False
+        if self.witness_policy not in ("least_per_ordered_pair", "all_within_bound"):
             return False
         if self.public_power_steps != len(self.family.pairs) * self.max_power:
             return False
@@ -136,11 +165,10 @@ class FactorOrFuseResult:
             return False
         if self.plan.N != self.family.N or self.plan.bases != self.family.bases:
             return False
-        allowed = {
-            (row.anchor_index, row.target_index): row.power
-            for row in self.relations
-            if row.classification.category == "L0"
-        }
+        allowed: dict[tuple[int, int], set[int]] = {}
+        for row in self.relations:
+            if row.classification.category == "L0":
+                allowed.setdefault((row.anchor_index, row.target_index), set()).add(row.power)
         for group in self.plan.groups:
             if not group.fused:
                 continue
@@ -148,7 +176,7 @@ class FactorOrFuseResult:
                 if index == group.anchor_index:
                     if weight != 1:
                         return False
-                elif allowed.get((group.anchor_index, index)) != weight:
+                elif weight not in allowed.get((group.anchor_index, index), set()):
                     return False
         expected = (
             "l0_orbit_fusion" if any(group.fused for group in self.plan.groups)
@@ -163,6 +191,24 @@ def _count_tuple(counts: Mapping[str, int]) -> tuple[tuple[str, int], ...]:
 
 def _as_counter(counts: Iterable[tuple[str, int]]) -> GateCounts:
     return Counter({str(name): int(value) for name, value in counts})
+
+
+@lru_cache(maxsize=None)
+def _cached_modular_exponentiation_counts(
+    base: int, N: int, exponent_width: int
+) -> tuple[tuple[str, int], ...]:
+    """Memoize immutable exact counts reused across candidate partitions."""
+
+    return _count_tuple(
+        modular_exponentiation_counts(base, N, int(N).bit_length(), exponent_width)
+    )
+
+
+@lru_cache(maxsize=None)
+def _cached_controlled_constant_adder_counts(
+    constant: int, width: int
+) -> tuple[tuple[str, int], ...]:
+    return _count_tuple(_controlled_constant_adder_counts(constant, width))
 
 
 def classify_public_relation(
@@ -219,6 +265,41 @@ def classify_public_relation(
     )
 
 
+def positive_power_no_wrap_certificate(
+    family: RootedBaseFamily, *, max_power: int = 64
+) -> PositivePowerNoWrapCertificate:
+    """Certify that no distinct standard-prime pair satisfies ``a_j=a_i^k``.
+
+    This is a sufficient certificate only.  If the retained roots are
+    distinct positive primes and ``max_i b_i**(2*K) < N``, then for every
+    ``1 <= k <= K`` both ``b_i**(2*k)`` and ``b_j**2`` lie in ``(0,N)``.
+    Congruence modulo ``N`` would therefore imply integer equality, which is
+    impossible for distinct primes by unique factorization.
+    """
+
+    if not isinstance(family, RootedBaseFamily):
+        raise TypeError("no-wrap certification requires a RootedBaseFamily")
+    max_power = int(max_power)
+    if max_power <= 0:
+        raise ValueError("max_power must be positive")
+    prime_roots = len(set(family.roots)) == len(family.roots) and all(
+        is_prime(root) for root in family.roots
+    )
+    largest = max(pow(root, 2 * max_power) for root in family.roots)
+    result = PositivePowerNoWrapCertificate(
+        N=family.N,
+        roots=family.roots,
+        max_power=max_power,
+        distinct_prime_roots=prime_roots,
+        largest_integer_power_bit_length=largest.bit_length(),
+        modulus_bit_length=family.N.bit_length(),
+        certified=prime_roots and largest < family.N,
+    )
+    if not result.verify():
+        raise AssertionError("internal no-wrap certificate failed")
+    return result
+
+
 def detect_pair_power_relations(
     family: RootedBaseFamily, *, max_power: int = 64
 ) -> tuple[PowerOrbitRelation, ...]:
@@ -251,6 +332,47 @@ def detect_pair_power_relations(
                     classification=classify_public_relation(family, vector),
                 )
             )
+    return tuple(relations)
+
+
+def detect_all_pair_power_relations(
+    family: RootedBaseFamily, *, max_power: int = 64
+) -> tuple[PowerOrbitRelation, ...]:
+    """Return every directed pair-power witness inside the public bound.
+
+    Unlike :func:`detect_pair_power_relations`, this scan does not discard a
+    later exponent after the same target residue was reached once.  This is
+    necessary because two witnesses can have different root-level ``L0``
+    classifications even though they have the same squared-base endpoint.
+    """
+
+    if not isinstance(family, RootedBaseFamily):
+        raise TypeError("relation detection requires a RootedBaseFamily")
+    max_power = int(max_power)
+    if max_power <= 0:
+        raise ValueError("max_power must be positive")
+    targets: dict[int, list[int]] = {}
+    for index, base in enumerate(family.bases):
+        targets.setdefault(base, []).append(index)
+    relations: list[PowerOrbitRelation] = []
+    for anchor_index, anchor in enumerate(family.bases):
+        value = 1
+        for power in range(1, max_power + 1):
+            value = value * anchor % family.N
+            for target_index in targets.get(value, ()):
+                if target_index == anchor_index:
+                    continue
+                vector = [0] * len(family.pairs)
+                vector[anchor_index] = power
+                vector[target_index] -= 1
+                relations.append(
+                    PowerOrbitRelation(
+                        anchor_index=anchor_index,
+                        target_index=target_index,
+                        power=power,
+                        classification=classify_public_relation(family, vector),
+                    )
+                )
     return tuple(relations)
 
 
@@ -387,10 +509,15 @@ class OrbitFusionPlan:
 def _direct_group_counts(
     N: int, bases: Sequence[int], exponent_width: int, indices: Sequence[int]
 ) -> GateCounts:
-    n = int(N).bit_length()
     total: GateCounts = Counter()
     for index in indices:
-        total.update(modular_exponentiation_counts(int(bases[index]), int(N), n, exponent_width))
+        total.update(
+            _as_counter(
+                _cached_modular_exponentiation_counts(
+                    int(bases[index]), int(N), int(exponent_width)
+                )
+            )
+        )
     return total
 
 
@@ -406,15 +533,20 @@ def _fused_group_counts(
 
     N = int(N)
     q = int(exponent_width)
-    n = N.bit_length()
     maximum = ((1 << q) - 1) * sum(int(weight) for weight in weights)
     width = max(1, maximum.bit_length())
     total: GateCounts = Counter()
     for weight in weights:
         for bit in range(q):
-            adder = _controlled_constant_adder_counts(int(weight) << bit, width)
+            adder = _as_counter(
+                _cached_controlled_constant_adder_counts(int(weight) << bit, width)
+            )
             total.update({name: 2 * value for name, value in adder.items()})
-    total.update(modular_exponentiation_counts(int(bases[anchor_index]), N, n, width))
+    total.update(
+        _as_counter(
+            _cached_modular_exponentiation_counts(int(bases[anchor_index]), N, width)
+        )
+    )
     return total
 
 
@@ -670,6 +802,59 @@ def factor_or_fuse(
     if q <= 0 or max_power <= 0:
         raise ValueError("exponent_width and max_power must be positive")
     relations = detect_pair_power_relations(family, max_power=max_power)
+    return _factor_or_fuse_from_relations(
+        family,
+        q,
+        max_power,
+        exact_partition_limit,
+        relations,
+        witness_policy="least_per_ordered_pair",
+    )
+
+
+def factor_or_fuse_all_witnesses(
+    family: RootedBaseFamily,
+    exponent_width: int,
+    *,
+    max_power: int = 64,
+    exact_partition_limit: int = 12,
+) -> FactorOrFuseResult:
+    """Factor-first variant that retains every witness inside the bound.
+
+    The public power walk is the same length as the least-witness scan.  If
+    several exponents reach one target, all are root-classified before any
+    fusion decision.  This prevents an early ``L0`` witness from hiding a
+    later factor-yielding witness.  When every witness is in ``L0``, the least
+    exponent for each directed pair is passed to the exact cost planner.
+    """
+
+    if not isinstance(family, RootedBaseFamily):
+        raise TypeError("factor-or-fuse requires a RootedBaseFamily")
+    q = int(exponent_width)
+    max_power = int(max_power)
+    if q <= 0 or max_power <= 0:
+        raise ValueError("exponent_width and max_power must be positive")
+    relations = detect_all_pair_power_relations(family, max_power=max_power)
+    return _factor_or_fuse_from_relations(
+        family,
+        q,
+        max_power,
+        int(exact_partition_limit),
+        relations,
+        witness_policy="all_within_bound",
+    )
+
+
+def _factor_or_fuse_from_relations(
+    family: RootedBaseFamily,
+    exponent_width: int,
+    max_power: int,
+    exact_partition_limit: int,
+    relations: tuple[PowerOrbitRelation, ...],
+    *,
+    witness_policy: str,
+) -> FactorOrFuseResult:
+    q = int(exponent_width)
     factor_rows = [
         row for row in relations if row.classification.category == "factor_yielding"
     ]
@@ -678,6 +863,7 @@ def factor_or_fuse(
             family=family,
             exponent_width=q,
             max_power=max_power,
+            witness_policy=witness_policy,
             relations=relations,
             outcome="classical_factor",
             factor_pair=factor_rows[0].classification.factor_pair,
@@ -685,11 +871,12 @@ def factor_or_fuse(
             public_power_steps=len(family.pairs) * max_power,
         )
     else:
-        allowed = {
-            (row.anchor_index, row.target_index): row.power
-            for row in relations
-            if row.classification.category == "L0"
-        }
+        allowed: dict[tuple[int, int], int] = {}
+        for row in relations:
+            if row.classification.category != "L0":
+                continue
+            key = (row.anchor_index, row.target_index)
+            allowed[key] = min(row.power, allowed.get(key, row.power))
         plan = plan_power_orbit_fusion(
             family.N,
             family.bases,
@@ -707,6 +894,7 @@ def factor_or_fuse(
             family=family,
             exponent_width=q,
             max_power=max_power,
+            witness_policy=witness_policy,
             relations=relations,
             outcome=outcome,
             factor_pair=None,
@@ -732,6 +920,7 @@ def factor_or_fuse_record(result: FactorOrFuseResult) -> dict[str, object]:
         "roots": list(result.family.roots),
         "bases": list(result.family.bases),
         "max_power": result.max_power,
+        "witness_policy": result.witness_policy,
         "outcome": result.outcome,
         "verified": result.verify(),
         "factor_pair": list(result.factor_pair) if result.factor_pair else None,

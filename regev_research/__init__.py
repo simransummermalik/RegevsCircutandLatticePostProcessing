@@ -63,6 +63,18 @@ from .qft_certificate import (
     product_hellinger_certificate,
     total_variation_distance,
 )
+from .orbit_fusion import (
+    FactorOrFuseResult,
+    OrbitFusionPlan,
+    PositivePowerNoWrapCertificate,
+    classify_public_relation,
+    detect_all_pair_power_relations,
+    detect_pair_power_relations,
+    factor_or_fuse,
+    factor_or_fuse_all_witnesses,
+    plan_power_orbit_fusion,
+    positive_power_no_wrap_certificate,
+)
 
 __all__ = [
     "audit_square_base_family",
@@ -118,4 +130,14 @@ __all__ = [
     "original_certificate",
     "product_hellinger_certificate",
     "total_variation_distance",
+    "FactorOrFuseResult",
+    "OrbitFusionPlan",
+    "PositivePowerNoWrapCertificate",
+    "classify_public_relation",
+    "detect_all_pair_power_relations",
+    "detect_pair_power_relations",
+    "factor_or_fuse",
+    "factor_or_fuse_all_witnesses",
+    "plan_power_orbit_fusion",
+    "positive_power_no_wrap_certificate",
 ]

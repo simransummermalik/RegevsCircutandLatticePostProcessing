@@ -54,36 +54,6 @@ HELDOUT_MODULI = (
 )
 
 
-# Firewall: never import or pass this mapping inside ``run_method_on_modulus``.
-# It is a post-hoc product certificate only.
-POSTHOC_FACTOR_MANIFEST = {
-    27221: (163, 167),
-    28199: (163, 173),
-    29177: (163, 179),
-    29503: (163, 181),
-    31133: (163, 191),
-    31459: (163, 193),
-    32111: (163, 197),
-    32437: (163, 199),
-    34393: (163, 211),
-    28891: (167, 173),
-    29893: (167, 179),
-    30227: (167, 181),
-    31897: (167, 191),
-    32231: (167, 193),
-    32899: (167, 197),
-    33233: (167, 199),
-    35237: (167, 211),
-    30967: (173, 179),
-    31313: (173, 181),
-    33043: (173, 191),
-    33389: (173, 193),
-    34081: (173, 197),
-    34427: (173, 199),
-    36503: (173, 211),
-}
-
-
 ARMS = (
     "serial_baseline",
     "factor_only_K64",
@@ -166,13 +136,8 @@ def validate_freeze() -> bool:
     )[:24]
     if HELDOUT_MODULI != expected:
         return False
-    if set(HELDOUT_MODULI) != set(POSTHOC_FACTOR_MANIFEST):
-        return False
     if len(set(HELDOUT_MODULI)) != 24:
         return False
-    for N, (p, q) in POSTHOC_FACTOR_MANIFEST.items():
-        if not p < q or not _is_prime(p) or not _is_prime(q) or p * q != N:
-            return False
     return all(
         method_input_from_modulus(N).family is not None and
         method_input_from_modulus(N).family.N == N and

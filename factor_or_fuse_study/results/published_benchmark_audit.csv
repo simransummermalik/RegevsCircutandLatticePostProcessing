@@ -1,0 +1,5 @@
+label,N,roots,bases_as_integers,bases_mod_N,nominal_dimension,distinct_base_residues,outcome,factor_pair,minimum_factor_relation_norm_squared,relation_count,verified,factor_information_used
+Falco_2026_N15,15,"[2, 7]","[4, 49]","[4, 4]",2,1,classical_factor,"[3, 5]",2,2,True,False
+Pawlitko_2026_N15,15,"[2, 7]","[4, 49]","[4, 4]",2,1,classical_factor,"[3, 5]",2,2,True,False
+Pawlitko_2026_N21,21,"[2, 5, 11]","[4, 25, 121]","[4, 4, 16]",3,2,classical_factor,"[3, 7]",2,6,True,False
+Yang_2025_N35,35,"[2, 3]","[4, 9]","[4, 9]",2,2,l0_orbit_fusion,,,2,True,False

@@ -23,7 +23,8 @@ claim.  There are no exclusions after execution.
 
 The 24 moduli are the first 24 lexicographic products of distinct primes in
 the closed interval 163 through 211.  The complete ordered list and a separate
-post-hoc factor manifest are in `freeze.py`.  Each case has 15 or 16 bits.
+post-hoc factor manifest is isolated in `factor_manifest.py`; the method-side
+freeze is in `freeze.py`.  Each case has 15 or 16 bits.
 
 The method receives only `N`.  It computes:
 
