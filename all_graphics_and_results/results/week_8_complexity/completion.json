@@ -1,0 +1,17 @@
+{
+  "files": {
+    "arithmetic_constant_convergence.png": "bb634440c61694e374d7af37439884124c581c780be90db92f3bf80141e413e6",
+    "finite_full_circuit_resources.csv": "6fe47292d24c9f2563e029de740fffdd46141423eaa84b76c1e7c461080f748b",
+    "parameter_constant_convergence.png": "192e5f6cd0c773c1a48f06857109b003c736d4f0e94c1c26ddee4be533fd4b94",
+    "parameter_scaling.csv": "e32ebf0ef559083af7f0cdc5ce93198a309f3c1d771441a9fb87537e387cf951",
+    "qft_endpoint_cost.csv": "4fcc78e79cefe341435db595ff65c5679ad7be83d167f88bc0af100704541f55",
+    "qft_only_vs_full_endpoint_cost.png": "32eeb0fdda8aaec1ef2be94db2497465e884143b8176e920a45f11b4a4a457ff",
+    "simulation_model_comparison.csv": "1796437fa193f3ebdc47e7bb35ad83b9cb9a9a6272f065948fc74089101d8960",
+    "simulation_model_comparison.png": "97b1d37f82d74dd9d90a0394eaa288e14778669f5bd93fa58f2d3525fb7dd367",
+    "simulator_complexity.csv": "4b5a1ede8a6515e639a661aa509aa94b78ccb5863c1ee186c6776c18ba969728",
+    "summary.json": "14a0b3ff6034a1f07cd4dee05aaaaf36e2e47702888d31bd824f7e59fff04e9c",
+    "synthetic_arithmetic_scaling.csv": "795d97f6afe05fa08bc4ba5fb65331aae84552117bffbccc70396a529f069f91"
+  },
+  "freeze_version": "week-8-complexity-v1",
+  "status": "complete"
+}

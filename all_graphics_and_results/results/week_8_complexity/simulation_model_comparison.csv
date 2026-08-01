@@ -1,0 +1,5 @@
+N_cluster_bootstrap_ci95_high,N_cluster_bootstrap_ci95_low,N_clusters,dimension,geometric_expected_circuit_executions,interpretation_scope,model,plain_description,replicates_per_N,sample_count,standard_LLL_macro_factor_probability
+0.2328125,0.003125,20,3,72.25806451612902,sampler comparison only; model C is not a circuit simulation,A_exact_uniform_hard_box,exact finite uniform hard box,32,7,0.096875
+0.253125,0.0,20,3,67.87878787878788,sampler comparison only; model C is not a circuit simulation,B_exact_finite_discrete_gaussian,exact finite discrete-Gaussian amplitude state,32,7,0.103125
+1.0,0.846875,20,3,7.380560131795717,sampler comparison only; model C is not a circuit simulation,C_theorem_consistent_noisy_dual,synthetic noisy dual-lattice model,32,7,0.9484375
+0.215625,0.0,20,3,78.59649122807018,sampler comparison only; model C is not a circuit simulation,D_circuit_derived_readout_corruption_surrogate,hard-box plus readout/corrupt-shot surrogate,32,7,0.0890625

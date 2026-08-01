@@ -1,0 +1,94 @@
+{
+  "asymptotic_constants": {
+    "arithmetic_ccx_over_n_cubed_log2_n": 80.0,
+    "full_canonical_cx_lower_over_n_cubed_log2_n": 552.0,
+    "full_canonical_cx_upper_over_n_cubed_log2_n": 568.0,
+    "parameter_rule": "d=ceil(sqrt(n)), q=2*sqrt(n)+O(1)",
+    "qft_canonical_cx_over_n_to_3_over_2": 4.0,
+    "qft_cp_over_n_to_3_over_2": 2.0,
+    "qubits_over_n": 4.0,
+    "scope": "source implementation; all-to-all exact basis expansion; no routing or fault tolerance"
+  },
+  "cluster_bootstraps": 5000,
+  "finite_resource_finding": {
+    "full_cost_saving_percent_by_cell": [
+      {
+        "M": 8,
+        "cluster_ci95": [
+          -33.32993306518922,
+          0.0025990396548492
+        ],
+        "model": "A_uniform_hard_box",
+        "saving_percent": -10.906103929003507
+      },
+      {
+        "M": 8,
+        "cluster_ci95": [
+          -21.049418111304476,
+          15.386804400543907
+        ],
+        "model": "B_exact_finite_discrete_gaussian",
+        "saving_percent": -2.2194691950378598
+      },
+      {
+        "M": 16,
+        "cluster_ci95": [
+          -7.545027166596436,
+          0.0019486802882862087
+        ],
+        "model": "A_uniform_hard_box",
+        "saving_percent": -3.56933635274157
+      },
+      {
+        "M": 16,
+        "cluster_ci95": [
+          -24.997599916957114,
+          0.0019475375384669924
+        ],
+        "model": "B_exact_finite_discrete_gaussian",
+        "saving_percent": -4.875930167115938
+      },
+      {
+        "M": 32,
+        "cluster_ci95": [
+          -11.536749661581492,
+          0.0017279495689814794
+        ],
+        "model": "A_uniform_hard_box",
+        "saving_percent": -3.028638425420871
+      },
+      {
+        "M": 32,
+        "cluster_ci95": [
+          0.0014791292550886403,
+          14.28704621589617
+        ],
+        "model": "B_exact_finite_discrete_gaussian",
+        "saving_percent": 5.264688506656345
+      }
+    ],
+    "maximum_exact_qft_fraction_of_full_canonical_cx": 0.0003403096818104475,
+    "maximum_one_layer_qft_only_cost_saving_percent": 20.493827160493836,
+    "minimum_one_layer_qft_only_cost_saving_percent": 4.895104895104896
+  },
+  "freeze_version": "week-8-complexity-v1",
+  "input_hashes": {
+    "qft_trial_rows.csv": "dbb452e63d6e79acbc40939fc52f1a715dc568d0aea31d0cf1b4098f67798df0",
+    "quotient_per_N_rows.csv": "89b0efddf459e91735670ff1cb685e43f3a3a49d8303ea81499625207e82743c"
+  },
+  "limitations": [
+    "canonical CX assumes all-to-all connectivity and exact Qiskit primitive decompositions",
+    "no routing, rotation synthesis, error correction, or physical error model is included",
+    "A/B/C are different data generators; C is not a circuit simulation",
+    "endpoint cost uses eight frozen small semiprimes and 64 trials per cell",
+    "cost intervals resample N clusters but do not remove finite Monte Carlo uncertainty within N"
+  ],
+  "random_seed": 2026080101,
+  "scope": "exact source audit plus secondary analysis of already-frozen held-out trials",
+  "standard_LLL_model_probabilities": {
+    "A_exact_uniform_hard_box": 0.096875,
+    "B_exact_finite_discrete_gaussian": 0.103125,
+    "C_theorem_consistent_noisy_dual": 0.9484375,
+    "D_circuit_derived_readout_corruption_surrogate": 0.0890625
+  }
+}

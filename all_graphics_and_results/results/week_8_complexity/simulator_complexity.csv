@@ -1,0 +1,5 @@
+implementation,meaning,memory_complexity,models,time_complexity
+qft_noise.weighted_fiber_fourier_distribution,exact finite law; bypasses explicit arithmetic-oracle matrix,O(M^(2d) + F*M^d),A/B small-state QFT certificate,O(F*M^(2d)) dense fiber matvecs
+redteam.exact_weighted_fourier_distribution,exact autocorrelation/FFT evaluator; not a statevector circuit run,O((2M-1)^d + M^d),A/B quotient holdout,O(d*(2M-1)^d + M^d*log(M^d))
+dual.synthetic_noisy_dual_samples,factor-blind generator uses relation-lattice oracle then withholds it,O(H*d),C quotient holdout,O(d*H) Cayley enumeration plus exact HNF and O(m*d^3) sampling
+Aer statevector on complete circuit,closest listed simulator to executing every decomposed circuit gate,Theta(2^Q) complex amplitudes,not used for held-out endpoint tables,exponential in Q=d*q+2n+1 in the generic case
